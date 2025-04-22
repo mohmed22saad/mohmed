@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>كورس ICDL كامل مجاناً | المقدمة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --text-color: #1f2937;
+            --bg-color: #ffffff;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+
+        @keyframes glow-title {
+            0% { text-shadow: 0 0 10px rgba(0,210,255,0.5), 0 0 20px rgba(58,123,213,0.5); }
+            50% { text-shadow: 0 0 20px rgba(0,210,255,0.8), 0 0 40px rgba(58,123,213,0.8); }
+            100% { text-shadow: 0 0 10px rgba(0,210,255,0.5), 0 0 20px rgba(58,123,213,0.5); }
+        }
+
+        @keyframes slide-in {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        :root {
+            --primary-color: #2563eb;
+            --text-color: #1f2937;
+            --bg-color: #ffffff;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+
+        @keyframes glow-title {
+            0% { text-shadow: 0 0 10px rgba(0,210,255,0.5), 0 0 20px rgba(58,123,213,0.5); }
+            50% { text-shadow: 0 0 20px rgba(0,210,255,0.8), 0 0 40px rgba(58,123,213,0.8); }
+            100% { text-shadow: 0 0 10px rgba(0,210,255,0.5), 0 0 20px rgba(58,123,213,0.5); }
+        }
+
+        @keyframes slide-in {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            border-bottom: 1px dotted #00d2ff;
+            cursor: help;
+        }
+
+        .tooltip:hover::after {
+            content: attr(data-title);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 8px 12px;
+            background: rgba(30, 60, 114, 0.95);
+            color: white;
+            border-radius: 6px;
+            font-size: 0.9em;
+            white-space: nowrap;
+            z-index: 10;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            direction: rtl;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .bg-shapes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .shape {
+            position: absolute;
+            background: linear-gradient(45deg, #00d2ff20, #3a7bd520);
+            border-radius: 50%;
+            animation: float 15s infinite ease-in-out;
+        }
+
+        .shape:nth-child(1) {
+            width: 200px;
+            height: 200px;
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .shape:nth-child(2) {
+            width: 150px;
+            height: 150px;
+            top: 60%;
+            right: 15%;
+            animation-delay: -2s;
+        }
+
+        .shape:nth-child(3) {
+            width: 100px;
+            height: 100px;
+            bottom: 20%;
+            left: 20%;
+            animation-delay: -4s;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 30px;
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            border-radius: 15px;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #00d2ff 0%, #3a7bd5 100%);
+        }
+
+        .lesson-title {
+            font-size: 2.5rem;
+            color: #1e3c72;
+            text-align: center;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 3px solid #3a7bd5;
+            animation: glow-title 3s infinite ease-in-out;
+        }
+
+        .lesson-date {
+            text-align: center;
+            color: #666;
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+
+        .lesson-video {
+            width: 100%;
+            margin: 2rem 0;
+            background: #f8fafc;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .video-placeholder {
+            width: 100%;
+            padding-top: 56.25%;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            position: relative;
+            color: white;
+            font-size: 1.5rem;
+            text-align: center;
+        }
+
+        .video-placeholder::after {
+            content: attr(data-title);
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: linear-gradient(135deg, #00d2ff 0%, #3a7bd5 100%);
+            border-radius: 15px;
+            color: white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            animation: glow-title 3s infinite ease-in-out;
+            background: linear-gradient(45deg, #ffffff, #e0e7ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+            display: inline-block;
+        }
+
+        .header h1::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #00d2ff, transparent);
+            animation: glow-title 3s infinite ease-in-out;
+        }
+
+        .header h2 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+
+        .instructor-info {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            backdrop-filter: blur(5px);
+        }
+
+        .instructor-info p {
+            margin: 10px 0;
+            font-size: 1.1rem;
+        }
+
+        .section {
+            margin-bottom: 30px;
+            padding: 25px;
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border: 1px solid rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .section p {
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .navigation {
+            text-align: center;
+            margin: 3rem 0 1rem;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .navigation a {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 1rem 2rem;
+            background: linear-gradient(45deg, #1e3c72, #2a5298);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            margin: 0.5rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            font-size: 1.1rem;
+            border: none;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .navigation a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #00d2ff, #3a7bd5);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .navigation a:hover::before {
+            opacity: 1;
+        }
+
+        .navigation a span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .navigation a:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+
+        .navigation .current {
+            background: linear-gradient(45deg, #00d2ff, #3a7bd5);
+            animation: glow 2s infinite alternate;
+        }
+
+        @keyframes glow {
+            from {
+                box-shadow: 0 0 5px rgba(0,210,255,0.5),
+                            0 0 10px rgba(58,123,213,0.5);
+            }
+            to {
+                box-shadow: 0 0 20px rgba(0,210,255,0.8),
+                            0 0 30px rgba(58,123,213,0.8);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-shapes">
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+    <div class="container">
+        <h1 class="lesson-title">كورس ICDL كامل مجاناً | المقدمة</h1>
+        <p class="lesson-date">٢٢ أبريل ٢٠٢٥، ١٠:٣٦ م</p>
+        
+        <div class="lesson-video">
+            <div class="video-placeholder">
+                مكان الفيديو
+            </div>
+        </div>
+
+        <div class="lesson-content">
+            <div class="section">
+                <h2 class="section-title">مقدمة</h2>
+                <p>
+                    السلام عليكم، في هذا الدرس سنتحدث عن تاريخ الكمبيوتر وتطوره عبر الزمن، من الآلات الحاسبة البسيطة إلى أجهزة الكمبيوتر المتطورة التي نستخدمها اليوم.
+                </p>
+            </div>
+
+            <div class="header">
+                <h1>كورس ICDL كامل مجاناً</h1>
+                <h2>أساسيات <span class="tooltip" data-title="Information and Communication Technology - تكنولوجيا المعلومات والاتصالات">ICT</span> | الحلقة الأولى</h2>
+                <div class="date">٢٢ أبريل ٢٠٢٥، ٩:٤٥ م</div>
+                <div class="instructor-info">
+                    <p>المحاضر: م.محمود علي الجعفري</p>
+                    <p>خبرة أربع سنوات في مجال تدريب تكنولوجيا المعلومات</p>
+                    <p>درب أكثر من خمسة آلاف شخص من مختلف الفئات العمرية</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">تكنولوجيا المعلومات والاتصالات (ICT)</h2>
+                <p>
+                    تكنولوجيا المعلومات والاتصالات (Information and Communication Technology) هي عبارة عن كافة التقنيات التكنولوجية الحديثة، ومنها الكمبيوتر، التي تستخدم في:
+                </p>
+                <ul>
+                    <li>جمع البيانات</li>
+                    <li>معالجة البيانات</li>
+                    <li>نقل وتخزين البيانات</li>
+                </ul>
+                <p>
+                    وتقدم العديد من الخدمات والتطبيقات مثل:
+                </p>
+                <ul>
+                    <li>التعليم عن بعد</li>
+                    <li>التجارة الإلكترونية</li>
+                    <li>الخدمات الحكومية الإلكترونية</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">ما هو الكمبيوتر؟</h2>
+                <p>
+                    الكمبيوتر هو جهاز إلكتروني رقمي يقوم بـ:
+                </p>
+                <ul>
+                    <li>استقبال البيانات</li>
+                    <li>معالجة البيانات</li>
+                    <li>تخزين البيانات</li>
+                    <li>إظهار النتائج للمستخدم بالصورة المناسبة</li>
+                </ul>
+                <p>
+                    <strong>العمليات الأساسية للكمبيوتر:</strong>
+                </p>
+                <ol>
+                    <li>الإدخال (Input)</li>
+                    <li>التخزين (Storage)</li>
+                    <li>المعالجة (Processing)</li>
+                    <li>الإخراج (Output)</li>
+                    <li>التخزين النهائي (Final Storage)</li>
+                </ol>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">وظائف الكمبيوتر</h2>
+                <p>
+                    تختلف وظائف الكمبيوتر باختلاف البرامج والتطبيقات المثبتة عليه. على سبيل المثال:
+                </p>
+                <ul>
+                    <li>تشغيل الوسائط المتعددة (صوت، فيديو) عبر برامج مثل VLC</li>
+                    <li>معالجة النصوص عبر برامج Microsoft Office</li>
+                    <li>تشغيل الألعاب</li>
+                    <li>تصفح الإنترنت</li>
+                </ul>
+                <p>
+                    <strong>ملاحظة مهمة:</strong> كل هذه الوظائف تعتمد على العمليات الأساسية للكمبيوتر (الإدخال، المعالجة، التخزين، الإخراج) لتنفيذ مهامها.
+                </p>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">تطور الكمبيوتر</h2>
+                <h3>الكمبيوتر الميكانيكي</h3>
+                <p>
+                    في نهاية القرن التاسع عشر، ظهرت أول أجهزة الكمبيوتر الميكانيكية. من أشهر الأمثلة على ذلك "الآلة التحليلية" (Analytical Engine) التي صممها تشارلز بابج في ثلاثينيات القرن التاسع عشر.
+                </p>
+                <p>
+                    كان الهدف الرئيسي من هذه الآلة هو إجراء العمليات الحسابية المعقدة التي كانت تُحسب يدوياً وتُسجل في جداول، مثل حسابات الملاحة البحرية.
+                </p>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">عصر الكمبيوتر الإلكتروميكانيكي</h2>
+                <p>
+                    خلال الحرب العالمية الثانية، ظهرت الحاجة إلى أجهزة أسرع لفك الشفرات. من أشهر الأمثلة آلة "بومب" التي صممها آلان تورينج لفك شفرة إنيجما الألمانية.
+                </p>
+                <p>
+                    استخدمت هذه الأجهزة مزيجاً من المكونات الميكانيكية والكهربائية، وكانت تُبرمج باستخدام البطاقات المثقبة (Punch Cards) أو الشريط الورقي.
+                </p>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">ثورة الترانزستور</h2>
+                <p>
+                    في عام 1947، تم اكتشاف الترانزستور في مختبرات بيل (Bell Labs)، وهو اكتشاف غيّر وجه التاريخ. الترانزستور هو بديل أصغر وأكثر كفاءة من الصمامات المفرغة (Vacuum Tubes).
+                </p>
+                <p>
+                    في عام 1959، تم تطوير MOSFET (Metal Oxide Silicon Field Effect Transistor) بواسطة محمد عطالله، وهو مصري من مواليد بورسعيد، مع زميله من كوريا الجنوبية. هذا الاختراع وضع الأساس لتطوير المعالجات الدقيقة (Microprocessors).
+                </p>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">تطور الذاكرة والتخزين</h2>
+                <p>
+                    مع تطور المعالجات، تطورت أيضاً تقنيات التخزين والذاكرة. بدءاً من البطاقات المثقبة، مروراً بالذاكرة المغناطيسية، وصولاً إلى الأقراص الصلبة والذاكرة الإلكترونية الحديثة (SSD).
+                </p>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">تاريخ الكمبيوتر</h2>
+                <p>
+                    قبل أن أدخل إلى التفاصيل وأريك الـ System الذي أستخدمه بالتفصيل سأقوم بعمل جزء تاريخي على فيديوهين. سأتكلم عن تاريخ الكمبيوتر بشكل عام ونهيه بوصولي إلى الـ Operating System وبعد ذلك أتكلم قليلا عن الـ Operating System بالتفصيل في الفيديو القادم إن شاء الله.
+                </p>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">تطور الكمبيوتر</h2>
+                <p>
+                    تاريخ الكمبيوتر يبدأ من فكرة بسيطة: الحوسبة (Computation). الكمبيوتر من اسمه شيء يعمل computation - شيء يكمل شيء. وتطور من الآلات الميكانيكية البسيطة مثل الأباكوس إلى الأجهزة المعقدة التي نستخدمها اليوم.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="navigation">
+        <a href="intero.html" class="current"><span>المقدمة</span></a>
+        <a href="lesson1.html"><span>الدرس الأول: أساسيات تكنولوجيا المعلومات →</span></a>
+    </div>
+</body>
+</html>
