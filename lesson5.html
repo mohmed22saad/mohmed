@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>كورس ICDL كامل مجاناً | أنواع وعوامل قوة الكمبيوتر والاجزاء الأساسية</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --text-color: #1f2937;
+            --bg-color: #ffffff;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+
+        @keyframes glow-title {
+            0% { text-shadow: 0 0 10px rgba(0,210,255,0.5), 0 0 20px rgba(58,123,213,0.5); }
+            50% { text-shadow: 0 0 20px rgba(0,210,255,0.8), 0 0 40px rgba(58,123,213,0.8); }
+            100% { text-shadow: 0 0 10px rgba(0,210,255,0.5), 0 0 20px rgba(58,123,213,0.5); }
+        }
+
+        @keyframes slide-in {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: var(--text-color);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .bg-shapes .shape {
+            position: fixed;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: float 6s infinite;
+        }
+
+        .bg-shapes .shape:nth-child(1) {
+            width: 300px;
+            height: 300px;
+            top: -150px;
+            right: -150px;
+        }
+
+        .bg-shapes .shape:nth-child(2) {
+            width: 200px;
+            height: 200px;
+            bottom: -100px;
+            left: -100px;
+            animation-delay: 2s;
+        }
+
+        .content-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            animation: slide-in 1s ease-out;
+        }
+
+        h1 {
+            color: #ffffff;
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 2.5rem;
+            animation: glow-title 3s infinite;
+        }
+
+        h2 {
+            color: var(--primary-color);
+            margin: 1.5rem 0 1rem;
+            font-size: 1.8rem;
+        }
+
+        h3 {
+            color: #2a5298;
+            margin: 1rem 0;
+            font-size: 1.4rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .performance-factors, .computer-types, .basic-components {
+            margin-top: 2rem;
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+        }
+
+        .nav-button {
+            background: var(--primary-color);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .nav-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+        }
+
+        .factor-card, .type-card, .component-card {
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
+        }
+
+        .factor-card:hover, .type-card:hover, .component-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .highlight {
+            color: #2563eb;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-shapes">
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+
+    <div class="container">
+        <h1>أنواع وعوامل قوة الكمبيوتر والأجزاء الأساسية</h1>
+
+        <div class="content-card performance-factors">
+            <h2>عوامل قوة الكمبيوتر</h2>
+            
+            <div class="factor-card">
+                <h3>المعالج (CPU)</h3>
+                <p>- وحدة المعالجة المركزية تؤثر على سرعة معالجة البيانات</p>
+                <p>- كلما زادت سرعة المعالج (GHz) زادت قدرته على تنفيذ الأوامر</p>
+                <p>- أجيال المعالجات الحديثة (i5, i7, i9) توفر أداء أفضل</p>
+            </div>
+
+            <div class="factor-card">
+                <h3>الذاكرة العشوائية (RAM)</h3>
+                <p>- تؤثر على قدرة تشغيل البرامج المتعددة</p>
+                <p>- كلما زادت سعة الذاكرة زادت قدرة الجهاز على تشغيل برامج أكثر</p>
+                <p>- تساعد في تحسين سرعة استجابة النظام</p>
+            </div>
+
+            <div class="factor-card">
+                <h3>القرص الصلب (HDD/SSD)</h3>
+                <p>- يؤثر على سرعة تحميل البرامج والملفات</p>
+                <p>- SSD أسرع بكثير من HDD التقليدي</p>
+                <p>- يقاس أداء القرص الصلب بـ RPM (عدد الدورات في الدقيقة)</p>
+            </div>
+
+            <div class="factor-card">
+                <h3>كارت الشاشة (GPU)</h3>
+                <p>- يؤثر على أداء الألعاب والتطبيقات الرسومية</p>
+                <p>- مهم جداً لتطبيقات التصميم ومعالجة الصور</p>
+                <p>- يساعد في تخفيف العبء عن المعالج الرئيسي</p>
+            </div>
+        </div>
+
+        <div class="content-card computer-types">
+            <h2>أنواع أجهزة الكمبيوتر</h2>
+            
+            <div class="type-card">
+                <h3>الكمبيوتر المكتبي (Desktop)</h3>
+                <p>- جهاز ثابت يوضع على المكتب</p>
+                <p>- يتميز بإمكانية الترقية والتعديل</p>
+                <p>- مناسب للاستخدام المكتبي والمنزلي</p>
+            </div>
+
+            <div class="type-card">
+                <h3>الكمبيوتر المحمول (Laptop)</h3>
+                <p>- جهاز متنقل خفيف الوزن</p>
+                <p>- يجمع بين المرونة وسهولة الاستخدام</p>
+                <p>- مناسب للعمل والدراسة أثناء التنقل</p>
+            </div>
+
+            <div class="type-card">
+                <h3>الكمبيوتر اللوحي (Tablet)</h3>
+                <p>- يعمل باللمس ويدعم أنظمة تشغيل مختلفة</p>
+                <p>- خفيف الوزن ومناسب للقراءة والتصفح</p>
+                <p>- متوفر بأنظمة Windows, iOS, Android</p>
+            </div>
+        </div>
+
+        <div class="content-card basic-components">
+            <h2>المكونات الأساسية للكمبيوتر</h2>
+            
+            <div class="component-card">
+                <h3>المكونات الداخلية</h3>
+                <p>- المعالج (CPU)</p>
+                <p>- الذاكرة العشوائية (RAM)</p>
+                <p>- القرص الصلب (HDD/SSD)</p>
+                <p>- كارت الشاشة (GPU)</p>
+                <p>- اللوحة الأم (Motherboard)</p>
+                <p>- مزود الطاقة (Power Supply)</p>
+            </div>
+
+            <div class="component-card">
+                <h3>وحدات الإدخال والإخراج</h3>
+                <p>- لوحة المفاتيح والفأرة</p>
+                <p>- الشاشة والسماعات</p>
+                <p>- الطابعة والماسح الضوئي</p>
+                <p>- الكاميرا والميكروفون</p>
+            </div>
+        </div>
+
+        <div class="nav-buttons">
+            <a href="lesson4.html" class="nav-button">الدرس السابق</a>
+            <a href="lesson6.html" class="nav-button">الدرس التالي</a>
+        </div>
+    </div>
+</body>
+</html>

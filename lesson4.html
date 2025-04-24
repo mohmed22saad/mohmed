@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>كورس ICDL كامل مجاناً | أنواع الذاكرة ومنافذ التوصيل و USB</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --text-color: #1f2937;
+            --bg-color: #ffffff;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+
+        @keyframes glow-title {
+            0% { text-shadow: 0 0 10px rgba(0,210,255,0.5), 0 0 20px rgba(58,123,213,0.5); }
+            50% { text-shadow: 0 0 20px rgba(0,210,255,0.8), 0 0 40px rgba(58,123,213,0.8); }
+            100% { text-shadow: 0 0 10px rgba(0,210,255,0.5), 0 0 20px rgba(58,123,213,0.5); }
+        }
+
+        @keyframes slide-in {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: var(--text-color);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .bg-shapes .shape {
+            position: fixed;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: float 6s infinite;
+        }
+
+        .bg-shapes .shape:nth-child(1) {
+            width: 300px;
+            height: 300px;
+            top: -150px;
+            right: -150px;
+        }
+
+        .bg-shapes .shape:nth-child(2) {
+            width: 200px;
+            height: 200px;
+            bottom: -100px;
+            left: -100px;
+            animation-delay: 2s;
+        }
+
+        .content-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            animation: slide-in 1s ease-out;
+        }
+
+        h1 {
+            color: #ffffff;
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 2.5rem;
+            animation: glow-title 3s infinite;
+        }
+
+        h2 {
+            color: var(--primary-color);
+            margin: 1.5rem 0 1rem;
+            font-size: 1.8rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .memory-types, .connection-ports, .usb-types {
+            margin-top: 2rem;
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+        }
+
+        .nav-button {
+            background: var(--primary-color);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .nav-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+        }
+
+        .memory-type, .port-type, .usb-type {
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
+        }
+
+        .memory-type:hover, .port-type:hover, .usb-type:hover {
+            transform: translateY(-5px);
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-shapes">
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+
+    <div class="container">
+        <h1>أنواع الذاكرة ومنافذ التوصيل و USB</h1>
+
+        <div class="content-card memory-types">
+            <h2>أنواع الذاكرة</h2>
+            
+            <div class="memory-type">
+                <h3>الذاكرة المؤقتة (RAM)</h3>
+                <p>- ذاكرة للقراءة والكتابة معاً</p>
+                <p>- تستخدم لتخزين البيانات بشكل مؤقت</p>
+                <p>- تفقد محتواها عند انقطاع التيار الكهربائي</p>
+                <p>- تستقبل البيانات من وحدات الإدخال وتخزنها مؤقتاً</p>
+                <p>- تنقل البيانات إلى المعالج وتستقبل النتائج منه</p>
+            </div>
+
+            <div class="memory-type">
+                <h3>الذاكرة الدائمة (ROM)</h3>
+                <p>- ذاكرة للقراءة فقط</p>
+                <p>- تحتفظ بمحتواها حتى بعد انقطاع التيار الكهربائي</p>
+                <p>- تحتوي على برامج التشغيل الأساسية (BIOS)</p>
+                <p>- تقوم بفحص المكونات الداخلية للجهاز عند التشغيل</p>
+            </div>
+        </div>
+
+        <div class="content-card connection-ports">
+            <h2>منافذ التوصيل</h2>
+            
+            <div class="port-type">
+                <h3>منافذ توصيل الشاشة</h3>
+                <p>1. VGA (D-Sub): أقدم نوع، ينقل الصورة فقط</p>
+                <p>2. DVI: جودة أعلى من VGA، ينقل الصورة فقط</p>
+                <p>3. HDMI: ينقل الصورة والصوت بجودة HD</p>
+                <p>4. DisplayPort: أحدث المنافذ، يدعم دقة 4K و8K</p>
+            </div>
+
+            <div class="port-type">
+                <h3>منافذ أخرى</h3>
+                <p>- منفذ الطاقة (Power Connector)</p>
+                <p>- منافذ PS/2 للوحة المفاتيح والفأرة</p>
+                <p>- منافذ الصوت (Audio Ports)</p>
+                <p>- المنفذ التسلسلي (Serial Port)</p>
+            </div>
+        </div>
+
+        <div class="content-card usb-types">
+            <h2>أجيال USB</h2>
+            
+            <div class="usb-type">
+                <h3>USB 2.0</h3>
+                <p>- سرعة نقل: 480 ميجابت/ثانية</p>
+                <p>- لون المنفذ: أسود</p>
+                <p>- شائع في الأجهزة متوسطة المواصفات</p>
+            </div>
+
+            <div class="usb-type">
+                <h3>USB 3.0</h3>
+                <p>- سرعة نقل: 4.8 جيجابت/ثانية</p>
+                <p>- لون المنفذ: أزرق</p>
+                <p>- يتميز بسرعة نقل أعلى وكفاءة أفضل</p>
+            </div>
+
+            <div class="usb-type">
+                <h3>USB Type-C (3.1)</h3>
+                <p>- سرعة نقل: تصل إلى 10 جيجابت/ثانية</p>
+                <p>- تصميم متناظر يمكن توصيله من أي اتجاه</p>
+                <p>- يدعم نقل الطاقة والبيانات بكفاءة عالية</p>
+            </div>
+        </div>
+
+        <div class="nav-buttons">
+            <a href="lesson3.html" class="nav-button">الدرس السابق</a>
+            <a href="lesson5.html" class="nav-button">الدرس التالي</a>
+        </div>
+    </div>
+</body>
+</html>
