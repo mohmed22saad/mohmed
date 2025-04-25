@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>كورس ICDL كامل مجاناً | أساسيات تشغيل وقفل الكمبيوتر | النوافذ والايقونات</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/quiz.css">
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --text-color: #1f2937;
+            --bg-color: #ffffff;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+
+        @keyframes glow-title {
+            0% { text-shadow: 0 0 10px rgba(0,210,255,0.5), 0 0 20px rgba(58,123,213,0.5); }
+            50% { text-shadow: 0 0 20px rgba(0,210,255,0.8), 0 0 40px rgba(58,123,213,0.8); }
+            100% { text-shadow: 0 0 10px rgba(0,210,255,0.5), 0 0 20px rgba(58,123,213,0.5); }
+        }
+
+        @keyframes slide-in {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: var(--text-color);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .bg-shapes .shape {
+            position: fixed;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: float 6s infinite;
+        }
+
+        .bg-shapes .shape:nth-child(1) {
+            width: 300px;
+            height: 300px;
+            top: -150px;
+            right: -150px;
+        }
+
+        .bg-shapes .shape:nth-child(2) {
+            width: 200px;
+            height: 200px;
+            bottom: -100px;
+            left: -100px;
+            animation-delay: 2s;
+        }
+
+        .content-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            animation: slide-in 1s ease-out;
+        }
+
+        h1 {
+            color: #ffffff;
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 2.5rem;
+            animation: glow-title 3s infinite;
+        }
+
+        h2 {
+            color: var(--primary-color);
+            margin: 1.5rem 0 1rem;
+            font-size: 1.8rem;
+        }
+
+        h3 {
+            color: #2a5298;
+            margin: 1rem 0;
+            font-size: 1.4rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .windows-basics, .desktop-elements, .window-management {
+            margin-top: 2rem;
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+        }
+
+        .nav-button {
+            background: var(--primary-color);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .nav-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+        }
+
+        .info-card {
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .highlight {
+            color: #2563eb;
+            font-weight: bold;
+        }
+
+        .mouse-actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .action-card {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 1rem;
+            border-radius: 8px;
+            border-right: 4px solid #2563eb;
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-shapes">
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+    <div class="container">
+        <h1>كورس ICDL كامل مجاناً | أساسيات تشغيل وقفل الكمبيوتر | النوافذ والايقونات</h1>
+        
+        <div class="lesson-section">
+            <h2>مقدمة عن نظام التشغيل Windows</h2>
+            <div class="info-card">
+                <p>نظام التشغيل Windows هو أكثر أنظمة التشغيل استخداماً على مستوى العالم. وهو برنامج من ضمن برامج السوفتوير التي نستخدمها لتشغيل جهاز الكمبيوتر وإدارة ملفاته ووحداته.</p>
+            </div>
+        </div>
+
+        <div class="lesson-section">
+            <h2>تشغيل جهاز الكمبيوتر</h2>
+            <div class="info-card">
+                <h3>خطوات التشغيل</h3>
+                <ul>
+                    <li>التأكد من توصيل جميع الأسلاك بشكل صحيح (في حالة الكمبيوتر المكتبي)</li>
+                    <li>الضغط على زر الباور (Power) في وحدة النظام</li>
+                    <li>الضغط على زر الباور في الشاشة (للكمبيوتر المكتبي)</li>
+                    <li>في حالة اللابتوب: الضغط على زر الباور مرة واحدة فقط</li>
+                </ul>
+
+                <h3>ما يحدث عند التشغيل</h3>
+                <ul>
+                    <li>تبدأ الكهرباء في الدخول إلى الجهاز</li>
+                    <li>يبدأ ROM في الفحص وعرض رسائل التشخيص</li>
+                    <li>يتم تحميل نظام التشغيل Windows على RAM</li>
+                    <li>تظهر شاشة "Welcome to Windows"</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="lesson-section">
+            <h2>صفحة تسجيل الدخول (Lock Screen)</h2>
+            <div class="info-card">
+                <ul>
+                    <li>أول صفحة تظهر بعد تشغيل الجهاز</li>
+                    <li>تتطلب كلمة المرور إذا كانت مفعلة</li>
+                    <li>يمكن الضغط على SIGN IN للدخول إذا لم تكن هناك كلمة مرور</li>
+                    <li>تمنع الوصول غير المصرح به إلى الجهاز</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="lesson-section">
+            <h2>سطح المكتب (Desktop)</h2>
+            <div class="info-card">
+                <h3>المكونات الرئيسية</h3>
+                <ul>
+                    <li>الأيقونات (Icons):
+                        <ul>
+                            <li>أيقونات أساسية</li>
+                            <li>أيقونات فرعية</li>
+                            <li>تختلف في الشكل (بعضها عليه سهم)</li>
+                        </ul>
+                    </li>
+                    <li>خلفية سطح المكتب (Background)</li>
+                    <li>شريط المهام (Taskbar)</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="lesson-section">
+            <h2>استخدام الماوس</h2>
+            <div class="info-card">
+                <h3>مكونات الماوس</h3>
+                <ul>
+                    <li>جسم الماوس (Body)</li>
+                    <li>الزر الأيمن: لإظهار القوائم المختصرة
+                        <ul>
+                            <li>تختلف القوائم حسب مكان النقر (خلفية، شريط المهام، الأيقونات)</li>
+                        </ul>
+                    </li>
+                    <li>الزر الأيسر: لتنفيذ الأوامر
+                        <ul>
+                            <li>النقر المفرد: للتحديد</li>
+                            <li>النقر المزدوج: لفتح العناصر</li>
+                        </ul>
+                    </li>
+                    <li>عجلة التمرير: للتنقل في المحتوى</li>
+                </ul>
+
+                <h3>تحديد الأيقونات</h3>
+                <ul>
+                    <li>النقر والسحب: لتحديد مجموعة أيقونات</li>
+                    <li>Shift + النقر: لتحديد مجموعة متتالية</li>
+                    <li>Ctrl + النقر: لتحديد عناصر متباعدة</li>
+                    <li>Ctrl + A: لتحديد كل الأيقونات</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="lesson-section">
+            <h2>النوافذ في Windows</h2>
+            <div class="info-card">
+                <h3>مكونات النافذة</h3>
+                <ul>
+                    <li>شريط العنوان (Title Bar):
+                        <ul>
+                            <li>اسم النافذة</li>
+                            <li>أزرار التحكم (إغلاق، تصغير، تكبير/استعادة)</li>
+                        </ul>
+                    </li>
+                    <li>شريط الوصول السريع (Quick Access)</li>
+                    <li>شريط التبويبات (Tab Bar)</li>
+                    <li>شريط العنوان (Address Bar)</li>
+                    <li>شريط البحث (Search Bar)</li>
+                    <li>منطقة المحتوى</li>
+                    <li>شريط المعلومات (Status Bar)</li>
+                </ul>
+
+                <h3>التحكم في النوافذ</h3>
+                <ul>
+                    <li>تحريك النافذة: السحب من شريط العنوان</li>
+                    <li>تغيير الحجم: السحب من حواف النافذة</li>
+                    <li>التصغير: إخفاء النافذة في شريط المهام</li>
+                    <li>التكبير: ملء الشاشة بالنافذة</li>
+                    <li>الإغلاق: إنهاء النافذة</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="lesson-section">
+            <h2>إغلاق جهاز الكمبيوتر</h2>
+            <div class="info-card">
+                <h3>خطوات الإغلاق</h3>
+                <ul>
+                    <li>الضغط على قائمة Start (تكون في اليمين للغة العربية، واليسار للإنجليزية)</li>
+                    <li>الضغط على زر الطاقة (Power)</li>
+                    <li>اختيار Shutdown لإيقاف تشغيل الجهاز</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="lesson-section">
+            <h2>إغلاق جهاز الكمبيوتر</h2>
+            <div class="info-card">
+                <h3>خطوات الإغلاق الآمن</h3>
+                <ul>
+                    <li>الضغط على زر Start في شريط المهام</li>
+                    <li>الضغط على زر الطاقة (Power)</li>
+                    <li>اختيار Shut down لإيقاف تشغيل الجهاز</li>
+                    <li>انتظار إغلاق النظام بشكل كامل</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="navigation-buttons">
+            <a href="lesson5.html" class="nav-button">الدرس السابق</a>
+            <a href="lesson7.html" class="nav-button">الدرس التالي</a>
+        </div>
+            <h2>عناصر سطح المكتب</h2>
+            
+            <div class="info-card">
+                <h3>مكونات سطح المكتب</h3>
+                <p>1. الأيقونات (Icons)</p>
+                <p>2. خلفية سطح المكتب (Background)</p>
+                <p>3. شريط المهام (Taskbar)</p>
+                <p>4. قائمة ابدأ (Start Menu)</p>
+            </div>
+
+            <div class="info-card">
+                <h3>استخدام الماوس</h3>
+                <div class="mouse-actions">
+                    <div class="action-card">
+                        <h4>النقر الأيمن</h4>
+                        <p>- إظهار القوائم المنسدلة</p>
+                        <p>- عرض خيارات إضافية</p>
+                    </div>
+                    <div class="action-card">
+                        <h4>النقر الأيسر</h4>
+                        <p>- تنفيذ الأوامر</p>
+                        <p>- تحديد العناصر</p>
+                    </div>
+                    <div class="action-card">
+                        <h4>النقر المزدوج</h4>
+                        <p>- فتح الملفات والمجلدات</p>
+                        <p>- تشغيل البرامج</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-card window-management">
+            <h2>إدارة النوافذ</h2>
+            
+            <div class="info-card">
+                <h3>عناصر النافذة</h3>
+                <p>1. شريط العنوان (Title Bar)</p>
+                <p>2. أزرار التحكم (التصغير، التكبير، الإغلاق)</p>
+                <p>3. شريط القوائم (Menu Bar)</p>
+                <p>4. شريط الأدوات (Toolbar)</p>
+                <p>5. منطقة العمل الرئيسية</p>
+                <p>6. أشرطة التمرير</p>
+            </div>
+
+            <div class="info-card">
+                <h3>التحكم في النوافذ</h3>
+                <p>- تحريك النافذة: اسحب من شريط العنوان</p>
+                <p>- تغيير الحجم: اسحب من أي زاوية أو حافة</p>
+                <p>- التصغير: زر Minimize (-)</p>
+                <p>- التكبير: زر Maximize (□)</p>
+                <p>- الإغلاق: زر Close (×)</p>
+            </div>
+        </div>
+
+        <div class="nav-buttons">
+            <a href="lesson5.html" class="nav-button">الدرس السابق</a>
+            <a href="lesson7.html" class="nav-button">الدرس التالي</a>
+        </div>
+    </div>
+        <div class="quiz-section">
+            <h2 class="quiz-title">اختبر معلوماتك</h2>
+            
+            <div class="quiz-question">
+                <p>سطح المكتب (Desktop) هو الشاشة الرئيسية في نظام Windows</p>
+                <button class="answer-button" onclick="checkAnswer(this, true)">صح</button>
+                <button class="answer-button" onclick="checkAnswer(this, false)">خطأ</button>
+                <div class="feedback"></div>
+            </div>
+
+            <div class="quiz-question">
+                <p>يمكن تغيير حجم النافذة في Windows باستخدام الأزرار الثلاثة في الزاوية العليا</p>
+                <button class="answer-button" onclick="checkAnswer(this, true)">صح</button>
+                <button class="answer-button" onclick="checkAnswer(this, false)">خطأ</button>
+                <div class="feedback"></div>
+            </div>
+
+            <div class="quiz-question">
+                <p>لا يمكن تغيير موقع شريط المهام في Windows</p>
+                <button class="answer-button" onclick="checkAnswer(this, false)">صح</button>
+                <button class="answer-button" onclick="checkAnswer(this, true)">خطأ</button>
+                <div class="feedback"></div>
+            </div>
+        </div>
+
+<script>
+function checkAnswer(button, isCorrect) {
+    const questionDiv = button.parentElement;
+    const buttons = questionDiv.getElementsByClassName('answer-button');
+    const feedback = questionDiv.querySelector('.feedback');
+    
+    // Disable all buttons in this question
+    Array.from(buttons).forEach(btn => {
+        btn.disabled = true;
+        btn.classList.remove('correct', 'incorrect');
+    });
+    
+    // Add appropriate class to clicked button
+    button.classList.add(isCorrect ? 'correct' : 'incorrect');
+    
+    // Show feedback
+    feedback.textContent = isCorrect ? 'إجابة صحيحة! أحسنت!' : 'إجابة خاطئة، حاول مرة أخرى';
+    feedback.classList.add('show');
+}
+</script>
+</body>
+</html>

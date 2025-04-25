@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>كورس ICDL كامل مجاناً | شرح نظام Windows Part 2 | الحلقة الثامنة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --text-color: #1f2937;
+            --bg-color: #ffffff;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: #ffffff;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .lesson-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            text-shadow: 0 0 10px rgba(0,210,255,0.5);
+        }
+
+        .lesson-date {
+            text-align: center;
+            color: #cbd5e1;
+            margin-bottom: 3rem;
+        }
+
+        .section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-title {
+            color: #00d2ff;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .section p {
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        /* تصميم جديد للاختبار */
+        .quiz-container {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .quiz-title {
+            color: #00d2ff;
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            text-shadow: 0 0 15px rgba(0,210,255,0.7);
+        }
+
+        .quiz-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            transform-style: preserve-3d;
+            transition: transform 0.5s;
+        }
+
+        .quiz-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .quiz-question {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            color: #ffffff;
+        }
+
+        .quiz-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .quiz-option {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            padding: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .quiz-option:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.02);
+        }
+
+        .quiz-option.correct {
+            background: rgba(46, 213, 115, 0.3);
+            border-color: #2ed573;
+        }
+
+        .quiz-option.incorrect {
+            background: rgba(255, 71, 87, 0.3);
+            border-color: #ff4757;
+        }
+
+        .quiz-feedback {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+            display: none;
+        }
+
+        .quiz-feedback.show {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+        }
+
+        .nav-button {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            text-decoration: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-button:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .current {
+            background: rgba(0, 210, 255, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="lesson-title">كورس ICDL كامل مجاناً | شرح نظام Windows Part 2</h1>
+        <p class="lesson-date">٢٥ أبريل ٢٠٢٥، ٢:٥٧ م</p>
+
+        <div class="section">
+            <h2 class="section-title">القوائم في نظام Windows</h2>
+            <p>القوائم في نظام Windows تختلف حسب المكان الذي تضغط فيه زر الماوس الأيمن. كل قائمة تحتوي على أوامر خاصة بالعنصر الذي تم الضغط عليه.</p>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">قائمة View في سطح المكتب</h2>
+            <p>تتيح لك قائمة View التحكم في:</p>
+            <ul>
+                <li>حجم الأيقونات (Large, Medium, Small)</li>
+                <li>ترتيب الأيقونات تلقائياً (Auto Arrange)</li>
+                <li>محاذاة الأيقونات للشبكة (Align to Grid)</li>
+                <li>إظهار/إخفاء أيقونات سطح المكتب</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">أمر Refresh وأهميته</h2>
+            <p>أمر Refresh هو أمر مهم في نظام Windows، لكن يجب استخدامه بحكمة:</p>
+            <ul>
+                <li>يقوم بتحديث محتويات الذاكرة RAM</li>
+                <li>يستهلك موارد المعالج (CPU)</li>
+                <li>يُستخدم فقط عند بطء الجهاز أو عدم استجابة البرامج</li>
+                <li>لا يُنصح باستخدامه بشكل متكرر</li>
+            </ul>
+        </div>
+
+        <div class="quiz-container">
+            <h2 class="quiz-title">اختبر فهمك</h2>
+            
+            <div class="quiz-card">
+                <div class="quiz-question">متى يجب استخدام أمر Refresh في Windows؟</div>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, true, 0)">عند بطء الجهاز وعدم استجابة البرامج</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, false, 0)">بشكل مستمر لتحسين أداء الجهاز</div>
+                </div>
+                <div class="quiz-feedback"></div>
+            </div>
+
+            <div class="quiz-card">
+                <div class="quiz-question">ما وظيفة خيار Auto Arrange Icons؟</div>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, true, 1)">ترتيب الأيقونات تلقائياً على سطح المكتب</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, false, 1)">تغيير حجم الأيقونات</div>
+                </div>
+                <div class="quiz-feedback"></div>
+            </div>
+
+            <div class="quiz-card">
+                <div class="quiz-question">هل يمكن تحريك الأيقونات بحرية عند تفعيل خيار Align to Grid؟</div>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, false, 2)">نعم، يمكن تحريكها في أي مكان</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, true, 2)">لا، تلتزم الأيقونات بالشبكة المحددة</div>
+                </div>
+                <div class="quiz-feedback"></div>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <a href="lesson7.html" class="nav-button">الدرس السابق</a>
+            <a href="lesson8.html" class="current">الدرس الثامن: شرح نظام Windows Part 2</a>
+            <a href="lesson9.html" class="nav-button">الدرس التالي</a>
+        </div>
+    </div>
+
+<script>
+function checkAnswer(button, isCorrect, questionIndex) {
+    const card = button.closest('.quiz-card');
+    const options = card.getElementsByClassName('quiz-option');
+    const feedback = card.querySelector('.quiz-feedback');
+    
+    // تعطيل جميع الخيارات
+    Array.from(options).forEach(opt => {
+        opt.style.pointerEvents = 'none';
+    });
+    
+    // إضافة الفئة المناسبة للخيار المحدد
+    button.classList.add(isCorrect ? 'correct' : 'incorrect');
+    
+    // إظهار التعليق
+    feedback.textContent = isCorrect ? 'إجابة صحيحة! أحسنت!' : 'إجابة خاطئة، حاول مرة أخرى';
+    feedback.style.background = isCorrect ? 'rgba(46, 213, 115, 0.3)' : 'rgba(255, 71, 87, 0.3)';
+    feedback.classList.add('show');
+
+    // تحريك البطاقة للأعلى عند الإجابة
+    card.style.transform = 'translateY(-10px)';
+    setTimeout(() => {
+        card.style.transform = 'translateY(0)';
+    }, 500);
+}
+</script>
+</body>
+</html>
