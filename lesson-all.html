@@ -1,0 +1,1884 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>كورس ICDL كامل مجاناً</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles/quiz.css">
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #00d2ff;
+            --text-color: #ffffff;
+            --bg-color: #1e3c72;
+            --hover-bg-color: #2a5298;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            direction: rtl;
+            background: linear-gradient(135deg, var(--bg-color) 0%, var(--hover-bg-color) 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            color: var(--text-color);
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 30px;
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            border-radius: 15px;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            color: #1f2937;
+        }
+
+        .lesson-title {
+            font-size: 2.5rem;
+            color: #1e3c72;
+            text-align: center;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 3px solid #3a7bd5;
+            animation: glow-title 3s infinite ease-in-out;
+        }
+
+        @keyframes glow-title {
+            0% { text-shadow: 0 0 10px rgba(0,210,255,0.5), 0 0 20px rgba(58,123,213,0.5); }
+            50% { text-shadow: 0 0 20px rgba(0,210,255,0.8), 0 0 40px rgba(58,123,213,0.8); }
+            100% { text-shadow: 0 0 10px rgba(0,210,255,0.5), 0 0 20px rgba(58,123,213,0.5); }
+        }
+
+        .section {
+            margin-bottom: 30px;
+            padding: 25px;
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border: 1px solid rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
+        }
+
+        .section-title {
+            color: #1e3c72;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            position: relative;
+            font-size: 1.8rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, #00d2ff, #3a7bd5);
+            border-radius: 3px;
+        }
+
+        .navigation {
+            text-align: center;
+            margin: 3rem 0 1rem;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .navigation a {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 1rem 2rem;
+            background: linear-gradient(45deg, #1e3c72, #2a5298);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            margin: 0.5rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            font-size: 1.1rem;
+        }
+
+        .navigation a:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+
+        .toc {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 250px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .toc h3 {
+            color: white;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+            text-align: center;
+        }
+
+        .toc a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            padding: 8px 15px;
+            margin: 5px 0;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .toc a:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateX(-5px);
+        }
+
+        .toc a.active {
+            background: rgba(0, 210, 255, 0.2);
+            color: #00d2ff;
+        }
+
+        @media (max-width: 1200px) {
+            .toc {
+                display: none;
+            }
+        }
+
+        .content {
+            padding: 20px;
+        }
+
+        .content h3 {
+            color: #1e3c72;
+            margin: 20px 0 10px;
+            font-size: 1.4rem;
+        }
+
+        .content ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .content ul li {
+            margin: 10px 0;
+            padding-right: 20px;
+            position: relative;
+        }
+
+        .content ul li::before {
+            content: '•';
+            color: #00d2ff;
+            font-weight: bold;
+            position: absolute;
+            right: 0;
+        }
+
+        .quiz-section {
+            margin-top: 30px;
+            padding: 20px;
+            background: rgba(30, 60, 114, 0.05);
+            border-radius: 10px;
+        }
+
+        .quiz-section h3 {
+            color: #1e3c72;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+    </style>
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #00d2ff;
+            --text-color: #ffffff;
+            --bg-color: #1e3c72;
+            --hover-bg-color: #2a5298;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            direction: rtl;
+            background: linear-gradient(135deg, var(--bg-color) 0%, var(--hover-bg-color) 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            color: var(--text-color);
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 30px;
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            border-radius: 15px;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            color: #1f2937;
+        }
+
+        .lesson-title {
+            font-size: 2.5rem;
+            color: #1e3c72;
+            text-align: center;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 3px solid #3a7bd5;
+            animation: glow-title 3s infinite ease-in-out;
+        }
+
+        @keyframes glow-title {
+            0% { text-shadow: 0 0 10px rgba(0,210,255,0.5), 0 0 20px rgba(58,123,213,0.5); }
+            50% { text-shadow: 0 0 20px rgba(0,210,255,0.8), 0 0 40px rgba(58,123,213,0.8); }
+            100% { text-shadow: 0 0 10px rgba(0,210,255,0.5), 0 0 20px rgba(58,123,213,0.5); }
+        }
+
+        .section {
+            margin-bottom: 30px;
+            padding: 25px;
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border: 1px solid rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
+        }
+
+        .section-title {
+            color: #1e3c72;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            position: relative;
+            font-size: 1.8rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, #00d2ff, #3a7bd5);
+            border-radius: 3px;
+        }
+
+        .navigation {
+            text-align: center;
+            margin: 3rem 0 1rem;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .navigation a {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 1rem 2rem;
+            background: linear-gradient(45deg, #1e3c72, #2a5298);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            margin: 0.5rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            font-size: 1.1rem;
+        }
+
+        .navigation a:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+
+        .toc {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 250px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .toc a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            padding: 8px 15px;
+            margin: 5px 0;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .toc a:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateX(-5px);
+        }
+
+        .toc a.active {
+            background: rgba(0, 210, 255, 0.2);
+            color: #00d2ff;
+        }
+
+        @media (max-width: 1200px) {
+            .toc {
+                display: none;
+            }
+        }
+
+        /* أنماط الصور التوضيحية */
+        .image-section {
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .image-container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 15px;
+            margin: 10px 0;
+            display: inline-block;
+            max-width: 100%;
+        }
+
+        .image-container img {
+            max-width: 100%;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+
+        .image-caption {
+            color: var(--text-color);
+            font-size: 0.9em;
+            text-align: center;
+        }
+
+        /* أنماط الشرح */
+        .explanation-box {
+            background: rgba(37, 99, 235, 0.1);
+            border-right: 4px solid var(--primary-color);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 15px 15px 0;
+        }
+
+        .explanation-title {
+            color: var(--secondary-color);
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .explanation-steps {
+            list-style-type: none;
+            counter-reset: step;
+            padding: 0;
+        }
+
+        .explanation-steps li {
+            counter-increment: step;
+            margin: 10px 0;
+            padding-right: 30px;
+            position: relative;
+        }
+
+        .explanation-steps li::before {
+            content: counter(step);
+            background: var(--primary-color);
+            color: white;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            right: 0;
+            font-size: 0.8em;
+        }
+
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #00d2ff;
+            --text-color: #ffffff;
+            --bg-color: #1e3c72;
+            --hover-bg-color: #2a5298;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            direction: rtl;
+            background: linear-gradient(135deg, var(--bg-color) 0%, var(--hover-bg-color) 100%);
+            min-height: 100vh;
+            color: var(--text-color);
+            position: relative;
+        }
+
+        /* الفهرس الثابت */
+        .toc {
+            position: fixed;
+            right: 20px;
+            top: 20px;
+            width: 280px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            max-height: calc(100vh - 40px);
+            overflow-y: auto;
+        }
+
+        .toc h2 {
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+            text-align: center;
+            font-size: 1.5rem;
+        }
+
+        .toc a {
+            display: block;
+            padding: 10px;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            margin: 5px 0;
+            transition: all 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .toc a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateX(-5px);
+        }
+
+        .toc a.active {
+            background: rgba(255, 255, 255, 0.2);
+            font-weight: bold;
+            border-right: 3px solid var(--secondary-color);
+        }
+
+        /* محتوى الدروس */
+        .main-content {
+            margin-right: 320px;
+            margin-left: 20px;
+            padding: 20px;
+        }
+
+        .lesson {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 20px;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .lesson h2 {
+            color: var(--secondary-color);
+            font-size: 2rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--secondary-color);
+        }
+
+        /* المصطلحات التقنية */
+        .tech-term {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            border-right: 3px solid var(--secondary-color);
+        }
+
+        .tech-term .en {
+            color: var(--secondary-color);
+            font-weight: bold;
+            font-size: 1.1rem;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        /* الصور */
+        .lesson-image {
+            max-width: 100%;
+            border-radius: 10px;
+            margin: 15px 0;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* الاختبارات */
+        .quiz-section {
+            margin-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 20px;
+        }
+
+        .quiz-option {
+            display: block;
+            padding: 10px;
+            margin: 10px 0;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .quiz-option:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .quiz-option.correct {
+            background: rgba(46, 213, 115, 0.2);
+            border: 1px solid #2ed573;
+        }
+
+        .quiz-option.wrong {
+            background: rgba(255, 71, 87, 0.2);
+            border: 1px solid #ff4757;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .bg-shapes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .shape {
+            position: absolute;
+            background: linear-gradient(45deg, rgba(0,210,255,0.1), rgba(58,123,213,0.1));
+            border-radius: 50%;
+            animation: float 15s infinite ease-in-out;
+        }
+
+        .shape:nth-child(1) {
+            width: 300px;
+            height: 300px;
+            top: 10%;
+            left: 10%;
+        }
+
+        .shape:nth-child(2) {
+            width: 200px;
+            height: 200px;
+            top: 60%;
+            right: 15%;
+            animation-delay: -5s;
+        }
+
+        .shape:nth-child(3) {
+            width: 150px;
+            height: 150px;
+            bottom: 20%;
+            left: 20%;
+            animation-delay: -10s;
+        }
+    </style>
+</head>
+<body>
+    <nav class="toc">
+        <h3>الدروس</h3>
+        <a href="#intro">المقدمة</a>
+        <a href="#lesson1">الدرس الأول: أساسيات تكنولوجيا المعلومات</a>
+        <a href="#lesson2">الدرس الثاني: مكونات الكمبيوتر</a>
+        <a href="#lesson3">الدرس الثالث: وحدات التخزين والبرمجيات</a>
+        <a href="#lesson4">الدرس الرابع: الشبكات والإنترنت</a>
+        <a href="#lesson5">الدرس الخامس: أنواع الحواسيب</a>
+        <a href="#lesson6">الدرس السادس: نظام Windows</a>
+    </nav>
+
+    <div class="container">
+        <h1 class="lesson-title">كورس ICDL كامل مجاناً</h1>
+
+        <!-- المقدمة -->
+        <div id="intro" class="section">
+            <h2 class="section-title">مقدمة في الحاسب الآلي</h2>
+            <div class="content">
+                <p>مرحباً بكم في دورة ICDL الشاملة. سنتعرف معاً على أساسيات الحاسب الآلي وتكنولوجيا المعلومات.</p>
+                <h3>ما هو ICDL؟</h3>
+                <p>الرخصة الدولية لقيادة الحاسب الآلي (ICDL) هي شهادة عالمية تثبت مهاراتك في استخدام الحاسب الآلي وتطبيقاته الأساسية.</p>
+            </div>
+        </div>
+
+        <!-- الدرس الأول -->
+        <div id="lesson1" class="section">
+            <h2 class="section-title">الدرس الأول: أساسيات تكنولوجيا المعلومات</h2>
+            <div class="content">
+                <div class="tech-term">
+                    <span class="en">Information and Communication Technology (ICT)</span>
+                    <p>تكنولوجيا المعلومات والاتصالات: هي مجموعة الأدوات والتقنيات المستخدمة في معالجة وتخزين ونقل المعلومات.</p>
+                </div>
+
+                <div class="image-section">
+                    <img src="https://th.bing.com/th/id/R.eaddada2003ffb807e6880654963feb2?rik=jpCX%2fcE2zfsFVg&pid=ImgRaw&r=0" alt="تكنولوجيا المعلومات" class="lesson-image">
+                    <div class="image-caption">مكونات تكنولوجيا المعلومات والاتصالات</div>
+                </div>
+
+                <div class="explanation-box">
+                    <div class="explanation-title">مكونات ICT</div>
+                    <ul>
+                        <li>
+                            <span class="term">Data Processing</span>
+                            <p>معالجة البيانات: تحويل البيانات الخام إلى معلومات مفيدة</p>
+                        </li>
+                        <li>
+                            <span class="term">Data Storage</span>
+                            <p>تخزين البيانات: حفظ البيانات للاستخدام المستقبلي</p>
+                        </li>
+                        <li>
+                            <span class="term">Data Transmission</span>
+                            <p>نقل البيانات: إرسال واستقبال البيانات عبر الشبكات</p>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="quiz-section">
+                    <h3>اختبر معلوماتك</h3>
+                    <div class="quiz-question">
+                        <p>تكنولوجيا المعلومات تشمل فقط أجهزة الكمبيوتر</p>
+                        <button class="answer-button" onclick="checkAnswer(this, false)">صح</button>
+                        <button class="answer-button" onclick="checkAnswer(this, true)">خطأ</button>
+                        <div class="feedback"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- الدرس الثاني -->
+        <div id="lesson2" class="section">
+            <h2 class="section-title">الدرس الثاني: مكونات الكمبيوتر</h2>
+            <div class="content">
+                <div class="tech-term">
+                    <span class="en">Computer Components</span>
+                    <p>مكونات الحاسب: الأجزاء الأساسية التي يتكون منها الحاسب الآلي</p>
+                </div>
+
+                <div class="image-section">
+                    <img src="https://hyatoky.com/mwfiles/thumbs/fit630x300/17716/1552991372/%D9%85%D9%83%D9%88%D9%86%D8%A7%D8%AA_%D8%A7%D9%84%D8%AD%D8%A7%D8%B3%D9%88%D8%A8_%D8%A7%D9%84%D8%AF%D8%A7%D8%AE%D9%84%D9%8A%D8%A9_%D9%88%D8%A7%D9%84%D8%AE%D8%A7%D8%B1%D8%AC%D9%8A%D8%A9.jpg" alt="مكونات الحاسب" class="lesson-image">
+                    <div class="image-caption">المكونات الرئيسية للحاسب الآلي</div>
+                </div>
+
+                <div class="explanation-box">
+                    <div class="explanation-title">المكونات الأساسية</div>
+                    <ul>
+                        <li>
+                            <span class="term">Hardware</span>
+                            <p>المكونات المادية: الأجزاء الملموسة من الحاسب مثل المعالج والذاكرة</p>
+                        </li>
+                        <li>
+                            <span class="term">Software</span>
+                            <p>البرمجيات: مجموعة البرامج والتعليمات التي تتحكم في عمل الحاسب</p>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="explanation-box">
+                    <div class="explanation-title">وحدات الإدخال والإخراج</div>
+                    <ul>
+                        <li>
+                            <span class="term">Input Devices</span>
+                            <p>وحدات الإدخال: أجهزة تستخدم لإدخال البيانات إلى الحاسب</p>
+                            <div class="sub-items">
+                                <span class="term">Keyboard</span>: لوحة المفاتيح
+                                <span class="term">Mouse</span>: الفأرة
+                            </div>
+                        </li>
+                        <li>
+                            <span class="term">Output Devices</span>
+                            <p>وحدات الإخراج: أجهزة تعرض البيانات من الحاسب</p>
+                            <div class="sub-items">
+                                <span class="term">Monitor</span>: الشاشة
+                                <span class="term">Printer</span>: الطابعة
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="image-section">
+                    <img src="https://1.bp.blogspot.com/-SDBOIo0eI_c/YJak_GE9CzI/AAAAAAAABTE/xLunw1z7OPEW_iD_vx9fCyoBqQd3OwONgCLcBGAsYHQ/s595/%25D9%2588%25D8%25AD%25D8%25AF%25D8%25A7%25D8%25AA%2B%25D8%25A7%25D9%2584%25D8%25A7%25D8%25AF%25D8%25AE%25D8%25A7%25D9%2584%2B%25D9%2588%25D8%25A7%25D9%2584%25D8%25A7%25D8%25AE%25D8%25B1%25D8%25A7%25D8%25AC%2B%25D8%25A7%25D9%2584%25D8%25AE%25D8%25A7%25D8%25B5%25D8%25A9%2B%25D8%25A8%25D8%25A7%25D9%2584%25D9%2583%25D9%2585%25D8%25A8%25D9%258A%25D9%2588%25D8%25AA%25D8%25B1.png" alt="وحدات الإدخال والإخراج" class="lesson-image">
+                    <div class="image-caption">وحدات الإدخال والإخراج الشائعة</div>
+                </div>
+
+                <div class="quiz-section">
+                    <h3>اختبر معلوماتك</h3>
+                    <div class="quiz-question">
+                        <p>المعالج هو المسؤول عن تخزين البيانات بشكل دائم</p>
+                        <button class="answer-button" onclick="checkAnswer(this, false)">صح</button>
+                        <button class="answer-button" onclick="checkAnswer(this, true)">خطأ</button>
+                        <div class="feedback"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- الدرس الثالث -->
+        <div id="lesson3" class="section">
+            <h2 class="section-title">الدرس الثالث: وحدات التخزين والبرمجيات</h2>
+            <div class="content">
+                <div class="tech-term">
+                    <span class="en">Storage Devices</span>
+                    <p>وحدات التخزين: الأجهزة المستخدمة لحفظ البيانات بشكل دائم أو مؤقت</p>
+                </div>
+
+                <div class="image-section">
+                    <img src="https://image3.slideserve.com/5672621/storage-unit1-n.jpg" alt="وحدات التخزين" class="lesson-image">
+                    <div class="image-caption">أنواع مختلفة من وحدات التخزين</div>
+                </div>
+
+                <div class="explanation-box">
+                    <div class="explanation-title">وحدات التخزين الرئيسية</div>
+                    <ul>
+                        <li>
+                            <span class="term">RAM (Random Access Memory)</span>
+                            <p>الذاكرة العشوائية: ذاكرة مؤقتة تفقد محتواها عند انقطاع التيار</p>
+                            <img src="https://th.bing.com/th/id/R.bbc662a51ba6c23e522edfd2513e3592?rik=vfptS8j1lLGfIA&riu=http%3a%2f%2fecomputernotes.com%2fimages%2fRAM.png&ehk=pvFjSStLd4RcUDmXhQi6pG34Kvzifgx6vZz8ySOhnQo%3d&risl=&pid=ImgRaw&r=0&sres=1&sresct=1" alt="RAM" class="component-image">
+                        </li>
+                        <li>
+                            <span class="term">Hard Disk Drive (HDD)</span>
+                            <p>القرص الصلب: وحدة تخزين دائمة لحفظ البيانات والبرامج</p>
+                            <img src="https://guide.directindustry.com/wp-content/uploads/40449-8972370.jpg" alt="HDD" class="component-image">
+                        </li>
+                        <li>
+                            <span class="term">Solid State Drive (SSD)</span>
+                            <p>محرك الأقراص الصلبة: وحدة تخزين حديثة أسرع من القرص الصلب التقليدي</p>
+                            <img src="https://thafd.bing.com/th/id/OIP.3lX2BeruiCTLcmNf1Xln_AHaFj?rs=1&pid=ImgDetMain" alt="SSD" class="component-image">
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="tech-term">
+                    <span class="en">Software Types</span>
+                    <p>أنواع البرمجيات: البرامج التي تجعل الحاسب قابلاً للاستخدام</p>
+                </div>
+
+                <div class="explanation-box">
+                    <div class="explanation-title">تصنيف البرمجيات</div>
+                    <ul>
+                        <li>
+                            <span class="term">Operating System</span>
+                            <p>نظام التشغيل: برنامج يتحكم في جميع عمليات الحاسب</p>
+                        </li>
+                        <li>
+                            <span class="term">Application Software</span>
+                            <p>برامج التطبيقات: برامج تؤدي مهام محددة للمستخدم</p>
+                        </li>
+                        <li>
+                            <span class="term">System Software</span>
+                            <p>برامج النظام: برامج تساعد في تشغيل وصيانة الحاسب</p>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="image-section">
+                    <img src="https://www.mosoah.com/wp-content/uploads/2021/11/%D8%A8%D8%AD%D8%AB-%D8%B9%D9%86-%D9%84%D8%BA%D8%A7%D8%AA-%D8%A7%D9%84%D8%A8%D8%B1%D9%85%D8%AC%D8%A9-pdf.jpg" alt="أنواع البرمجيات" class="lesson-image">
+                    <div class="image-caption">أمثلة على أنواع البرمجيات المختلفة</div>
+                </div>
+
+                <div class="quiz-section">
+                    <h3>اختبر معلوماتك</h3>
+                    <div class="quiz-question">
+                        <p>ذاكرة RAM تحتفظ بالبيانات بعد إغلاق الجهاز</p>
+                        <button class="answer-button" onclick="checkAnswer(this, false)">صح</button>
+                        <button class="answer-button" onclick="checkAnswer(this, true)">خطأ</button>
+                        <div class="feedback"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- الدرس الرابع -->
+        <div id="lesson4" class="section">
+            <h2 class="section-title">الدرس الرابع: الشبكات والإنترنت</h2>
+            <div class="content">
+                <div class="tech-term">
+                    <span class="en">Computer Networks</span>
+                    <p>شبكات الحاسب: مجموعة من الحواسيب المتصلة معاً لتبادل البيانات والموارد</p>
+                </div>
+
+                <div class="image-section">
+                    <img src="https://academy.hsoub.com/uploads/monthly_2023_07/--.png.64bcb6aaa102b06af24d3977aad4faee.png" alt="أنواع الشبكات" class="lesson-image">
+                    <div class="image-caption">أنواع مختلفة من شبكات الحاسب</div>
+                </div>
+
+                <div class="explanation-box">
+                    <div class="explanation-title">أنواع الشبكات</div>
+                    <ul>
+                        <li>
+                            <span class="term">LAN (Local Area Network)</span>
+                            <p>الشبكة المحلية: شبكة تربط الحواسيب في منطقة جغرافية صغيرة</p>
+                            <img src="https://images.ctfassets.net/aoyx73g9h2pg/1PUW20N6ANAbYmTNy8PlMD/3c482e2e50e62533b611e096ac25bd2e/What-is-a-Local-Area-Network-LAN-Diagram.jpg" alt="LAN" class="component-image">
+                        </li>
+                        <li>
+                            <span class="term">WAN (Wide Area Network)</span>
+                            <p>الشبكة الواسعة: شبكة تغطي مساحة جغرافية كبيرة</p>
+                            <img src="https://thafd.bing.com/th/id/OIP.97_rATvKGQ3Peinta5mtCwHaEK?rs=1&pid=ImgDetMain" alt="WAN" class="component-image">
+                        </li>
+                        <li>
+                            <span class="term">Internet</span>
+                            <p>شبكة الإنترنت: شبكة عالمية تربط ملايين الشبكات والحواسيب</p>
+                            <img src="https://www.example.com/images/internet.jpg" alt="Internet" class="component-image">
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="tech-term">
+                    <span class="en">Internet Services</span>
+                    <p>خدمات الإنترنت: الخدمات المتوفرة عبر شبكة الإنترنت</p>
+                </div>
+
+                <div class="explanation-box">
+                    <div class="explanation-title">الخدمات الأساسية</div>
+                    <ul>
+                        <li>
+                            <span class="term">Email (Electronic Mail)</span>
+                            <p>البريد الإلكتروني: خدمة لتبادل الرسائل الإلكترونية</p>
+                        </li>
+                        <li>
+                            <span class="term">Web Browsing</span>
+                            <p>تصفح الويب: استعراض صفحات الويب والوصول للمعلومات</p>
+                        </li>
+                        <li>
+                            <span class="term">E-commerce</span>
+                            <p>التجارة الإلكترونية: شراء وبيع السلع والخدمات عبر الإنترنت</p>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="image-section">
+                    <img src="https://www.example.com/images/internet-services.jpg" alt="خدمات الإنترنت" class="lesson-image">
+                    <div class="image-caption">أمثلة على خدمات الإنترنت المختلفة</div>
+                </div>
+
+                <div class="quiz-section">
+                    <h3>اختبر معلوماتك</h3>
+                    <div class="quiz-question">
+                        <p>الشبكة المحلية (LAN) تغطي مساحة جغرافية أكبر من الشبكة الواسعة (WAN)</p>
+                        <button class="answer-button" onclick="checkAnswer(this, false)">صح</button>
+                        <button class="answer-button" onclick="checkAnswer(this, true)">خطأ</button>
+                        <div class="feedback"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- الدرس الخامس -->
+        <div id="lesson5" class="section">
+            <h2 class="section-title">الدرس الخامس: أنواع الحواسيب وعوامل الأداء</h2>
+            <div class="content">
+                <div class="tech-term">
+                    <span class="en">Computer Types</span>
+                    <p>أنواع الحواسيب: الأشكال المختلفة للحواسيب حسب الاستخدام والحجم</p>
+                </div>
+
+                <div class="explanation-box">
+                    <div class="explanation-title">أنواع الحواسيب</div>
+                    <ul>
+                        <li>
+                            <span class="term">Desktop Computer</span>
+                            <p>الحاسب المكتبي: حاسب ثابت يوضع على المكتب، يتميز بقوة الأداء وإمكانية التطوير</p>
+                            <img src="https://www.example.com/images/desktop.jpg" alt="Desktop Computer" class="component-image">
+                        </li>
+                        <li>
+                            <span class="term">Laptop Computer</span>
+                            <p>الحاسب المحمول: حاسب متنقل يمكن حمله بسهولة، يجمع بين الأداء والتنقل</p>
+                            <img src="https://www.example.com/images/laptop.jpg" alt="Laptop Computer" class="component-image">
+                        </li>
+                        <li>
+                            <span class="term">Tablet Computer</span>
+                            <p>الحاسب اللوحي: جهاز محمول يعمل باللمس، مناسب للتصفح والوسائط</p>
+                            <img src="https://www.example.com/images/tablet.jpg" alt="Tablet Computer" class="component-image">
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="tech-term">
+                    <span class="en">Performance Factors</span>
+                    <p>عوامل الأداء: العناصر التي تؤثر على سرعة وكفاءة الحاسب</p>
+                </div>
+
+                <div class="explanation-box">
+                    <div class="explanation-title">عوامل الأداء الرئيسية</div>
+                    <ul>
+                        <li>
+                            <span class="term">Processor Speed</span>
+                            <p>سرعة المعالج: سرعة تنفيذ العمليات الحسابية والمنطقية</p>
+                            <img src="https://www.example.com/images/processor.jpg" alt="Processor" class="component-image">
+                        </li>
+                        <li>
+                            <span class="term">Memory Size</span>
+                            <p>حجم الذاكرة: مساحة التخزين المؤقت للبيانات قيد المعالجة</p>
+                        </li>
+                        <li>
+                            <span class="term">Storage Capacity</span>
+                            <p>سعة التخزين: المساحة المتاحة لتخزين البيانات بشكل دائم</p>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="image-section">
+                    <img src="https://www.example.com/images/performance-comparison.jpg" alt="مقارنة الأداء" class="lesson-image">
+                    <div class="image-caption">مقارنة بين عوامل الأداء المختلفة</div>
+                </div>
+
+                <div class="quiz-section">
+                    <h3>اختبر معلوماتك</h3>
+                    <div class="quiz-question">
+                        <p>كلما زادت سرعة المعالج، قل أداء الحاسب</p>
+                        <button class="answer-button" onclick="checkAnswer(this, false)">صح</button>
+                        <button class="answer-button" onclick="checkAnswer(this, true)">خطأ</button>
+                        <div class="feedback"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- الدرس السادس -->
+        <div id="lesson6" class="section">
+            <h2 class="section-title">الدرس السادس: نظام Windows</h2>
+            <div class="content">
+                <div class="tech-term">
+                    <span class="en">Windows Operating System</span>
+                    <p>نظام تشغيل Windows: نظام تشغيل رسومي يستخدم النوافذ لعرض البرامج والملفات</p>
+                </div>
+
+                <div class="image-section">
+                    <img src="https://www.example.com/images/windows-desktop.jpg" alt="سطح مكتب Windows" class="lesson-image">
+                    <div class="image-caption">سطح مكتب Windows مع المكونات الرئيسية</div>
+                </div>
+
+                <div class="explanation-box">
+                    <div class="explanation-title">مكونات سطح المكتب</div>
+                    <ul>
+                        <li>
+                            <span class="term">Start Menu</span>
+                            <p>قائمة ابدأ: قائمة تحتوي على جميع البرامج والإعدادات</p>
+                            <img src="https://www.example.com/images/start-menu.jpg" alt="Start Menu" class="component-image">
+                        </li>
+                        <li>
+                            <span class="term">Taskbar</span>
+                            <p>شريط المهام: شريط يعرض البرامج المفتوحة والمثبتة</p>
+                            <img src="https://www.example.com/images/taskbar.jpg" alt="Taskbar" class="component-image">
+                        </li>
+                        <li>
+                            <span class="term">Desktop</span>
+                            <p>سطح المكتب: المساحة الرئيسية لعرض الأيقونات والملفات</p>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="tech-term">
+                    <span class="en">Window Management</span>
+                    <p>إدارة النوافذ: التحكم في عرض وتنظيم النوافذ على سطح المكتب</p>
+                </div>
+
+                <div class="explanation-box">
+                    <div class="explanation-title">عمليات النوافذ</div>
+                    <ul>
+                        <li>
+                            <span class="term">Window Controls</span>
+                            <p>أزرار التحكم: أزرار التصغير والتكبير والإغلاق</p>
+                            <img src="https://www.example.com/images/window-controls.jpg" alt="Window Controls" class="component-image">
+                        </li>
+                        <li>
+                            <span class="term">Window Arrangement</span>
+                            <p>ترتيب النوافذ: تنظيم النوافذ بجانب بعضها أو تداخلها</p>
+                            <img src="https://www.example.com/images/window-arrangement.jpg" alt="Window Arrangement" class="component-image">
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="quiz-section">
+                    <h3>اختبر معلوماتك</h3>
+                    <div class="quiz-question">
+                        <p>يمكن فتح قائمة ابدأ بالضغط على زر Windows في لوحة المفاتيح</p>
+                        <button class="answer-button" onclick="checkAnswer(this, true)">صح</button>
+                        <button class="answer-button" onclick="checkAnswer(this, false)">خطأ</button>
+                        <div class="feedback"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- الدرس السابع -->
+        <div id="lesson7" class="section">
+            <h2 class="section-title">الدرس السابع: البرامج المكتبية</h2>
+            <div class="content">
+                <div class="tech-term">
+                    <span class="en">Microsoft Office Suite</span>
+                    <p>حزمة مايكروسوفت أوفيس: مجموعة من البرامج المكتبية لمعالجة النصوص والبيانات والعروض</p>
+                </div>
+
+                <div class="explanation-box">
+                    <div class="explanation-title">البرامج الرئيسية</div>
+                    <ul>
+                        <li>
+                            <span class="term">Microsoft Word</span>
+                            <p>معالج النصوص: برنامج لإنشاء وتحرير المستندات النصية</p>
+                            <img src="https://logos-world.net/wp-content/uploads/2020/03/Microsoft-Word-Symbol.png" alt="Microsoft Word" class="component-image">
+                        </li>
+                        <li>
+                            <span class="term">Microsoft Excel</span>
+                            <p>الجداول الحسابية: برنامج لمعالجة البيانات والحسابات</p>
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Microsoft_Office_Excel_(2019%E2%80%93present).svg/1200px-Microsoft_Office_Excel_(2019%E2%80%93present).svg.png" alt="Microsoft Excel" class="component-image">
+                        </li>
+                        <li>
+                            <span class="term">Microsoft PowerPoint</span>
+                            <p>العروض التقديمية: برنامج لإنشاء العروض التقديمية</p>
+                            <img src="https://static.vecteezy.com/system/resources/thumbnails/017/396/831/small_2x/microsoft-power-point-mobile-apps-logo-free-png.png" alt="Microsoft PowerPoint" class="component-image">
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="tech-term">
+                    <span class="en">Basic Office Skills</span>
+                    <p>المهارات الأساسية: المهارات اللازمة لاستخدام برامج الأوفيس</p>
+                </div>
+
+                <div class="explanation-box">
+                    <div class="explanation-title">المهارات الأساسية</div>
+                    <ul>
+                        <li>
+                            <span class="term">Text Formatting</span>
+                            <p>تنسيق النصوص: تغيير حجم ونوع ولون الخط</p>
+                            <img src="https://www.visme.co/wp-content/uploads/2023/06/ai-make-4.jpg" alt="Text Formatting" class="component-image">
+                        </li>
+                        <li>
+                            <span class="term">Table Creation</span>
+                            <p>إنشاء الجداول: تنظيم البيانات في صفوف وأعمدة</p>
+                            <img src="https://blog.devart.com/wp-content/uploads/2022/02/create-table-example.png" alt="Table Creation" class="component-image">
+                        </li>
+                        <li>
+                            <span class="term">Media Insertion</span>
+                            <p>إدراج الوسائط: إضافة الصور والرسوم والفيديو</p>
+                            <img src="https://mediaplanhq.zendesk.com/hc/en-us/article_attachments/207892843/mphq_5_3_feature_3_c.png" alt="Media Insertion" class="component-image">
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="image-section">
+                    <img src="https://i0.wp.com/officearab.com/wp-content/uploads/2016/08/%D9%88%D8%A7%D8%AC%D9%87.png?resize=620%2C273" alt="واجهة الأوفيس" class="lesson-image">
+                    <div class="image-caption">واجهة برامج Microsoft Office المختلفة</div>
+                </div>
+
+                <div class="quiz-section">
+                    <h3>اختبر معلوماتك</h3>
+                    <div class="quiz-question">
+                        <p>يستخدم برنامج Excel لكتابة النصوص والمقالات</p>
+                        <button class="answer-button" onclick="checkAnswer(this, false)">صح</button>
+                        <button class="answer-button" onclick="checkAnswer(this, true)">خطأ</button>
+                        <div class="feedback"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- الدرس الثامن -->
+        <div id="lesson8" class="section">
+            <h2 class="section-title">الدرس الثامن: الإنترنت والبريد الإلكتروني</h2>
+            <div class="content">
+                <div class="tech-term">
+                    <span class="en">Internet Browsing</span>
+                    <p>تصفح الإنترنت: استعراض مواقع الويب والوصول إلى المعلومات عبر الإنترنت</p>
+                </div>
+
+                <div class="image-section">
+                    <img src="https://i.pinimg.com/originals/2e/e7/be/2ee7bed42bcc5f21064d5f4bc5a0f9c1.png" alt="متصفحات الويب" class="lesson-image">
+                    <div class="image-caption">متصفحات الويب الشهيرة</div>
+                </div>
+
+                <div class="explanation-box">
+                    <div class="explanation-title">أدوات التصفح</div>
+                    <ul>
+                        <li>
+                            <span class="term">Search Engines</span>
+                            <p>محركات البحث: أدوات للبحث عن المعلومات على الإنترنت</p>
+                            <img src="https://aofirs.org/media/k2/items/cache/f79f601d559fde97873c162551e90668_L.jpg" alt="Search Engines" class="component-image">
+                        </li>
+                        <li>
+                            <span class="term">Bookmarks</span>
+                            <p>المواقع المفضلة: حفظ عناوين المواقع المهمة للرجوع إليها لاحقاً</p>
+                            <img src="https://www.example.com/images/bookmarks.jpg" alt="Bookmarks" class="component-image">
+                        </li>
+                        <li>
+                            <span class="term">File Download</span>
+                            <p>تحميل الملفات: حفظ الملفات من الإنترنت على جهازك</p>
+                            <img src="https://www.example.com/images/download.jpg" alt="File Download" class="component-image">
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="tech-term">
+                    <span class="en">Email (Electronic Mail)</span>
+                    <p>البريد الإلكتروني: نظام لتبادل الرسائل الرقمية عبر الإنترنت</p>
+                </div>
+
+                <div class="explanation-box">
+                    <div class="explanation-title">مكونات البريد الإلكتروني</div>
+                    <ul>
+                        <li>
+                            <span class="term">Email Account</span>
+                            <p>حساب البريد: حساب شخصي لإرسال واستقبال البريد الإلكتروني</p>
+                            <img src="https://thafd.bing.com/th/id/OIP.oxW57v72M9E3ecIc07rJYQHaEK?rs=1&pid=ImgDetMain" alt="Email Account" class="component-image">
+                        </li>
+                        <li>
+                            <span class="term">Email Composition</span>
+                            <p>إنشاء الرسائل: كتابة وتنسيق رسائل البريد الإلكتروني</p>
+                            <img src="https://cdn.livechatinc.com/cms/learn/business-email-writing/how-to-structure-an-email.png" alt="Email Composition" class="component-image">
+                        </li>
+                        <li>
+                            <span class="term">File Attachments</span>
+                            <p>المرفقات: إضافة ملفات إلى رسائل البريد الإلكتروني</p>
+                            <img src="https://blogcdn.gmass.co/blog/wp-content/uploads/2022/04/Attach-file-button-1024x951.png" alt="File Attachments" class="component-image">
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="image-section">
+                    <img src="https://slideplayer.ae/slide/17211142/99/images/5/%D8%AA%D9%88%D8%B6%D9%8A%D8%AD+%D9%88%D8%A7%D8%AC%D9%87%D8%A9+%D8%A7%D9%84%D8%A8%D8%B1%D9%8A%D8%AF+%D8%A7%D9%84%D8%A7%D9%84%D9%83%D8%AA%D8%B1%D9%88%D9%86%D9%8A+%D9%85%D9%86+%D8%A7%D9%84%D8%AF%D8%A7%D8%AE%D9%84+:.jpg" alt="واجهة البريد الإلكتروني" class="lesson-image">
+                    <div class="image-caption">واجهة برنامج البريد الإلكتروني</div>
+                </div>
+
+                <div class="quiz-section">
+                    <h3>اختبر معلوماتك</h3>
+                    <div class="quiz-question">
+                        <p>يمكن إرسال بريد إلكتروني بدون اتصال بالإنترنت</p>
+                        <button class="answer-button" onclick="checkAnswer(this, false)">صح</button>
+                        <button class="answer-button" onclick="checkAnswer(this, true)">خطأ</button>
+                        <div class="feedback"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- الدرس التاسع -->
+        <div id="lesson9" class="section">
+            <h2 class="section-title">الدرس التاسع: أمن المعلومات</h2>
+            <div class="content">
+                <div class="tech-term">
+                    <span class="en">Information Security</span>
+                    <p>أمن المعلومات: حماية البيانات والأنظمة من التهديدات المختلفة</p>
+                </div>
+
+                <div class="image-section">
+                    <img src="https://static.vecteezy.com/system/resources/previews/004/747/560/non_2x/cyber-security-information-protect-and-or-safe-concept-abstract-3d-sphere-or-globe-with-surface-of-hexagons-with-icons-in-wireframe-hands-illustrates-cyber-data-security-idea-illustration-vector.jpg" alt="الأمن السيبراني" class="lesson-image">
+                    <div class="image-caption">مفهوم الأمن السيبراني وحماية المعلومات</div>
+                </div>
+
+                <div class="explanation-box">
+                    <div class="explanation-title">التهديدات الأمنية</div>
+                    <ul>
+                        <li>
+                            <span class="term">Malware</span>
+                            <p>البرامج الضارة: برامج مصممة لإلحاق الضرر بالحاسب والبيانات</p>
+                            <img src="https://www.ikusi.com/mx/wp-content/uploads/sites/2/2022/12/ikusi_ikusi_image_873-e1671548333730.jpg" alt="Malware" class="component-image">
+                        </li>
+                        <li>
+                            <span class="term">Phishing</span>
+                            <p>التصيد: محاولة الحصول على معلومات سرية بطرق احتيالية</p>
+                            <img src="https://www.primeaceslimousine.sg/wp-content/uploads/2021/05/PHISHING_FEATURE-IMAGE-1920-X-1280-1.jpeg" alt="Phishing" class="component-image">
+                        </li>
+                        <li>
+                            <span class="term">Data Theft</span>
+                            <p>سرقة البيانات: الوصول غير المصرح به للمعلومات الشخصية</p>
+                            <img src="https://help4it.co.uk/wp-content/uploads/2021/08/Data-Theft.jpg" alt="Data Theft" class="component-image">
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="tech-term">
+                    <span class="en">Protection Methods</span>
+                    <p>طرق الحماية: الأساليب والأدوات المستخدمة لحماية البيانات والأنظمة</p>
+                </div>
+
+                <div class="explanation-box">
+                    <div class="explanation-title">وسائل الحماية</div>
+                    <ul>
+                        <li>
+                            <span class="term">Antivirus Software</span>
+                            <p>برامج مكافحة الفيروسات: برامج تحمي من البرمجيات الضارة</p>
+                            <img src="https://antivirussoftware-82.webself.net/file/si1287556/antivirus%20sotware-fi20739605.jpg" alt="Antivirus" class="component-image">
+                        </li>
+                        <li>
+                            <span class="term">Strong Passwords</span>
+                            <p>كلمات المرور القوية: استخدام كلمات مرور معقدة وفريدة</p>
+                            <img src="https://blog.bankera.com/uploads/How_to_Choose_a_Strong_Password_BLOG_545bdd0b50.png" alt="Strong Passwords" class="component-image">
+                        </li>
+                        <li>
+                            <span class="term">Data Backup</span>
+                            <p>النسخ الاحتياطي: حفظ نسخ إضافية من البيانات المهمة</p>
+                            <img src="https://financesonline.com/uploads/2023/09/shutterstock_2143046891-scaled.jpg" alt="Data Backup" class="component-image">
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="image-section">
+                    <img src="https://cyberno.ir/storage/post_images/4_13.jpg" alt="طبقات الحماية" class="lesson-image">
+                    <div class="image-caption">طبقات الحماية المختلفة لأمن المعلومات</div>
+                </div>
+
+                <div class="quiz-section">
+                    <h3>اختبر معلوماتك</h3>
+                    <div class="quiz-question">
+                        <p>يجب مشاركة كلمة المرور مع الآخرين لحمايتها</p>
+                        <button class="answer-button" onclick="checkAnswer(this, false)">صح</button>
+                        <button class="answer-button" onclick="checkAnswer(this, true)">خطأ</button>
+                        <div class="feedback"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <div class="bg-shapes">
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+
+    <nav class="toc">
+        <h2>الفهرس</h2>
+        <a href="#intro" class="active">المقدمة</a>
+        <a href="#lesson1">الدرس الأول: أساسيات تكنولوجيا المعلومات</a>
+        <a href="#lesson2">الدرس الثاني: مكونات الكمبيوتر</a>
+        <a href="#lesson3">الدرس الثالث: وحدات قياس السعة التخزينية والبرمجيات</a>
+        <a href="#lesson4">الدرس الرابع: الشبكات والإنترنت</a>
+        <a href="#lesson5">الدرس الخامس: أنواع الحواسيب وعوامل الأداء</a>
+        <a href="#lesson6">الدرس السادس: أساسيات نظام Windows</a>
+    </nav>
+
+    <main class="main-content">
+        <div class="lesson" id="intro">
+            <h2>مقدمة في الحاسب الآلي</h2>
+            <p>مرحباً بكم في دورة ICDL الشاملة. سنتعرف معاً على أساسيات الحاسب الآلي وتكنولوجيا المعلومات.</p>
+            <div class="tech-term">
+                <span class="en">Information and Communication Technology (ICT)</span>
+                <p>تكنولوجيا المعلومات والاتصالات: مجموعة التقنيات المستخدمة في معالجة وتخزين ونقل المعلومات.</p>
+            </div>
+            <div class="image-section">
+                <div class="image-container">
+                    <img src="https://tech3arabi.com/wp-content/uploads/2020/12/%D9%85%D8%A7-%D9%87%D9%88-%D8%AA%D8%AE%D8%B5%D8%B5-%D8%AA%D9%83%D9%86%D9%88%D9%84%D9%88%D8%AC%D9%8A%D8%A7-%D8%A7%D9%84%D9%85%D8%B9%D9%84%D9%88%D9%85%D8%A7%D8%AA-%D9%88%D9%85%D8%A7-%D9%87%D9%8A-%D9%85%D8%AC%D8%A7%D9%84%D8%A7%D8%AA%D9%87%D8%9F%D8%A7%D9%84%D9%8A%D9%83-%D8%A7%D9%84%D8%AA%D9%81%D8%A7%D8%B5%D9%8A%D9%84-It.jpg" alt="نظرة عامة على تكنولوجيا المعلومات">
+                    <div class="image-caption">مجالات تكنولوجيا المعلومات والاتصالات</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="lesson" id="lesson1">
+            <h2>الدرس الأول: أساسيات تكنولوجيا المعلومات</h2>
+            
+            <div class="section">
+                <h3>مقدمة</h3>
+                <p>مرحباً بكم في الدرس الأول من كورس ICDL. في هذا الدرس سنتعرف على المفاهيم الأساسية لتكنولوجيا المعلومات والاتصالات وأساسيات الكمبيوتر.</p>
+            </div>
+
+            <div class="section">
+                <h3>تكنولوجيا المعلومات والاتصالات (ICT)</h3>
+                <div class="tech-term">
+                    <span class="en">ICT (Information and Communication Technology)</span>
+                    <p>هي عبارة عن كافة التقنيات التكنولوجية الحديثة التي تستخدم في:</p>
+                    <ul>
+                        <li>جمع البيانات</li>
+                        <li>معالجة البيانات</li>
+                        <li>نقل وتخزين البيانات</li>
+                        <li>تقديم الخدمات والتطبيقات المرتبطة</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="section">
+                <h3>الكمبيوتر</h3>
+                <div class="tech-term">
+                    <span class="en">Computer</span>
+                    <p>جهاز إلكتروني رقمي يقوم بـ:</p>
+                    <ul>
+                        <li>استقبال البيانات</li>
+                        <li>معالجة البيانات</li>
+                        <li>تخزين البيانات</li>
+                        <li>إظهار النتائج للمستخدم بالصورة المناسبة</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="quiz-section">
+                <h3>اختبر معلوماتك</h3>
+                
+                <div class="quiz-question">
+                    <p>تكنولوجيا المعلومات تشمل فقط أجهزة الكمبيوتر والبرمجيات</p>
+                    <button class="answer-button" onclick="checkAnswer(this, false)">صح</button>
+                    <button class="answer-button" onclick="checkAnswer(this, true)">خطأ</button>
+                    <div class="feedback"></div>
+                </div>
+
+                <div class="quiz-question">
+                    <p>البيانات هي المعلومات التي تمت معالجتها وتنظيمها لتصبح ذات معنى</p>
+                    <button class="answer-button" onclick="checkAnswer(this, false)">صح</button>
+                    <button class="answer-button" onclick="checkAnswer(this, true)">خطأ</button>
+                    <div class="feedback"></div>
+                </div>
+
+                <div class="quiz-question">
+                    <p>يمكن تخزين البيانات في الكمبيوتر بشكل دائم في ذاكرة RAM</p>
+                    <button class="answer-button" onclick="checkAnswer(this, false)">صح</button>
+                    <button class="answer-button" onclick="checkAnswer(this, true)">خطأ</button>
+                    <div class="feedback"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="lesson" id="lesson2">
+            <h2>الدرس الثاني: مكونات الكمبيوتر</h2>
+            
+            <div class="section">
+                <h3>مكونات الكمبيوتر الأساسية</h3>
+                <p>يتكون جهاز الكمبيوتر من قسمين أساسيين:</p>
+                <div class="tech-term">
+                    <span class="en">Hardware</span>
+                    <p>المكونات المادية: الأجزاء الملموسة من الكمبيوتر</p>
+                </div>
+                <div class="tech-term">
+                    <span class="en">Software</span>
+                    <p>البرمجيات: البرامج وأنظمة التشغيل</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h3>المكونات المادية (Hardware)</h3>
+                <p>تنقسم المكونات المادية إلى أربعة أقسام رئيسية:</p>
+                <div class="tech-term">
+                    <span class="en">Input Devices</span>
+                    <p>وحدات الإدخال: مثل لوحة المفاتيح، الفأرة، المايكروفون، والكاميرا</p>
+                </div>
+                <div class="tech-term">
+                    <span class="en">Output Devices</span>
+                    <p>وحدات الإخراج: مثل الشاشة، السماعات، والطابعة</p>
+                </div>
+                <div class="tech-term">
+                    <span class="en">CPU (Central Processing Unit)</span>
+                    <p>المعالج المركزي: وحدة معالجة البيانات وتنفيذ العمليات الحسابية</p>
+                </div>
+                <div class="image-section">
+                    <div class="image-container">
+                        <img src="../images/computer-parts.jpg" alt="مكونات الحاسوب">
+                        <div class="image-caption">المكونات الرئيسية للحاسوب</div>
+                    </div>
+                </div>
+                <div class="tech-term">
+                    <span class="en">Storage Devices</span>
+                    <p>وحدات التخزين: مثل القرص الصلب، الذاكرة RAM، والأقراص الخارجية</p>
+                </div>
+            </div>
+
+            <div class="quiz-section">
+                <h3>اختبر معلوماتك</h3>
+                
+                <div class="quiz-question">
+                    <p>المعالج (CPU) هو المسؤول عن تخزين البيانات بشكل دائم</p>
+                    <button class="answer-button" onclick="checkAnswer(this, false)">صح</button>
+                    <button class="answer-button" onclick="checkAnswer(this, true)">خطأ</button>
+                    <div class="feedback"></div>
+                </div>
+
+                <div class="quiz-question">
+                    <p>ذاكرة RAM تحتفظ بالبيانات بعد إغلاق الجهاز</p>
+                    <button class="answer-button" onclick="checkAnswer(this, false)">صح</button>
+                    <button class="answer-button" onclick="checkAnswer(this, true)">خطأ</button>
+                    <div class="feedback"></div>
+                </div>
+
+                <div class="quiz-question">
+                    <p>القرص الصلب (Hard Disk) يستخدم للتخزين الدائم للبيانات</p>
+                    <button class="answer-button" onclick="checkAnswer(this, true)">صح</button>
+                    <button class="answer-button" onclick="checkAnswer(this, false)">خطأ</button>
+                    <div class="feedback"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="lesson" id="lesson3">
+            <h2>الدرس الثالث: وحدات قياس السعة التخزينية والبرمجيات</h2>
+            
+            <div class="section">
+                <h3>وحدات قياس السعة التخزينية</h3>
+                <div class="tech-term">
+                    <span class="en">Bit (Binary Digit)</span>
+                    <p>البت: أصغر وحدة تخزين، يمثل إما 0 أو 1</p>
+                </div>
+                <div class="tech-term">
+                    <span class="en">Byte</span>
+                    <p>البايت: يساوي 8 بت، يمثل حرف أو رمز</p>
+                </div>
+                <div class="tech-term">
+                    <span class="en">Storage Units</span>
+                    <p>وحدات التخزين الأكبر:</p>
+                    <ul>
+                        <li>KB (Kilobyte) = 1024 بايت</li>
+                        <li>MB (Megabyte) = 1024 كيلوبايت</li>
+                        <li>GB (Gigabyte) = 1024 ميجابايت</li>
+                        <li>TB (Terabyte) = 1024 جيجابايت</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="section">
+                <h3>البرمجيات (Software)</h3>
+                <div class="tech-term">
+                    <span class="en">System Software</span>
+                    <p>برمجيات النظام:</p>
+                <div class="image-section">
+                    <div class="image-container">
+                        <img src="https://www.brooonzyah.net/wp-content/uploads/2022/11/%D8%A3%D9%86%D9%88%D8%A7%D8%B9-%D8%A3%D9%86%D8%B8%D9%85%D8%A9-%D8%A7%D9%84%D8%AA%D8%B4%D8%BA%D9%8A%D9%84.jpg" alt="أنظمة التشغيل">
+                        <div class="image-caption">أنظمة التشغيل المختلفة</div>
+                    </div>
+                </div>
+                    <ul>
+                        <li>نظام Windows: أشهر نظام تشغيل للحواسيب الشخصية</li>
+                        <li>نظام macOS: نظام تشغيل خاص بحواسيب Apple</li>
+                        <li>نظام Linux: نظام تشغيل مفتوح المصدر</li>
+                        <li>برامج الحماية ومضادات الفيروسات</li>
+                    </ul>
+                </div>
+                <div class="tech-term">
+                    <span class="en">Application Software</span>
+                    <p>برمجيات التطبيقات:</p>
+                    <ul>
+                        <li>برامج المكتب (Office): Word، Excel، PowerPoint</li>
+                        <li>المتصفحات: Chrome، Firefox، Edge</li>
+                        <li>برامج التصميم: Photoshop، Illustrator</li>
+                        <li>برامج المحادثة: WhatsApp، Zoom، Teams</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="quiz-section">
+                <h3>اختبر معلوماتك</h3>
+                
+                <div class="quiz-question">
+                    <p>الجيجابايت أكبر من التيرابايت</p>
+                    <button class="answer-button" onclick="checkAnswer(this, false)">صح</button>
+                    <button class="answer-button" onclick="checkAnswer(this, true)">خطأ</button>
+                    <div class="feedback"></div>
+                </div>
+
+                <div class="quiz-question">
+                    <p>البايت يساوي 8 بت</p>
+                    <button class="answer-button" onclick="checkAnswer(this, true)">صح</button>
+                    <button class="answer-button" onclick="checkAnswer(this, false)">خطأ</button>
+                    <div class="feedback"></div>
+                </div>
+
+                <div class="quiz-question">
+                    <p>نظام التشغيل Windows يعتبر من برمجيات التطبيقات</p>
+                    <button class="answer-button" onclick="checkAnswer(this, false)">صح</button>
+                    <button class="answer-button" onclick="checkAnswer(this, true)">خطأ</button>
+                    <div class="feedback"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="lesson" id="lesson4">
+            <h2>الدرس الرابع: الشبكات والإنترنت</h2>
+            
+            <div class="section">
+                <h3>أنواع الشبكات</h3>
+                <div class="tech-term">
+                    <span class="en">LAN (Local Area Network)</span>
+                    <p>الشبكة المحلية: شبكة حاسوب صغيرة داخل مبنى أو مؤسسة</p>
+                </div>
+                <div class="tech-term">
+                    <span class="en">Local Area Network (LAN)</span>
+                    <p>الشبكة المحلية: شبكة تربط الحواسيب في منطقة جغرافية صغيرة</p>
+                </div>
+                <div class="image-section">
+                    <div class="image-container">
+                        <img src="https://i.pinimg.com/originals/0b/f7/08/0bf7081860a53f460767d0a0055b40da.jpg" alt="أنواع الشبكات">
+                        <div class="image-caption">أنواع الشبكات والفرق بينها</div>
+                    </div>
+                </div>
+                <div class="tech-term">
+                    <span class="en">WAN (Wide Area Network)</span>
+                    <p>الشبكة الواسعة: شبكة تغطي منطقة جغرافية واسعة</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h3>الإنترنت وخدماتها</h3>
+                <div class="tech-term">
+                    <span class="en">Internet</span>
+                    <p>شبكة عالمية تربط ملايين الحواسيب والشبكات حول العالم</p>
+                </div>
+                <div class="tech-term">
+                    <span class="en">Internet Services</span>
+                    <p>خدمات الإنترنت:</p>
+                    <ul>
+                        <li>البريد الإلكتروني (Email)</li>
+                        <li>تصفح المواقع (Web Browsing)</li>
+                        <li>المحادثة الفورية (Instant Messaging)</li>
+                        <li>مؤتمرات الفيديو (Video Conferencing)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="quiz-section">
+                <h3>اختبر معلوماتك</h3>
+                
+                <div class="quiz-question">
+                    <p>الإنترنت هي شبكة محلية داخل مؤسسة واحدة</p>
+                    <button class="answer-button" onclick="checkAnswer(this, false)">صح</button>
+                    <button class="answer-button" onclick="checkAnswer(this, true)">خطأ</button>
+                    <div class="feedback"></div>
+                </div>
+
+                <div class="quiz-question">
+                    <p>الشبكة المحلية (LAN) تغطي منطقة جغرافية واسعة</p>
+                    <button class="answer-button" onclick="checkAnswer(this, false)">صح</button>
+                    <button class="answer-button" onclick="checkAnswer(this, true)">خطأ</button>
+                    <div class="feedback"></div>
+                </div>
+
+                <div class="quiz-question">
+                    <p>البريد الإلكتروني من خدمات الإنترنت</p>
+                    <button class="answer-button" onclick="checkAnswer(this, true)">صح</button>
+                    <button class="answer-button" onclick="checkAnswer(this, false)">خطأ</button>
+                    <div class="feedback"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="lesson" id="lesson5">
+            <h2>الدرس الخامس: أنواع الحواسيب وعوامل الأداء</h2>
+            
+            <div class="section">
+                <h3>أنواع الحواسيب</h3>
+                <div class="tech-term">
+                    <span class="en">Desktop Computer</span>
+                    <p>الحاسوب المكتبي: حاسوب ثابت يوضع على المكتب</p>
+                </div>
+                <div class="image-section">
+                    <div class="image-container">
+                        <img src="https://th.bing.com/th/id/R.6755ce832b7ba67cb94023ef887c9e47?rik=MGpcNW7BB21G7A&pid=ImgRaw&r=0" alt="أنواع الحواسيب">
+                        <div class="image-caption">مقارنة بين أنواع الحواسيب المختلفة</div>
+                    </div>
+                </div>
+                <div class="tech-term">
+                    <span class="en">Laptop</span>
+                    <p>الحاسوب المحمول: حاسوب متنقل يمكن حمله بسهولة</p>
+                </div>
+                <div class="tech-term">
+                    <span class="en">Tablet</span>
+                    <p>الحاسوب اللوحي: جهاز محمول يعمل باللمس</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h3>عوامل الأداء</h3>
+                <div class="tech-term">
+                    <span class="en">CPU Speed</span>
+                    <p>سرعة المعالج: تقاس بالهرتز (GHz)، كلما زادت زادت سرعة المعالجة</p>
+                </div>
+                <div class="tech-term">
+                    <span class="en">RAM Size</span>
+                    <p>حجم الذاكرة: كلما زاد حجم الذاكرة زادت قدرة الحاسوب على تشغيل برامج أكثر</p>
+                </div>
+                <div class="tech-term">
+                    <span class="en">Hard Disk Size</span>
+                    <p>حجم القرص الصلب: يحدد كمية البيانات التي يمكن تخزينها على الحاسوب</p>
+                </div>
+                <div class="tech-term">
+                    <span class="en">Graphics Card</span>
+                    <p>كرت الشاشة: يتحكم في جودة الرسوميات والألعاب والفيديو</p>
+                </div>
+            </div>
+
+            <div class="quiz-section">
+                <h3>اختبر معلوماتك</h3>
+                
+                <div class="quiz-question">
+                    <p>الحاسوب المكتبي أسهل في الحمل من الحاسوب المحمول</p>
+                    <button class="answer-button" onclick="checkAnswer(this, false)">صح</button>
+                    <button class="answer-button" onclick="checkAnswer(this, true)">خطأ</button>
+                    <div class="feedback"></div>
+                </div>
+
+                <div class="quiz-question">
+                    <p>كلما زادت سرعة المعالج زادت سرعة الحاسوب</p>
+                    <button class="answer-button" onclick="checkAnswer(this, true)">صح</button>
+                    <button class="answer-button" onclick="checkAnswer(this, false)">خطأ</button>
+                    <div class="feedback"></div>
+                </div>
+
+                <div class="quiz-question">
+                    <p>الحاسوب اللوحي يعمل باللمس</p>
+                    <button class="answer-button" onclick="checkAnswer(this, true)">صح</button>
+                    <button class="answer-button" onclick="checkAnswer(this, false)">خطأ</button>
+                    <div class="feedback"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="lesson" id="lesson6">
+            <h2>الدرس السادس: أساسيات نظام Windows</h2>
+            
+            <div class="section">
+                <h3>مكونات سطح المكتب</h3>
+                <div class="tech-term">
+                    <span class="en">Desktop</span>
+                    <p>سطح المكتب: الشاشة الرئيسية التي تظهر بعد تشغيل الحاسوب</p>
+                </div>
+                <div class="image-section">
+                    <div class="image-container">
+                        <img src="https://cdn.mos.cms.futurecdn.net/yJngXMb4UmvHvuU6KuY3Mj-1200-80.jpg" alt="سطح مكتب Windows">
+                        <div class="image-caption">مكونات سطح مكتب Windows الرئيسية</div>
+                    </div>
+                </div>
+                <div class="tech-term">
+                    <span class="en">Start Menu</span>
+                    <p>قائمة ابدأ: تحتوي على البرامج والإعدادات</p>
+                </div>
+                <div class="tech-term">
+                    <span class="en">Taskbar</span>
+                    <p>شريط المهام: يظهر البرامج المفتوحة والساعة</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h3>إدارة النوافذ</h3>
+                <div class="tech-term">
+                    <span class="en">Window Controls</span>
+                    <p>أزرار التحكم بالنافذة:</p>
+                    <ul>
+                        <li>زر التصغير (Minimize)</li>
+                        <li>زر التكبير (Maximize)</li>
+                        <li>زر الإغلاق (Close)</li>
+                    </ul>
+                </div>
+                <div class="tech-term">
+                    <span class="en">File Management</span>
+                    <p>إدارة الملفات: تنظيم الملفات في مجلدات، نسخ، نقل، حذف</p>
+                </div>
+            </div>
+
+            <div class="quiz-section">
+                <h3>اختبر معلوماتك</h3>
+                
+                <div class="quiz-question">
+                    <p>قائمة ابدأ تحتوي على البرامج والإعدادات</p>
+                    <button class="answer-button" onclick="checkAnswer(this, true)">صح</button>
+                    <button class="answer-button" onclick="checkAnswer(this, false)">خطأ</button>
+                    <div class="feedback"></div>
+                </div>
+
+                <div class="quiz-question">
+                    <p>لا يمكن تصغير النوافذ في نظام Windows</p>
+                    <button class="answer-button" onclick="checkAnswer(this, false)">صح</button>
+                    <button class="answer-button" onclick="checkAnswer(this, true)">خطأ</button>
+                    <div class="feedback"></div>
+                </div>
+
+                <div class="quiz-question">
+                    <p>شريط المهام يظهر البرامج المفتوحة</p>
+                    <button class="answer-button" onclick="checkAnswer(this, true)">صح</button>
+                    <button class="answer-button" onclick="checkAnswer(this, false)">خطأ</button>
+                    <div class="feedback"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- قسم كيفية الشرح -->
+        <div class="lesson" id="how-to-teach">
+            <h2>كيفية الشرح والتدريس</h2>
+            
+            <div class="explanation-box">
+                <div class="explanation-title">نصائح عامة للشرح</div>
+                <ul class="explanation-steps">
+                    <li>ابدأ بالمفاهيم الأساسية قبل الانتقال إلى المفاهيم المتقدمة</li>
+                    <li>استخدم الأمثلة العملية والتطبيقات الواقعية</li>
+                    <li>شجع الطلاب على طرح الأسئلة والمشاركة</li>
+                    <li>قم بتقييم الفهم من خلال الاختبارات القصيرة</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h3>طريقة عرض الدروس</h3>
+                <div class="explanation-box">
+                    <div class="explanation-title">خطوات الشرح</div>
+                    <ul class="explanation-steps">
+                        <li>عرض المصطلح التقني بالإنجليزية</li>
+                        <li>شرح المعنى بالعربية بشكل مبسط</li>
+                        <li>عرض الصور التوضيحية المناسبة</li>
+                        <li>إعطاء أمثلة عملية</li>
+                        <li>التأكد من الفهم عبر الأسئلة</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="section">
+                <h3>استخدام الصور التوضيحية</h3>
+                <div class="image-section">
+                    <div class="image-container">
+                        <img src="../images/computer-parts.jpg" alt="مكونات الحاسوب">
+                        <div class="image-caption">مثال: صورة توضيحية لمكونات الحاسوب الأساسية</div>
+                    </div>
+                </div>
+                <div class="explanation-box">
+                    <div class="explanation-title">كيفية استخدام الصور</div>
+                    <ul class="explanation-steps">
+                        <li>اختر صور واضحة وعالية الجودة</li>
+                        <li>أضف تسميات توضيحية للأجزاء المهمة</li>
+                        <li>اشرح العلاقة بين الأجزاء المختلفة</li>
+                        <li>استخدم الألوان للتمييز بين المكونات</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="lesson" id="lesson1">
+            <h2>الدرس الأول: أساسيات تكنولوجيا المعلومات</h2>
+            <div class="tech-term">
+                <span class="en">Information Technology (IT)</span>
+                <p>تكنولوجيا المعلومات: مجموعة من الأدوات والتقنيات المستخدمة في معالجة وتخزين ونقل المعلومات.</p>
+            </div>
+            <img src="../images/computer-basics.jpg" alt="أساسيات الحاسب" class="lesson-image">
+            <div class="quiz-section">
+                <h3>اختبر معلوماتك</h3>
+                <div class="quiz-question">
+                    <p>ما هو تعريف تكنولوجيا المعلومات؟</p>
+                    <label class="quiz-option">
+                        <input type="radio" name="q1" value="1" onclick="checkAnswer('q1', this.value, '1')">
+                        مجموعة من الأدوات والتقنيات لمعالجة المعلومات
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q1" value="2" onclick="checkAnswer('q1', this.value, '1')">
+                        جهاز الحاسب فقط
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="lesson" id="lesson2">
+            <h2>الدرس الثاني: مكونات الحاسب</h2>
+            <div class="tech-term">
+                <span class="en">Hardware</span>
+                <p>العتاد: المكونات المادية للحاسب مثل المعالج والذاكرة ولوحة المفاتيح.</p>
+            </div>
+            <div class="tech-term">
+                <span class="en">Software</span>
+                <p>البرمجيات: البرامج والتطبيقات التي تشغل الحاسب.</p>
+            </div>
+            <img src="../images/computer-components.jpg" alt="مكونات الحاسب" class="lesson-image">
+            <div class="quiz-section">
+                <h3>اختبر معلوماتك</h3>
+                <div class="quiz-question">
+                    <p>أي من التالي يعتبر من العتاد (Hardware)؟</p>
+                    <label class="quiz-option">
+                        <input type="radio" name="q2" value="1" onclick="checkAnswer('q2', this.value, '1')">
+                        المعالج
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q2" value="2" onclick="checkAnswer('q2', this.value, '1')">
+                        نظام التشغيل
+                    </label>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // تحديث الفهرس النشط عند التمرير
+        const sections = document.querySelectorAll('.section');
+        const tocLinks = document.querySelectorAll('.toc a');
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.getAttribute('id');
+                    tocLinks.forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === `#${id}`) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+        }, { threshold: 0.5 });
+
+        sections.forEach(section => observer.observe(section));
+
+        // دالة التحقق من الإجابة
+        function checkAnswer(button, isCorrect) {
+            const questionDiv = button.closest('.quiz-question');
+            const feedback = questionDiv.querySelector('.feedback');
+            const buttons = questionDiv.querySelectorAll('.answer-button');
+
+            // تعطيل الأزرار
+            buttons.forEach(btn => btn.disabled = true);
+
+            // إضافة التأثيرات المرئية
+            button.style.backgroundColor = isCorrect ? '#4ade80' : '#ef4444';
+            button.style.color = 'white';
+
+            // إظهار التغذية الراجعة
+            feedback.textContent = isCorrect ? 'إجابة صحيحة! أحسنت.' : 'إجابة خاطئة. حاول مرة أخرى.';
+            feedback.style.color = isCorrect ? '#4ade80' : '#ef4444';
+
+            // تشغيل الصوت
+            playSound(isCorrect ? 'correct' : 'incorrect');
+        }
+
+        // دالة لتشغيل الأصوات
+        function playSound(type) {
+            const audio = new Audio(`../sounds/${type}.mp3`);
+            audio.play().catch(error => {
+                console.log('Error playing sound:', error);
+            });
+        }
+    </script>
+</body>
+</html>
