@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ICDL Course 2025</title>
+    <style>
+        :root {
+            --primary-color: #2196F3;
+            --secondary-color: #1976D2;
+            --text-color: #333;
+            --bg-color: #f5f5f5;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        #toc {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 300px;
+            height: 100vh;
+            background: white;
+            padding: 20px;
+            box-shadow: -2px 0 5px rgba(0,0,0,0.1);
+            overflow-y: auto;
+            transition: transform 0.3s ease;
+            z-index: 1000;
+        }
+
+        #toc.collapsed {
+            transform: translateX(280px);
+        }
+
+        #toc-toggle {
+            position: fixed;
+            top: 20px;
+            right: 320px;
+            z-index: 1000;
+            padding: 10px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        #toc-toggle.collapsed {
+            right: 20px;
+        }
+
+        .main-content {
+            margin-right: 320px;
+            padding: 20px;
+            transition: margin 0.3s ease;
+        }
+
+        .main-content.expanded {
+            margin-right: 40px;
+        }
+
+        .lesson {
+            background: white;
+            padding: 30px;
+            margin-bottom: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        h1, h2, h3 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        .toc-link {
+            display: block;
+            padding: 8px 0;
+            color: var(--text-color);
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 14px;
+        }
+
+        .toc-link:hover {
+            color: var(--primary-color);
+        }
+
+        .lesson-content {
+            margin-top: 20px;
+        }
+
+        .lesson-image {
+            max-width: 100%;
+            height: auto;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        ul {
+            padding-right: 20px;
+            margin-bottom: 15px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        .highlight-box {
+            background: #e3f2fd;
+            padding: 15px;
+            border-right: 4px solid var(--primary-color);
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .image-container {
+            margin: 20px 0;
+        }
+
+        .image-container img {
+            width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+
+        .image-caption {
+            font-size: 14px;
+            color: #666;
+            margin-top: 10px;
+        }
+
+        @media (max-width: 768px) {
+            #toc {
+                width: 100%;
+                transform: translateX(100%);
+            }
+            
+            #toc.collapsed {
+                transform: translateX(0);
+            }
+            
+            .main-content {
+                margin-right: 0;
+            }
+            
+            #toc-toggle {
+                right: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button id="toc-toggle">☰ القائمة</button>
+    
+    <nav id="toc">
+        <h2>فهرس المحتويات</h2>
+        <a href="#intro" class="toc-link">▪ المقدمة - Introduction</a>
+        <a href="#course-overview" class="toc-link">▪ نظرة عامة على الدورة - Course Overview</a>
+        <a href="#lesson1" class="toc-link">▪ الدرس الأول: أساسيات الحاسب الآلي - مفاهيم نظرية 1</a>
+        <a href="#lesson2" class="toc-link">▪ الدرس الثاني: أساسيات الحاسب الآلي - مفاهيم نظرية 2</a>
+    </nav>
+
+    <div class="main-content">
+        <div class="lesson" id="intro">
+            <h1>ICDL | مقدمة عن الدورة</h1>
+            <div class="lesson-content">
+                <h3>Introduction to ICDL Course 2025</h3>
+                <div class="highlight-box">
+                    <p>
+                        الرخصة الدولية لقيادة الحاسب الآلي (ICDL) هي شهادة معترف بها دولياً وأصبحت من أهم الشهادات المطلوبة في سوق العمل.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="lesson" id="course-overview">
+            <h2>Course Overview | نظرة عامة على الدورة</h2>
+            <div class="lesson-content">
+                <h3>المحاور السبعة للدورة | Seven Core Modules</h3>
+                <ul>
+                    <li>Computer Essentials | أساسيات الحاسب والإنترنت</li>
+                    <li>Word Processing (Microsoft Word) | معالجة النصوص</li>
+                    <li>Spreadsheets (Microsoft Excel) | جداول البيانات</li>
+                    <li>Database (Microsoft Access) | قواعد البيانات</li>
+                    <li>Presentation (Microsoft PowerPoint) | العروض التقديمية</li>
+                    <li>Online Essentials | الإنترنت والبريد الإلكتروني</li>
+                    <li>IT Security | أمن تكنولوجيا المعلومات</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="lesson" id="lesson1">
+            <h2>Computer Basics - Part 1 | أساسيات الحاسب الآلي - مفاهيم نظرية 1</h2>
+            <div class="lesson-content">
+                <div class="highlight-box">
+                    <h3>المفاهيم الأساسية | Basic Concepts</h3>
+                    <ul>
+                        <li>Hardware Components | مكونات الحاسب الأساسية</li>
+                        <li>Input/Output Devices | وحدات الإدخال والإخراج</li>
+                        <li>Software Types | أنواع البرمجيات</li>
+                        <li>Operating Systems | أنظمة التشغيل</li>
+                        <li>Licenses & Copyright | التراخيص وحقوق الملكية</li>
+                    </ul>
+                </div>
+                
+                <h3>تفاصيل المكونات الأساسية | Hardware Details</h3>
+                <ul>
+                    <li>وحدة المعالجة المركزية (CPU)</li>
+                    <li>الذاكرة العشوائية (RAM)</li>
+                    <li>وحدات التخزين (Storage Units)</li>
+                    <li>اللوحة الأم (Motherboard)</li>
+                </ul>
+                
+                <div class="image-container">
+                    <img src="https://www.computerhope.com/cdn/computer-components.jpg" alt="مكونات الحاسوب الأساسية">
+                    <p class="image-caption">المكونات الأساسية للحاسوب: المعالج، الذاكرة، وحدات التخزين</p>
+                </div>
+                <div class="image-container">
+                    <img src="https://www.computerhope.com/cdn/peripherals.jpg" alt="وحدات الإدخال والإخراج">
+                    <p class="image-caption">أجهزة الإدخال والإخراج: لوحة المفاتيح، الفأرة، الشاشة، الطابعة</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="lesson" id="lesson2">
+            <h2>Computer Basics - Part 2 | أساسيات الحاسب الآلي - مفاهيم نظرية 2</h2>
+            <div class="lesson-content">
+                <div class="highlight-box">
+                    <h3>المفاهيم المتقدمة | Advanced Concepts</h3>
+                    <ul>
+                        <li>Networks & Types | الشبكات وأنواعها</li>
+                        <li>Internet & Intranet | الإنترنت والإنترانت</li>
+                        <li>Data Transfer Speeds | سرعات نقل البيانات</li>
+                        <li>Security & Protection | الأمن والحماية</li>
+                        <li>Malware & Protection Methods | البرمجيات الخبيثة وطرق الحماية</li>
+                    </ul>
+                </div>
+
+                <h3>أنواع الشبكات | Network Types</h3>
+                <ul>
+                    <li>Local Area Network (LAN) | الشبكة المحلية</li>
+                    <li>Wide Area Network (WAN) | الشبكة الواسعة</li>
+                    <li>Internet Connectivity | طرق الاتصال بالإنترنت</li>
+                </ul>
+                
+                <div class="image-container">
+                    <img src="https://www.computerhope.com/cdn/network-types.jpg" alt="أنواع الشبكات">
+                    <p class="image-caption">مقارنة بين الشبكة المحلية LAN والشبكة الواسعة WAN</p>
+                </div>
+                <div class="image-container">
+                    <img src="https://www.computerhope.com/cdn/network-topology.jpg" alt="هيكلية الشبكات">
+                    <p class="image-caption">الهيكليات المختلفة للشبكات: النجمية، الحلقية، الخطية</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="lesson" id="lesson3">
+            <h2>الدرس الثالث: أساسيات الحاسب الآلي - مفاهيم نظرية 3</h2>
+            <div class="lesson-content">
+                <div class="highlight-box">
+                    <h3>المقدمة</h3>
+                    <p>مرحباً بكم في الدرس الثالث من دورة ICDL.</p>
+                </div>
+
+                <h3>المحتوى</h3>
+                <ul>
+                    <li>المقدمة</li>
+                    <li>المحتوى</li>
+                    <li>الخاتمة</li>
+                </ul>
+                
+                <div class="image-container">
+                    <img src="https://www.computerhope.com/cdn/storage-devices.jpg" alt="وحدات التخزين">
+                    <p class="image-caption">مقارنة بين وحدات التخزين: القرص الصلب، USB، الأقراص المدمجة</p>
+                </div>
+                
+                <div class="highlight-box">
+                    <h3>الخاتمة</h3>
+                    <p>نأمل أن تكونوا قد استفدتم من هذا الدرس.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const tocToggle = document.getElementById('toc-toggle');
+        const toc = document.getElementById('toc');
+        const mainContent = document.querySelector('.main-content');
+
+        tocToggle.addEventListener('click', () => {
+            toc.classList.toggle('collapsed');
+            tocToggle.classList.toggle('collapsed');
+            mainContent.classList.toggle('expanded');
+        });
+
+        // Smooth scrolling for TOC links
+        document.querySelectorAll('.toc-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('href');
+                document.querySelector(targetId).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
