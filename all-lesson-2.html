@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ICDL Course 2025</title>
+    <style>
+        :root {
+            --primary-color: #2196F3;
+            --secondary-color: #1976D2;
+            --text-color: #333;
+            --bg-color: #f5f5f5;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        #toc {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 300px;
+            height: 100vh;
+            background: white;
+            padding: 20px;
+            box-shadow: -2px 0 5px rgba(0,0,0,0.1);
+            overflow-y: auto;
+            transition: transform 0.3s ease;
+            z-index: 1000;
+        }
+
+        #toc.collapsed {
+            transform: translateX(280px);
+        }
+
+        #toc-toggle {
+            position: fixed;
+            top: 20px;
+            right: 320px;
+            z-index: 1000;
+            padding: 10px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        #toc-toggle.collapsed {
+            right: 20px;
+        }
+
+        .main-content {
+            margin-right: 320px;
+            padding: 20px;
+            transition: margin 0.3s ease;
+        }
+
+        .main-content.expanded {
+            margin-right: 40px;
+        }
+
+        .lesson {
+            background: white;
+            padding: 30px;
+            margin-bottom: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        h1, h2, h3 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        .toc-link {
+            display: block;
+            padding: 8px 0;
+            color: var(--text-color);
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 14px;
+        }
+
+        .toc-link:hover {
+            color: var(--primary-color);
+        }
+
+        .lesson-content {
+            margin-top: 20px;
+        }
+
+        .lesson-image {
+            max-width: 100%;
+            height: auto;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        ul {
+            padding-right: 20px;
+            margin-bottom: 15px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        .highlight-box {
+            background: #e3f2fd;
+            padding: 15px;
+            border-right: 4px solid var(--primary-color);
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .image-container {
+            margin: 20px 0;
+        }
+
+        .image-container img {
+            width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+
+        .image-caption {
+            font-size: 14px;
+            color: #666;
+            margin-top: 10px;
+        }
+
+        .quiz-section {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .quiz-question {
+            margin-bottom: 20px;
+        }
+        .quiz-options {
+            list-style: none;
+            padding: 0;
+        }
+        .quiz-option {
+            padding: 10px 15px;
+            margin: 5px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .quiz-option:hover {
+            background: #e9ecef;
+        }
+        .quiz-option.correct {
+            background: #d4edda;
+            border-color: #c3e6cb;
+            color: #155724;
+        }
+        .quiz-option.incorrect {
+            background: #f8d7da;
+            border-color: #f5c6cb;
+            color: #721c24;
+        }
+        .quiz-feedback {
+            display: none;
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        .quiz-feedback.correct {
+            background: #d4edda;
+            color: #155724;
+        }
+        .quiz-feedback.incorrect {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        @media (max-width: 768px) {
+            #toc {
+                width: 100%;
+                transform: translateX(100%);
+            }
+            
+            #toc.collapsed {
+                transform: translateX(0);
+            }
+            
+            .main-content {
+                margin-right: 0;
+            }
+            
+            #toc-toggle {
+                right: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button id="toc-toggle">☰ القائمة</button>
+    
+    <nav id="toc">
+        <h2>فهرس المحتويات</h2>
+        <a href="#intro" class="toc-link">▪ المقدمة - Introduction</a>
+        <a href="#course-overview" class="toc-link">▪ نظرة عامة على الدورة - Course Overview</a>
+        <a href="#lesson1" class="toc-link">▪ الدرس الأول: أساسيات الحاسب الآلي - مفاهيم نظرية 1</a>
+        <a href="#lesson2" class="toc-link">▪ الدرس الثاني: أساسيات الحاسب الآلي - مفاهيم نظرية 2</a>
+        <a href="#lesson3" class="toc-link">▪ الدرس الثالث: أمن المعلومات والخصوصية - Information Security and Privacy</a>
+    </nav>
+
+    <div class="main-content">
+        <div class="lesson" id="intro">
+            <h1>ICDL | مقدمة عن الدورة</h1>
+            <div class="lesson-content">
+                <h3>Introduction to ICDL Course 2025</h3>
+                <div class="highlight-box">
+                    <h3>نبذة عن الدورة</h3>
+                    <p>الرخصة الدولية لقيادة الحاسب الآلي (ICDL) هي شهادة معترف بها دولياً وأصبحت من أهم الشهادات المطلوبة في سوق العمل. تثبت هذه الشهادة أن حاملها لديه المهارات الأساسية في استخدام الحاسب الآلي وتقنية المعلومات.</p>
+                </div>
+
+                <h3>المحاور السبعة للدورة</h3>
+                <div class="highlight-box">
+                    <ol>
+                        <li>أساسيات الحاسب الآلي وأنظمة التشغيل Windows
+                            <ul>
+                                <li>مفاهيم تقنية المعلومات الأساسية</li>
+                                <li>استخدام الحاسب وإدارة الملفات</li>
+                            </ul>
+                        </li>
+                        <li>معالجة النصوص Microsoft Word
+                            <ul>
+                                <li>إنشاء وتحرير وتنسيق المستندات</li>
+                                <li>إدراج الجداول والصور</li>
+                            </ul>
+                        </li>
+                        <li>جداول البيانات Microsoft Excel
+                            <ul>
+                                <li>إنشاء وتنسيق جداول البيانات</li>
+                                <li>استخدام المعادلات والدوال</li>
+                            </ul>
+                        </li>
+                        <li>قواعد البيانات Microsoft Access
+                            <ul>
+                                <li>تصميم وإنشاء قواعد البيانات</li>
+                                <li>إدارة البيانات والاستعلامات</li>
+                            </ul>
+                        </li>
+                        <li>العروض التقديمية Microsoft PowerPoint
+                            <ul>
+                                <li>إنشاء وتصميم العروض</li>
+                                <li>إضافة المؤثرات والوسائط المتعددة</li>
+                            </ul>
+                        </li>
+                        <li>الإنترنت وتصفح الويب
+                            <ul>
+                                <li>استخدام متصفحات الإنترنت</li>
+                                <li>البحث عن المعلومات</li>
+                            </ul>
+                        </li>
+                        <li>البريد الإلكتروني Microsoft Outlook
+                            <ul>
+                                <li>إدارة البريد الإلكتروني</li>
+                                <li>تنظيم المواعيد والمهام</li>
+                            </ul>
+                        </li>
+                    </ol>
+                </div>
+
+                <div class="highlight-box">
+                    <h3>أهمية الدورة</h3>
+                    <ul>
+                        <li>شهادة معترف بها دولياً</li>
+                        <li>مطلوبة في سوق العمل</li>
+                        <li>تطوير المهارات التقنية</li>
+                        <li>تحسين فرص التوظيف</li>
+                    </ul>
+                </div>
+
+                <div class="highlight-box">
+                    <h3>للتواصل والمتابعة</h3>
+                    <ul>
+                        <li>Telegram</li>
+                        <li>Facebook</li>
+                        <li>YouTube Channel</li>
+                    </ul>
+                    <p>لا تنسوا الاشتراك وتفعيل زر الجرس لمتابعة كل جديد!</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="lesson" id="course-overview">
+            <h2>Course Overview | نظرة عامة على الدورة</h2>
+            <div class="lesson-content">
+                <h3>المحاور السبعة للدورة | Seven Core Modules</h3>
+                <ul>
+                    <li>Computer Essentials | أساسيات الحاسب والإنترنت</li>
+                    <li>Word Processing (Microsoft Word) | معالجة النصوص</li>
+                    <li>Spreadsheets (Microsoft Excel) | جداول البيانات</li>
+                    <li>Database (Microsoft Access) | قواعد البيانات</li>
+                    <li>Presentation (Microsoft PowerPoint) | العروض التقديمية</li>
+                    <li>Online Essentials | الإنترنت والبريد الإلكتروني</li>
+                    <li>IT Security | أمن تكنولوجيا المعلومات</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="lesson" id="lesson1">
+            <h2>Computer Basics - Part 1 | أساسيات الحاسب الآلي - مفاهيم نظرية 1</h2>
+            <div class="lesson-content">
+                <div class="highlight-box">
+                    <h3>المفاهيم الأساسية | Basic Concepts</h3>
+                    <ul>
+                        <li>Hardware Components | مكونات الحاسب الأساسية</li>
+                        <li>Input/Output Devices | وحدات الإدخال والإخراج</li>
+                        <li>Software Types | أنواع البرمجيات</li>
+                        <li>Operating Systems | أنظمة التشغيل</li>
+                        <li>Licenses & Copyright | التراخيص وحقوق الملكية</li>
+                    </ul>
+                </div>
+                
+                <h3>تفاصيل المكونات الأساسية | Hardware Details</h3>
+                <ul>
+                    <li>وحدة المعالجة المركزية (CPU)</li>
+                    <li>الذاكرة العشوائية (RAM)</li>
+                    <li>وحدات التخزين (Storage Units)</li>
+                    <li>اللوحة الأم (Motherboard)</li>
+                </ul>
+                
+                <div class="image-container">
+                    <img src="https://www.computerhope.com/cdn/computer-components.jpg" alt="مكونات الحاسوب الأساسية">
+                    <p class="image-caption">المكونات الأساسية للحاسوب: المعالج، الذاكرة، وحدات التخزين</p>
+                </div>
+                <div class="image-container">
+                    <img src="https://www.computerhope.com/cdn/peripherals.jpg" alt="وحدات الإدخال والإخراج">
+                    <p class="image-caption">أجهزة الإدخال والإخراج: لوحة المفاتيح، الفأرة، الشاشة، الطابعة</p>
+                </div>
+            </div>
+            <div class="quiz-section">
+                <h3>اختبر معلوماتك - الدرس الأول</h3>
+                
+                <div class="quiz-question" data-question="1">
+                    <p>1. ما هي أصغر وحدة تخزين في الحاسوب؟</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="checkAnswer('1', this)">البايت (Byte)</div>
+                        <div class="quiz-option" onclick="checkAnswer('1', this)" data-correct="true">البت (Bit)</div>
+                        <div class="quiz-option" onclick="checkAnswer('1', this)">الكيلوبايت (KB)</div>
+                        <div class="quiz-option" onclick="checkAnswer('1', this)">الميجابايت (MB)</div>
+                    </div>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question" data-question="2">
+                    <p>2. أي من التالي يعتبر من وحدات الإدخال؟</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="checkAnswer('2', this)">الطابعة</div>
+                        <div class="quiz-option" onclick="checkAnswer('2', this)">السماعات</div>
+                        <div class="quiz-option" onclick="checkAnswer('2', this)" data-correct="true">الماسح الضوئي</div>
+                        <div class="quiz-option" onclick="checkAnswer('2', this)">الشاشة</div>
+                    </div>
+                    <div class="quiz-feedback"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="lesson" id="lesson2">
+            <h2>Computer Basics - Part 2 | أساسيات الحاسب الآلي - مفاهيم نظرية 2</h2>
+            <div class="lesson-content">
+                <div class="highlight-box">
+                    <h3>المفاهيم المتقدمة | Advanced Concepts</h3>
+                    <ul>
+                        <li>Networks & Types | الشبكات وأنواعها</li>
+                        <li>Internet & Intranet | الإنترنت والإنترانت</li>
+                        <li>Data Transfer Speeds | سرعات نقل البيانات</li>
+                        <li>Security & Protection | الأمن والحماية</li>
+                        <li>Malware & Protection Methods | البرمجيات الخبيثة وطرق الحماية</li>
+                    </ul>
+                </div>
+
+                <h3>أنواع الشبكات | Network Types</h3>
+                <ul>
+                    <li>Local Area Network (LAN) | الشبكة المحلية</li>
+                    <li>Wide Area Network (WAN) | الشبكة الواسعة</li>
+                    <li>Internet Connectivity | طرق الاتصال بالإنترنت</li>
+                </ul>
+                
+                <div class="image-container">
+                    <img src="https://www.computerhope.com/cdn/network-types.jpg" alt="أنواع الشبكات">
+                    <p class="image-caption">مقارنة بين الشبكة المحلية LAN والشبكة الواسعة WAN</p>
+                </div>
+                <div class="image-container">
+                    <img src="https://www.computerhope.com/cdn/network-topology.jpg" alt="هيكلية الشبكات">
+                    <p class="image-caption">الهيكليات المختلفة للشبكات: النجمية، الحلقية، الخطية</p>
+                </div>
+            </div>
+            <div class="quiz-section">
+                <h3>اختبر معلوماتك - الدرس الثاني</h3>
+                
+                <div class="quiz-question" data-question="3">
+                    <p>3. ما هو نوع الشبكة التي تربط الأجهزة في منطقة جغرافية صغيرة؟</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="checkAnswer('3', this)" data-correct="true">LAN</div>
+                        <div class="quiz-option" onclick="checkAnswer('3', this)">WAN</div>
+                        <div class="quiz-option" onclick="checkAnswer('3', this)">MAN</div>
+                        <div class="quiz-option" onclick="checkAnswer('3', this)">PAN</div>
+                    </div>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question" data-question="4">
+                    <p>4. ما هو البروتوكول المستخدم في المكالمات الصوتية عبر الإنترنت؟</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="checkAnswer('4', this)">HTTP</div>
+                        <div class="quiz-option" onclick="checkAnswer('4', this)">FTP</div>
+                        <div class="quiz-option" onclick="checkAnswer('4', this)" data-correct="true">VoIP</div>
+                        <div class="quiz-option" onclick="checkAnswer('4', this)">SMTP</div>
+                    </div>
+                    <div class="quiz-feedback"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="lesson" id="lesson3">
+            <h2>الدرس الثالث: أمن المعلومات والخصوصية | Information Security and Privacy</h2>
+            <div class="lesson-content">
+                <div class="highlight-box">
+                    <h3>مقدمة في أمن المعلومات | Introduction to Information Security</h3>
+                    <ul>
+                        <li>تعريف أمن المعلومات | What is Information Security</li>
+                        <li>أهمية حماية البيانات | Importance of Data Protection</li>
+                        <li>المخاطر الإلكترونية | Cyber Risks</li>
+                        <li>مبادئ الأمن السيبراني | Cybersecurity Principles</li>
+                    </ul>
+                </div>
+
+                <div class="highlight-box">
+                    <h3>عناصر أمن المعلومات | Information Security Elements</h3>
+                    <ul>
+                        <li>السرية (Confidentiality) - حماية المعلومات من الوصول غير المصرح به</li>
+                        <li>السلامة (Integrity) - ضمان دقة وصحة المعلومات</li>
+                        <li>التوافر (Availability) - ضمان الوصول للمعلومات عند الحاجة</li>
+                    </ul>
+                </div>
+
+                <div class="highlight-box">
+                    <h3>أنواع التهديدات | Types of Threats</h3>
+                    <ul>
+                        <li>البرمجيات الخبيثة (Malware)
+                            <ul>
+                                <li>الفيروسات (Viruses)</li>
+                                <li>برامج التجسس (Spyware)</li>
+                                <li>برامج الفدية (Ransomware)</li>
+                                <li>أحصنة طروادة (Trojans)</li>
+                            </ul>
+                        </li>
+                        <li>التصيد الاحتيالي (Phishing)</li>
+                        <li>الهندسة الاجتماعية (Social Engineering)</li>
+                        <li>هجمات حجب الخدمة (DDoS)</li>
+                        <li>سرقة الهوية (Identity Theft)</li>
+                    </ul>
+                </div>
+
+                <div class="image-container">
+                    <img src="images/cyber-threats.png" alt="أنواع التهديدات الإلكترونية">
+                    <p class="image-caption">أنواع مختلفة من التهديدات الإلكترونية وكيفية الحماية منها</p>
+                </div>
+
+                <div class="highlight-box">
+                    <h3>طرق الحماية | Protection Methods</h3>
+                    <ul>
+                        <li>برامج مكافحة الفيروسات | Antivirus Software
+                            <ul>
+                                <li>تحديث قاعدة البيانات بشكل منتظم</li>
+                                <li>فحص الملفات قبل فتحها</li>
+                            </ul>
+                        </li>
+                        <li>جدار الحماية | Firewall
+                            <ul>
+                                <li>مراقبة حركة المرور الشبكية</li>
+                                <li>منع الوصول غير المصرح به</li>
+                            </ul>
+                        </li>
+                        <li>التحديثات الأمنية | Security Updates
+                            <ul>
+                                <li>تحديث نظام التشغيل</li>
+                                <li>تحديث البرامج والتطبيقات</li>
+                            </ul>
+                        </li>
+                        <li>النسخ الاحتياطي | Data Backup
+                            <ul>
+                                <li>نسخ احتياطي منتظم</li>
+                                <li>تخزين النسخ في أماكن آمنة</li>
+                            </ul>
+                        </li>
+                        <li>كلمات المرور القوية | Strong Passwords
+                            <ul>
+                                <li>استخدام رموز وأرقام وحروف متنوعة</li>
+                                <li>تغيير كلمات المرور بشكل دوري</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="highlight-box">
+                    <h3>أفضل ممارسات الأمن السيبراني | Cybersecurity Best Practices</h3>
+                    <ul>
+                        <li>التحقق من مصدر الرسائل الإلكترونية</li>
+                        <li>عدم فتح المرفقات المشبوهة</li>
+                        <li>استخدام شبكات WiFi آمنة</li>
+                        <li>تشفير البيانات المهمة</li>
+                        <li>استخدام المصادقة الثنائية (2FA)</li>
+                        <li>تدريب المستخدمين على الأمن السيبراني</li>
+                    </ul>
+                </div>
+
+                <div class="image-container">
+                    <img src="images/security-methods.png" alt="طرق الحماية">
+                    <p class="image-caption">الطرق الأساسية لحماية الحاسب الآلي والبيانات</p>
+                </div>
+
+                <div class="quiz-section">
+                    <h3>اختبر معلوماتك - الدرس الثالث</h3>
+                    
+                    <div class="quiz-question" data-question="5">
+                        <p>5. ما هو أفضل إجراء لحماية بياناتك المهمة؟</p>
+                        <div class="quiz-options">
+                            <div class="quiz-option" onclick="checkAnswer('5', this)">عدم استخدام الإنترنت</div>
+                            <div class="quiz-option" onclick="checkAnswer('5', this)" data-correct="true">عمل نسخ احتياطية بشكل منتظم</div>
+                            <div class="quiz-option" onclick="checkAnswer('5', this)">إيقاف تشغيل الحاسب</div>
+                            <div class="quiz-option" onclick="checkAnswer('5', this)">تغيير كلمة المرور يومياً</div>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+
+                    <div class="quiz-question" data-question="6">
+                        <p>6. أي من التالي يعتبر من أساليب الهندسة الاجتماعية؟</p>
+                        <div class="quiz-options">
+                            <div class="quiz-option" onclick="checkAnswer('6', this)">تثبيت برنامج مكافحة الفيروسات</div>
+                            <div class="quiz-option" onclick="checkAnswer('6', this)">تحديث نظام التشغيل</div>
+                            <div class="quiz-option" onclick="checkAnswer('6', this)" data-correct="true">رسائل التصيد الاحتيالي</div>
+                            <div class="quiz-option" onclick="checkAnswer('6', this)">تشغيل جدار الحماية</div>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+
+                    <div class="quiz-question" data-question="7">
+                        <p>7. ما هي العناصر الثلاثة الرئيسية لأمن المعلومات؟</p>
+                        <div class="quiz-options">
+                            <div class="quiz-option" onclick="checkAnswer('7', this)">التشفير، التخزين، النقل</div>
+                            <div class="quiz-option" onclick="checkAnswer('7', this)" data-correct="true">السرية، السلامة، التوافر</div>
+                            <div class="quiz-option" onclick="checkAnswer('7', this)">الأمن، الحماية، المراقبة</div>
+                            <div class="quiz-option" onclick="checkAnswer('7', this)">البرمجيات، الأجهزة، الشبكات</div>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+
+                    <div class="quiz-question" data-question="8">
+                        <p>8. أي من التالي يعتبر من أفضل ممارسات الأمن السيبراني؟</p>
+                        <div class="quiz-options">
+                            <div class="quiz-option" onclick="checkAnswer('8', this)">مشاركة كلمات المرور مع الزملاء</div>
+                            <div class="quiz-option" onclick="checkAnswer('8', this)">فتح جميع المرفقات في البريد الإلكتروني</div>
+                            <div class="quiz-option" onclick="checkAnswer('8', this)" data-correct="true">استخدام المصادقة الثنائية</div>
+                            <div class="quiz-option" onclick="checkAnswer('8', this)">تجاهل تحديثات الأمان</div>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            function checkAnswer(questionId, selectedOption) {
+                const options = document.querySelectorAll(`[data-question="${questionId}"] .quiz-option`);
+                const feedback = document.querySelector(`[data-question="${questionId}"] .quiz-feedback`);
+                
+                options.forEach(option => {
+                    option.classList.remove('correct', 'incorrect');
+                    if (option.dataset.correct === 'true') {
+                        option.classList.add('correct');
+                    } else if (option === selectedOption) {
+                        option.classList.add('incorrect');
+                    }
+                });
+
+                feedback.style.display = 'block';
+                if (selectedOption.dataset.correct === 'true') {
+                    feedback.textContent = 'إجابة صحيحة! أحسنت';
+                    feedback.className = 'quiz-feedback correct';
+                } else {
+                    feedback.textContent = 'إجابة خاطئة، حاول مرة أخرى';
+                    feedback.className = 'quiz-feedback incorrect';
+                }
+            }
+        </script>
+    </div>
+
+    <script>
+        const tocToggle = document.getElementById('toc-toggle');
+        const toc = document.getElementById('toc');
+        const mainContent = document.querySelector('.main-content');
+
+        tocToggle.addEventListener('click', () => {
+            toc.classList.toggle('collapsed');
+            tocToggle.classList.toggle('collapsed');
+            mainContent.classList.toggle('expanded');
+        });
+
+        // Smooth scrolling for TOC links
+        document.querySelectorAll('.toc-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('href');
+                document.querySelector(targetId).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
