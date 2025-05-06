@@ -1,0 +1,1806 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ICDL Course 2025</title>
+    <style>
+        :root {
+            --primary-color: #2196F3;
+            --secondary-color: #1976D2;
+            --text-color: #333;
+            --bg-color: #f5f5f5;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        #toc {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 300px;
+            height: 100vh;
+            background: white;
+            padding: 20px;
+            box-shadow: -2px 0 5px rgba(0,0,0,0.1);
+            overflow-y: auto;
+            transition: transform 0.3s ease;
+            z-index: 1000;
+        }
+
+        #toc.collapsed {
+            transform: translateX(280px);
+        }
+
+        #toc-toggle {
+            position: fixed;
+            top: 20px;
+            right: 320px;
+            z-index: 1000;
+            padding: 10px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        #toc-toggle.collapsed {
+            right: 20px;
+        }
+
+        .main-content {
+            margin-right: 320px;
+            padding: 20px;
+            transition: margin 0.3s ease;
+        }
+
+        .main-content.expanded {
+            margin-right: 40px;
+        }
+
+        .lesson {
+            background: white;
+            padding: 30px;
+            margin-bottom: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        h1, h2, h3 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        .toc-link {
+            display: block;
+            padding: 8px 0;
+            color: var(--text-color);
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 14px;
+        }
+
+        .toc-link:hover {
+            color: var(--primary-color);
+        }
+
+        .lesson-content {
+            margin-top: 20px;
+        }
+
+        .lesson-image {
+            max-width: 100%;
+            height: auto;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        ul {
+            padding-right: 20px;
+            margin-bottom: 15px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        .highlight-box {
+            background: #e3f2fd;
+            padding: 15px;
+            border-right: 4px solid var(--primary-color);
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .image-container {
+            margin: 20px 0;
+        }
+
+        .image-container img {
+            width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+
+        .image-caption {
+            font-size: 14px;
+            color: #666;
+            margin-top: 10px;
+        }
+
+        .quiz-section {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .quiz-question {
+            margin-bottom: 20px;
+        }
+        .quiz-options {
+            list-style: none;
+            padding: 0;
+        }
+        .quiz-option {
+            padding: 10px 15px;
+            margin: 5px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .quiz-option:hover {
+            background: #e9ecef;
+        }
+        .quiz-option.correct {
+            background: #d4edda;
+            border-color: #c3e6cb;
+            color: #155724;
+        }
+        .quiz-option.incorrect {
+            background: #f8d7da;
+            border-color: #f5c6cb;
+            color: #721c24;
+        }
+        .quiz-feedback {
+            display: none;
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        .quiz-feedback.correct {
+            background: #d4edda;
+            color: #155724;
+        }
+        .quiz-feedback.incorrect {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        @media (max-width: 768px) {
+            #toc {
+                width: 100%;
+                transform: translateX(100%);
+            }
+            
+            #toc.collapsed {
+                transform: translateX(0);
+            }
+            
+            .main-content {
+                margin-right: 0;
+            }
+            
+            #toc-toggle {
+                right: 20px;
+            }
+        }
+        
+        .element-box, .threat-box {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .element-box h3, .threat-box h3 {
+            color: #007bff;
+            margin-bottom: 15px;
+        }
+        
+        ul {
+            padding-right: 20px;
+        }
+        
+        li {
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+<body>
+    <button id="toc-toggle">☰ القائمة</button>
+    
+    <nav id="toc">
+        <h2>فهرس المحتويات</h2>
+        <a href="#intro" class="toc-link">▪ المقدمة - Introduction</a>
+        <a href="#course-overview" class="toc-link">▪ نظرة عامة على الدورة - Course Overview</a>
+        <a href="#lesson1" class="toc-link">▪ الدرس الأول: أساسيات الحاسب الآلي - مفاهيم نظرية 1</a>
+        <a href="#lesson2" class="toc-link">▪ الدرس الثاني: أساسيات الحاسب الآلي - مفاهيم نظرية 2</a>
+        <a href="#lesson3" class="toc-link">▪ الدرس الثالث: أمن المعلومات والخصوصية - Information Security and Privacy</a>
+        <a href="#lesson4" class="toc-link">▪ الدرس الرابع: نموذج امتحان أساسيات الحاسب - الأسئلة العملية | Windows 10 Practical Exam</a>
+        <a href="#lesson5" class="toc-link">▪ الدرس الخامس: مقدمة إلى معالج النصوص Word | Word Processor Introduction</a>
+        <a href="#lesson6" class="toc-link">▪ الدرس السادس: إنشاء وتحرير المستندات في Word | Creating and Editing Documents</a>
+        <a href="#identity-theft" class="toc-link">▪ سرقة الهوية - Identity Theft</a>
+        <a href="#definitions" class="toc-link">▪ التعريفات المهمة في مجال الحاسب</a>
+    </nav>
+
+    <div class="main-content">
+        <div class="lesson" id="intro">
+            <h1>ICDL | مقدمة عن الدورة</h1>
+            <div class="lesson-content">
+                <h3>Introduction to ICDL Course 2025</h3>
+                <div class="highlight-box">
+                    <h3>نبذة عن الدورة</h3>
+                    <p>الرخصة الدولية لقيادة الحاسب الآلي (ICDL) هي شهادة معترف بها دولياً وأصبحت من أهم الشهادات المطلوبة في سوق العمل. تثبت هذه الشهادة أن حاملها لديه المهارات الأساسية في استخدام الحاسب الآلي وتقنية المعلومات.</p>
+                </div>
+
+                <h3>المحاور السبعة للدورة</h3>
+                <div class="highlight-box">
+                    <ol>
+                        <li>أساسيات الحاسب الآلي وأنظمة التشغيل Windows
+                            <ul>
+                                <li>مفاهيم تقنية المعلومات الأساسية</li>
+                                <li>استخدام الحاسب وإدارة الملفات</li>
+                            </ul>
+                        </li>
+                        <li>معالجة النصوص Microsoft Word
+                            <ul>
+                                <li>إنشاء وتحرير وتنسيق المستندات</li>
+                                <li>إدراج الجداول والصور</li>
+                            </ul>
+                        </li>
+                        <li>جداول البيانات Microsoft Excel
+                            <ul>
+                                <li>إنشاء وتنسيق جداول البيانات</li>
+                                <li>استخدام المعادلات والدوال</li>
+                            </ul>
+                        </li>
+                        <li>قواعد البيانات Microsoft Access
+                            <ul>
+                                <li>تصميم وإنشاء قواعد البيانات</li>
+                                <li>إدارة البيانات والاستعلامات</li>
+                            </ul>
+                        </li>
+                        <li>العروض التقديمية Microsoft PowerPoint
+                            <ul>
+                                <li>إنشاء وتصميم العروض</li>
+                                <li>إضافة المؤثرات والوسائط المتعددة</li>
+                            </ul>
+                        </li>
+                        <li>الإنترنت وتصفح الويب
+                            <ul>
+                                <li>استخدام متصفحات الإنترنت</li>
+                                <li>البحث عن المعلومات</li>
+                            </ul>
+                        </li>
+                        <li>البريد الإلكتروني Microsoft Outlook
+                            <ul>
+                                <li>إدارة البريد الإلكتروني</li>
+                                <li>تنظيم المواعيد والمهام</li>
+                            </ul>
+                        </li>
+                    </ol>
+                </div>
+
+                <div class="highlight-box">
+                    <h3>أهمية الدورة</h3>
+                    <ul>
+                        <li>شهادة معترف بها دولياً</li>
+                        <li>مطلوبة في سوق العمل</li>
+                        <li>تطوير المهارات التقنية</li>
+                        <li>تحسين فرص التوظيف</li>
+                    </ul>
+                </div>
+
+                <div class="highlight-box">
+                    <h3>للتواصل والمتابعة</h3>
+                    <ul>
+                        <li>Telegram</li>
+                        <li>Facebook</li>
+                        <li>YouTube Channel</li>
+                    </ul>
+                    <p>لا تنسوا الاشتراك وتفعيل زر الجرس لمتابعة كل جديد!</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="lesson" id="course-overview">
+            <h2>Course Overview | نظرة عامة على الدورة</h2>
+            <div class="lesson-content">
+                <h3>المحاور السبعة للدورة | Seven Core Modules</h3>
+                <ul>
+                    <li>Computer Essentials | أساسيات الحاسب والإنترنت</li>
+                    <li>Word Processing (Microsoft Word) | معالجة النصوص</li>
+                    <li>Spreadsheets (Microsoft Excel) | جداول البيانات</li>
+                    <li>Database (Microsoft Access) | قواعد البيانات</li>
+                    <li>Presentation (Microsoft PowerPoint) | العروض التقديمية</li>
+                    <li>Online Essentials | الإنترنت والبريد الإلكتروني</li>
+                    <li>IT Security | أمن تكنولوجيا المعلومات</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="lesson" id="lesson1">
+            <h2>Computer Basics - Part 1 | أساسيات الحاسب الآلي - مفاهيم نظرية 1</h2>
+            <div class="lesson-content">
+                <div class="highlight-box">
+                    <h3>المفاهيم الأساسية | Basic Concepts</h3>
+                    <ul>
+                        <li>Hardware Components | مكونات الحاسب الأساسية</li>
+                        <li>Input/Output Devices | وحدات الإدخال والإخراج</li>
+                        <li>Software Types | أنواع البرمجيات</li>
+                        <li>Operating Systems | أنظمة التشغيل</li>
+                        <li>Licenses & Copyright | التراخيص وحقوق الملكية</li>
+                    </ul>
+                </div>
+                
+                <h3>تفاصيل المكونات الأساسية | Hardware Details</h3>
+                <ul>
+                    <li>وحدة المعالجة المركزية (CPU)</li>
+                    <li>الذاكرة العشوائية (RAM)</li>
+                    <li>وحدات التخزين (Storage Units)</li>
+                    <li>اللوحة الأم (Motherboard)</li>
+                </ul>
+                
+                <div class="image-container">
+                    <img src="https://www.computerhope.com/cdn/computer-components.jpg" alt="مكونات الحاسوب الأساسية">
+                    <p class="image-caption">المكونات الأساسية للحاسوب: المعالج، الذاكرة، وحدات التخزين</p>
+                </div>
+                <div class="image-container">
+                    <img src="https://www.computerhope.com/cdn/peripherals.jpg" alt="وحدات الإدخال والإخراج">
+                    <p class="image-caption">أجهزة الإدخال والإخراج: لوحة المفاتيح، الفأرة، الشاشة، الطابعة</p>
+                </div>
+            </div>
+            <div class="quiz-section">
+                <h3>اختبر معلوماتك - الدرس الأول</h3>
+                
+                <div class="quiz-question" data-question="1">
+                    <p>1. ما هي أصغر وحدة تخزين في الحاسوب؟</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="checkAnswer('1', this)">البايت (Byte)</div>
+                        <div class="quiz-option" onclick="checkAnswer('1', this)" data-correct="true">البت (Bit)</div>
+                        <div class="quiz-option" onclick="checkAnswer('1', this)">الكيلوبايت (KB)</div>
+                        <div class="quiz-option" onclick="checkAnswer('1', this)">الميجابايت (MB)</div>
+                    </div>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question" data-question="2">
+                    <p>2. أي من التالي يعتبر من وحدات الإدخال؟</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="checkAnswer('2', this)">الطابعة</div>
+                        <div class="quiz-option" onclick="checkAnswer('2', this)">السماعات</div>
+                        <div class="quiz-option" onclick="checkAnswer('2', this)" data-correct="true">الماسح الضوئي</div>
+                        <div class="quiz-option" onclick="checkAnswer('2', this)">الشاشة</div>
+                    </div>
+                    <div class="quiz-feedback"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="lesson" id="lesson2">
+            <h2>Computer Basics - Part 2 | أساسيات الحاسب الآلي - مفاهيم نظرية 2</h2>
+            <div class="lesson-content">
+                <div class="highlight-box">
+                    <h3>المفاهيم المتقدمة | Advanced Concepts</h3>
+                    <ul>
+                        <li>Networks & Types | الشبكات وأنواعها</li>
+                        <li>Internet & Intranet | الإنترنت والإنترانت</li>
+                        <li>Data Transfer Speeds | سرعات نقل البيانات</li>
+                        <li>Security & Protection | الأمن والحماية</li>
+                        <li>Malware & Protection Methods | البرمجيات الخبيثة وطرق الحماية</li>
+                    </ul>
+                </div>
+
+                <h3>أنواع الشبكات | Network Types</h3>
+                <ul>
+                    <li>Local Area Network (LAN) | الشبكة المحلية</li>
+                    <li>Wide Area Network (WAN) | الشبكة الواسعة</li>
+                    <li>Internet Connectivity | طرق الاتصال بالإنترنت</li>
+                </ul>
+                
+                <div class="image-container">
+                    <img src="https://www.computerhope.com/cdn/network-types.jpg" alt="أنواع الشبكات">
+                    <p class="image-caption">مقارنة بين الشبكة المحلية LAN والشبكة الواسعة WAN</p>
+                </div>
+                <div class="image-container">
+                    <img src="https://www.computerhope.com/cdn/network-topology.jpg" alt="هيكلية الشبكات">
+                    <p class="image-caption">الهيكليات المختلفة للشبكات: النجمية، الحلقية، الخطية</p>
+                </div>
+            </div>
+            <div class="quiz-section">
+                <h3>اختبر معلوماتك - الدرس الثاني</h3>
+                
+                <div class="quiz-question" data-question="3">
+                    <p>3. ما هو نوع الشبكة التي تربط الأجهزة في منطقة جغرافية صغيرة؟</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="checkAnswer('3', this)" data-correct="true">LAN</div>
+                        <div class="quiz-option" onclick="checkAnswer('3', this)">WAN</div>
+                        <div class="quiz-option" onclick="checkAnswer('3', this)">MAN</div>
+                        <div class="quiz-option" onclick="checkAnswer('3', this)">PAN</div>
+                    </div>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question" data-question="4">
+                    <p>4. أي من التالي يعتبر من بروتوكولات الاتصال؟</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="checkAnswer('4', this)">HTTP</div>
+                        <div class="quiz-option" onclick="checkAnswer('4', this)">FTP</div>
+                        <div class="quiz-option" onclick="checkAnswer('4', this)" data-correct="true">VoIP</div>
+                        <div class="quiz-option" onclick="checkAnswer('4', this)">SMTP</div>
+                    </div>
+                    <div class="quiz-feedback"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="lesson" id="lesson3">
+            <h2>الدرس الثالث: أمن المعلومات والخصوصية | Information Security and Privacy</h2>
+            <div class="lesson-content">
+                <div class="container mt-5">
+                    <h1>مقدمة في أمن المعلومات | Introduction to Information Security</h1>
+                    
+                    <section id="what-is-infosec" class="my-4">
+                        <h2>تعريف أمن المعلومات | What is Information Security</h2>
+                        <p>
+                            أمن المعلومات هو مجموعة من الإجراءات والتدابير التي تهدف إلى حماية المعلومات والأنظمة من الوصول غير المصرح به والتعديل والإفصاح والتدمير. يشمل ذلك حماية:
+                        </p>
+                        <ul>
+                            <li>البيانات الشخصية والمؤسسية</li>
+                            <li>أنظمة الكمبيوتر والشبكات</li>
+                            <li>البرمجيات والتطبيقات</li>
+                            <li>البنية التحتية التقنية</li>
+                        </ul>
+                    </section>
+
+                    <section id="data-protection" class="my-4">
+                        <h2>أهمية حماية البيانات | Importance of Data Protection</h2>
+                        <p>تكمن أهمية حماية البيانات في:</p>
+                        <ul>
+                            <li>حماية خصوصية الأفراد والمؤسسات</li>
+                            <li>منع الخسائر المالية والتجارية</li>
+                            <li>الحفاظ على سمعة المؤسسة</li>
+                            <li>الامتثال للقوانين والتشريعات</li>
+                            <li>ضمان استمرارية العمل</li>
+                        </ul>
+                    </section>
+
+                    <section id="cyber-risks" class="my-4">
+                        <h2>المخاطر الإلكترونية | Cyber Risks</h2>
+                        <p>تشمل المخاطر الإلكترونية الرئيسية:</p>
+                        <ul>
+                            <li>سرقة البيانات والمعلومات الحساسة</li>
+                            <li>الهجمات السيبرانية المتطورة</li>
+                            <li>تعطيل الخدمات والأنظمة</li>
+                            <li>الابتزاز الإلكتروني</li>
+                            <li>انتهاك الخصوصية</li>
+                        </ul>
+                    </section>
+
+                    <section id="security-principles" class="my-4">
+                        <h2>مبادئ الأمن السيبراني | Cybersecurity Principles</h2>
+                        <ul>
+                            <li>مبدأ الدفاع المتعمق (Defense in Depth)</li>
+                            <li>مبدأ أقل امتياز (Principle of Least Privilege)</li>
+                            <li>التشفير وحماية البيانات</li>
+                            <li>المراقبة المستمرة والتحديث</li>
+                            <li>التوعية والتدريب الأمني</li>
+                        </ul>
+                    </section>
+
+                    <section id="security-elements" class="my-4">
+                        <h2>عناصر أمن المعلومات | Information Security Elements</h2>
+                        
+                        <div class="element-box my-3">
+                            <h3>السرية (Confidentiality)</h3>
+                            <p>
+                                ضمان عدم الوصول إلى المعلومات إلا من قبل الأشخاص المصرح لهم فقط. يتم تحقيق ذلك من خلال:
+                            </p>
+                            <ul>
+                                <li>التشفير</li>
+                                <li>التحكم في الوصول</li>
+                                <li>المصادقة متعددة العوامل</li>
+                            </ul>
+                        </div>
+
+                        <div class="element-box my-3">
+                            <h3>السلامة (Integrity)</h3>
+                            <p>
+                                ضمان دقة وصحة المعلومات وعدم التلاعب بها. يتم تحقيق ذلك من خلال:
+                            </p>
+                            <ul>
+                                <li>التوقيع الرقمي</li>
+                                <li>نظام التحكم في النسخ</li>
+                                <li>سجلات التدقيق</li>
+                            </ul>
+                        </div>
+
+                        <div class="element-box my-3">
+                            <h3>التوافر (Availability)</h3>
+                            <p>
+                                ضمان الوصول للمعلومات عند الحاجة. يتم تحقيق ذلك من خلال:
+                            </p>
+                            <ul>
+                                <li>النسخ الاحتياطي</li>
+                                <li>خطط استمرارية العمل</li>
+                                <li>أنظمة الحماية من تعطيل الخدمة</li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <section id="threat-types" class="my-4">
+                        <h2>أنواع التهديدات | Types of Threats</h2>
+                        
+                        <div class="threat-box my-3">
+                            <h3>البرمجيات الخبيثة (Malware)</h3>
+                            <p>برامج ضارة مصممة لإلحاق الضرر بالأنظمة والبيانات، وتشمل:</p>
+                            <ul>
+                                <li>الفيروسات (Viruses): برامج تنسخ نفسها وتنتشر عبر الملفات</li>
+                                <li>برامج التجسس (Spyware): تجمع معلومات المستخدم سراً</li>
+                                <li>برامج الفدية (Ransomware): تشفر البيانات وتطلب فدية لفك التشفير</li>
+                                <li>أحصنة طروادة (Trojans): برامج تظهر كبرامج مفيدة لكنها ضارة</li>
+                            </ul>
+                        </div>
+
+                        <div class="threat-box my-3">
+                            <h3>التصيد الاحتيالي (Phishing)</h3>
+                            <p>
+                                محاولات خداع المستخدمين للحصول على معلوماتهم الحساسة من خلال:
+                            </p>
+                            <ul>
+                                <li>رسائل بريد إلكتروني مزيفة</li>
+                                <li>مواقع ويب مقلدة</li>
+                                <li>رسائل نصية احتيالية</li>
+                            </ul>
+                        </div>
+
+                        <div class="threat-box my-3">
+                            <h3>الهندسة الاجتماعية (Social Engineering)</h3>
+                            <p>
+                                التلاعب النفسي بالمستخدمين للحصول على معلومات سرية أو الوصول غير المصرح به، من خلال:
+                            </p>
+                            <ul>
+                                <li>الاتصالات الهاتفية المزيفة</li>
+                                <li>انتحال الشخصية</li>
+                                <li>الإقناع والتلاعب العاطفي</li>
+                            </ul>
+                        </div>
+
+                        <div class="threat-box my-3">
+                            <h3>هجمات حجب الخدمة (DDoS)</h3>
+                            <p>
+                                هجمات تهدف إلى تعطيل الخدمات والأنظمة من خلال:
+                            </p>
+                            <ul>
+                                <li>إغراق الخوادم بالطلبات</li>
+                                <li>استنزاف موارد النظام</li>
+                                <li>منع الوصول المشروع للخدمات</li>
+                            </ul>
+                        </div>
+
+                        <div class="threat-box my-3">
+                            <h3>سرقة الهوية (Identity Theft)</h3>
+                            <p>
+                                سرقة واستخدام معلومات شخصية للآخرين، وتشمل:
+                            </p>
+                            <ul>
+                                <li>سرقة البيانات المالية</li>
+                                <li>انتحال الهوية الشخصية</li>
+                                <li>إنشاء حسابات مزيفة</li>
+                            </ul>
+                        </div>
+                    </section>
+                </div>
+
+                <div class="quiz-section">
+                    <h3>اختبر معلوماتك - الدرس الثالث</h3>
+                    
+                    <div class="quiz-question" data-question="5">
+                        <p>5. ما هو أفضل إجراء لحماية بياناتك المهمة؟</p>
+                        <div class="quiz-options">
+                            <div class="quiz-option" onclick="checkAnswer('5', this)">عدم استخدام الإنترنت</div>
+                            <div class="quiz-option" onclick="checkAnswer('5', this)" data-correct="true">عمل نسخ احتياطية بشكل منتظم</div>
+                            <div class="quiz-option" onclick="checkAnswer('5', this)">إيقاف تشغيل الحاسب</div>
+                            <div class="quiz-option" onclick="checkAnswer('5', this)">تغيير كلمة المرور يومياً</div>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+
+                    <div class="quiz-question" data-question="6">
+                        <p>6. أي من التالي يعتبر من أساليب الهندسة الاجتماعية؟</p>
+                        <div class="quiz-options">
+                            <div class="quiz-option" onclick="checkAnswer('6', this)">تثبيت برنامج مكافحة الفيروسات</div>
+                            <div class="quiz-option" onclick="checkAnswer('6', this)">تحديث نظام التشغيل</div>
+                            <div class="quiz-option" onclick="checkAnswer('6', this)" data-correct="true">رسائل التصيد الاحتيالي</div>
+                            <div class="quiz-option" onclick="checkAnswer('6', this)">تشغيل جدار الحماية</div>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+
+                    <div class="quiz-question" data-question="7">
+                        <p>7. ما هي العناصر الثلاثة الرئيسية لأمن المعلومات؟</p>
+                        <div class="quiz-options">
+                            <div class="quiz-option" onclick="checkAnswer('7', this)">التشفير، التخزين، النقل</div>
+                            <div class="quiz-option" onclick="checkAnswer('7', this)" data-correct="true">السرية، السلامة، التوافر</div>
+                            <div class="quiz-option" onclick="checkAnswer('7', this)">الأمن، الحماية، المراقبة</div>
+                            <div class="quiz-option" onclick="checkAnswer('7', this)">البرمجيات، الأجهزة، الشبكات</div>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+
+                    <div class="quiz-question" data-question="8">
+                        <p>8. أي من التالي يعتبر من أفضل ممارسات الأمن السيبراني؟</p>
+                        <div class="quiz-options">
+                            <div class="quiz-option" onclick="checkAnswer('8', this)">مشاركة كلمات المرور مع الزملاء</div>
+                            <div class="quiz-option" onclick="checkAnswer('8', this)">فتح جميع المرفقات في البريد الإلكتروني</div>
+                            <div class="quiz-option" onclick="checkAnswer('8', this)" data-correct="true">استخدام المصادقة الثنائية</div>
+                            <div class="quiz-option" onclick="checkAnswer('8', this)">تجاهل تحديثات الأمان</div>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="lesson" id="lesson4">
+            <h2>الدرس الرابع: نموذج امتحان أساسيات الحاسب - الأسئلة العملية | Windows 10 Practical Exam</h2>
+            <div class="lesson-content">
+                <div class="highlight-box">
+                    <h3>الأسئلة العملية في Windows 10</h3>
+                    <ul>
+                        <li>نقل أيقونة سلة المحذوفات
+                            <ul>
+                                <li>تحديد الأيقونة والسحب للزاوية اليسرى العلوية</li>
+                                <li>إلغاء الترتيب التلقائي: زر يمين > عرض > إلغاء ترتيب تلقائي للرموز</li>
+                            </ul>
+                        </li>
+                        <li>إنشاء اختصار
+                            <ul>
+                                <li>تحديد الملف > زر يمين > إرسال إلى > سطح المكتب (إنشاء اختصار)</li>
+                            </ul>
+                        </li>
+                        <li>تحريك النوافذ
+                            <ul>
+                                <li>السحب من شريط العنوان إلى الموقع المطلوب</li>
+                            </ul>
+                        </li>
+                        <li>عرض معلومات النظام
+                            <ul>
+                                <li>جهاز الكمبيوتر > زر يمين > خصائص</li>
+                            </ul>
+                        </li>
+                        <li>إدارة الطباعة
+                            <ul>
+                                <li>فتح قائمة انتظار الطباعة</li>
+                                <li>طابعة > إلغاء كافة المستندات</li>
+                            </ul>
+                        </li>
+                        <li>تغيير لغة لوحة المفاتيح
+                            <ul>
+                                <li>استخدام Alt + Shift</li>
+                                <li>أو النقر على رمز اللغة في شريط المهام</li>
+                            </ul>
+                        </li>
+                        <li>إزالة الأجهزة بأمان
+                            <ul>
+                                <li>النقر على رمز الجهاز في شريط المهام</li>
+                                <li>اختيار "إخراج"</li>
+                            </ul>
+                        </li>
+                        <li>التقاط صورة للشاشة
+                            <ul>
+                                <li>استخدام مفتاح Print Screen</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="quiz-section">
+                    <h3>أسئلة تدريبية - Windows 10</h3>
+                    
+                    <div class="quiz-question" data-question="w1">
+                        <p>1. كيف يمكنك نقل أيقونة سلة المحذوفات إلى أعلى يسار سطح المكتب؟</p>
+                        <div class="quiz-options">
+                            <div class="quiz-option" onclick="checkAnswer('w1', this)">النقر المزدوج على الأيقونة</div>
+                            <div class="quiz-option" onclick="checkAnswer('w1', this)" data-correct="true">السحب والإفلات بعد إلغاء الترتيب التلقائي</div>
+                            <div class="quiz-option" onclick="checkAnswer('w1', this)">الضغط على Alt + F4</div>
+                            <div class="quiz-option" onclick="checkAnswer('w1', this)">النقر بزر الماوس الأيمن واختيار نقل</div>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+
+                    <div class="quiz-question" data-question="w2">
+                        <p>2. ما هي الطريقة الصحيحة لإنشاء اختصار لملف على سطح المكتب؟</p>
+                        <div class="quiz-options">
+                            <div class="quiz-option" onclick="checkAnswer('w2', this)">نسخ الملف ولصقه على سطح المكتب</div>
+                            <div class="quiz-option" onclick="checkAnswer('w2', this)" data-correct="true">النقر بزر الماوس الأيمن > إرسال إلى > سطح المكتب (إنشاء اختصار)</div>
+                            <div class="quiz-option" onclick="checkAnswer('w2', this)">سحب الملف إلى سطح المكتب</div>
+                            <div class="quiz-option" onclick="checkAnswer('w2', this)">الضغط على Ctrl + N</div>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+
+                    <div class="quiz-question" data-question="w3">
+                        <p>3. كيف يمكنك تغيير دقة الشاشة في Windows 10؟</p>
+                        <div class="quiz-options">
+                            <div class="quiz-option" onclick="checkAnswer('w3', this)">الضغط على F11</div>
+                            <div class="quiz-option" onclick="checkAnswer('w3', this)">فتح لوحة التحكم > العرض</div>
+                            <div class="quiz-option" onclick="checkAnswer('w3', this)" data-correct="true">النقر بزر الماوس الأيمن على سطح المكتب > إعدادات العرض > دقة الشاشة</div>
+                            <div class="quiz-option" onclick="checkAnswer('w3', this)">فتح Task Manager</div>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+
+                    <div class="quiz-question" data-question="w4">
+                        <p>4. ما هي الطريقة الصحيحة لفتح Task Manager في Windows 10؟</p>
+                        <div class="quiz-options">
+                            <div class="quiz-option" onclick="checkAnswer('w4', this)">الضغط على Alt + F4</div>
+                            <div class="quiz-option" onclick="checkAnswer('w4', this)" data-correct="true">الضغط على Ctrl + Shift + Esc</div>
+                            <div class="quiz-option" onclick="checkAnswer('w4', this)">النقر بزر الماوس الأيمن على شريط المهام > Task Manager</div>
+                            <div class="quiz-option" onclick="checkAnswer('w4', this)">الضغط على Windows + L</div>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="lesson" id="lesson5">
+            <h2>الدرس الخامس: مقدمة إلى معالج النصوص Word | Word Processor Introduction</h2>
+            <div class="lesson-content">
+                <div class="highlight-box">
+                    <h3>مكونات نافذة Word</h3>
+                    <ul>
+                        <li>شريط العنوان
+                            <ul>
+                                <li>أزرار التحكم (إغلاق، تكبير، تصغير)</li>
+                                <li>اسم المستند</li>
+                            </ul>
+                        </li>
+                        <li>الشريط (Ribbon)
+                            <ul>
+                                <li>قائمة ملف</li>
+                                <li>التبويبات الرئيسية (الصفحة الرئيسية، إدراج، تصميم، إلخ)</li>
+                                <li>مجموعات الأدوات</li>
+                            </ul>
+                        </li>
+                        <li>منطقة العمل
+                            <ul>
+                                <li>المسطرة</li>
+                                <li>الهوامش</li>
+                                <li>صفحة المستند</li>
+                            </ul>
+                        </li>
+                        <li>شريط المعلومات
+                            <ul>
+                                <li>معلومات المستند</li>
+                                <li>طرق العرض</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="highlight-box">
+                    <h3>قائمة ملف | File Menu</h3>
+                    <ul>
+                        <li>فتح (Open)
+                            <ul>
+                                <li>استعراض الملفات</li>
+                                <li>فتح مستند موجود</li>
+                            </ul>
+                        </li>
+                        <li>جديد (New)
+                            <ul>
+                                <li>مستند فارغ</li>
+                                <li>القوالب الجاهزة</li>
+                            </ul>
+                        </li>
+                        <li>حفظ (Save)
+                            <ul>
+                                <li>حفظ التغييرات</li>
+                            </ul>
+                        </li>
+                        <li>حفظ باسم (Save As)
+                            <ul>
+                                <li>حفظ نسخة جديدة</li>
+                                <li>تغيير نوع الملف</li>
+                                <li>تغيير موقع الحفظ</li>
+                            </ul>
+                        </li>
+                        <li>إغلاق (Close)
+                            <ul>
+                                <li>إغلاق المستند الحالي</li>
+                                <li>إغلاق البرنامج</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="quiz-section">
+                <h3>أسئلة تدريبية - Microsoft Word</h3>
+                
+                <div class="quiz-question" data-question="word1">
+                    <p>1. كيف يمكنك حفظ مستند Word كقالب (.dotx)؟</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="checkAnswer('word1', this)">حفظ > حفظ باسم > PDF</div>
+                        <div class="quiz-option" onclick="checkAnswer('word1', this)" data-correct="true">حفظ باسم > اختيار نوع الملف Word Template (*.dotx)</div>
+                        <div class="quiz-option" onclick="checkAnswer('word1', this)">ملف > تصدير > إنشاء قالب</div>
+                        <div class="quiz-option" onclick="checkAnswer('word1', this)">تصميم > حفظ كقالب</div>
+                    </div>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question" data-question="word2">
+                    <p>2. ما هي الطريقة السريعة لتطبيق تنسيق عنوان رئيسي (Heading 1)؟</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="checkAnswer('word2', this)">Ctrl + H</div>
+                        <div class="quiz-option" onclick="checkAnswer('word2', this)">Alt + 1</div>
+                        <div class="quiz-option" onclick="checkAnswer('word2', this)" data-correct="true">Ctrl + Alt + 1</div>
+                        <div class="quiz-option" onclick="checkAnswer('word2', this)">Shift + 1</div>
+                    </div>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question" data-question="word3">
+                    <p>3. كيف يمكنك إدراج جدول محتويات تلقائي في المستند؟</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="checkAnswer('word3', this)">إدراج > جدول > جدول محتويات</div>
+                        <div class="quiz-option" onclick="checkAnswer('word3', this)" data-correct="true">مراجع > جدول المحتويات > تلقائي</div>
+                        <div class="quiz-option" onclick="checkAnswer('word3', this)">تصميم > إدراج > جدول محتويات</div>
+                        <div class="quiz-option" onclick="checkAnswer('word3', this)">عرض > جدول المحتويات</div>
+                    </div>
+                    <div class="quiz-feedback"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="lesson" id="lesson6">
+            <h2>الدرس السادس: إنشاء وتحرير المستندات في Word | Creating and Editing Documents</h2>
+            <div class="lesson-content">
+                <div class="highlight-box">
+                    <h3>إنشاء المستندات | Creating Documents</h3>
+                    <ul>
+                        <li>إنشاء مستند جديد
+                            <ul>
+                                <li>ملف > جديد > مستند فارغ</li>
+                                <li>استخدام القوالب الجاهزة</li>
+                            </ul>
+                        </li>
+                        <li>حفظ المستند لأول مرة
+                            <ul>
+                                <li>ملف > حفظ باسم</li>
+                                <li>اختيار موقع الحفظ</li>
+                                <li>تحديد اسم الملف</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="highlight-box">
+                    <h3>تحديد النصوص | Text Selection</h3>
+                    <ul>
+                        <li>طرق التحديد
+                            <ul>
+                                <li>باستخدام الماوس (السحب)</li>
+                                <li>النقر المزدوج لتحديد كلمة</li>
+                                <li>النقر الثلاثي لتحديد فقرة</li>
+                                <li>Ctrl + A لتحديد المستند كاملاً</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="highlight-box">
+                    <h3>النسخ والنقل | Copy and Move</h3>
+                    <ul>
+                        <li>النسخ (Copy)
+                            <ul>
+                                <li>Ctrl + C</li>
+                                <li>زر يمين > نسخ</li>
+                                <li>من شريط الصفحة الرئيسية</li>
+                            </ul>
+                        </li>
+                        <li>القص (Cut)
+                            <ul>
+                                <li>Ctrl + X</li>
+                                <li>زر يمين > قص</li>
+                            </ul>
+                        </li>
+                        <li>اللصق (Paste)
+                            <ul>
+                                <li>Ctrl + V</li>
+                                <li>زر يمين > لصق</li>
+                                <li>خيارات اللصق المختلفة</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="image-container">
+                    <img src="images/word-interface.png" alt="واجهة برنامج Word">
+                    <p class="image-caption">واجهة برنامج Microsoft Word الأساسية</p>
+                </div>
+            </div>
+            <div class="quiz-section">
+                <h3>أسئلة تدريبية - إنشاء وتحرير المستندات</h3>
+                
+                <div class="quiz-question" data-question="doc1">
+                    <p>1. ما هي الطريقة الصحيحة لتحديد فقرة كاملة في Word؟</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="checkAnswer('doc1', this)">الضغط على Ctrl + A</div>
+                        <div class="quiz-option" onclick="checkAnswer('doc1', this)">النقر مرة واحدة داخل الفقرة</div>
+                        <div class="quiz-option" onclick="checkAnswer('doc1', this)" data-correct="true">النقر ثلاث مرات داخل الفقرة</div>
+                        <div class="quiz-option" onclick="checkAnswer('doc1', this)">سحب المؤشر من بداية الفقرة إلى نهايتها</div>
+                    </div>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question" data-question="doc2">
+                    <p>2. كيف يمكنك إظهار علامات التنسيق غير المطبوعة (مثل علامات الفقرات والمسافات)؟</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="checkAnswer('doc2', this)">الضغط على Alt + F12</div>
+                        <div class="quiz-option" onclick="checkAnswer('doc2', this)" data-correct="true">الضغط على Ctrl + Shift + 8 أو النقر على زر ¶ في تبويب الصفحة الرئيسية</div>
+                        <div class="quiz-option" onclick="checkAnswer('doc2', this)">عرض > علامات التنسيق</div>
+                        <div class="quiz-option" onclick="checkAnswer('doc2', this)">تنسيق > إظهار/إخفاء</div>
+                    </div>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question" data-question="doc3">
+                    <p>3. ما هي أفضل طريقة لنسخ التنسيق من نص إلى نص آخر؟</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="checkAnswer('doc3', this)">Ctrl + C ثم Ctrl + V</div>
+                        <div class="quiz-option" onclick="checkAnswer('doc3', this)" data-correct="true">النقر المزدوج على زر نسخ التنسيق (Format Painter) لتطبيق التنسيق على عدة فقرات</div>
+                        <div class="quiz-option" onclick="checkAnswer('doc3', this)">تحديد النص > نسخ > لصق خاص</div>
+                        <div class="quiz-option" onclick="checkAnswer('doc3', this)">استخدام قائمة التنسيق السريع</div>
+                    </div>
+                    <div class="quiz-feedback"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="lesson" id="identity-theft">
+            <h2>سرقة الهوية - Identity Theft</h2>
+            <div class="lesson-content">
+                <div class="container">
+                    <h1>تعريف سرقة الهوية</h1>
+                    
+                    <section>
+                        <h2>تعريف سرقة الهوية</h2>
+                        <p>
+                            سرقة الهوية هي عملية احتيالية يقوم فيها شخص ما بالحصول على معلومات شخصية لشخص آخر
+                            واستخدامها بشكل غير قانوني للحصول على منافع مادية أو معنوية.
+                        </p>
+                        <ul>
+                            <li>البيانات الشخصية (الاسم، تاريخ الميلاد، رقم الهوية)</li>
+                            <li>المعلومات المالية (أرقام البطاقات البنكية، كلمات المرور)</li>
+                            <li>معلومات الحسابات الإلكترونية</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h2>أنواع سرقة الهوية</h2>
+                        <ul>
+                            <li>
+                                <strong>السرقة المالية:</strong> سرقة معلومات البطاقات الائتمانية والحسابات البنكية
+                            </li>
+                            <li>
+                                <strong>السرقة الطبية:</strong> استخدام هوية شخص آخر للحصول على خدمات طبية
+                            </li>
+                            <li>
+                                <strong>السرقة الإلكترونية:</strong> اختراق الحسابات الشخصية على مواقع التواصل والبريد الإلكتروني
+                            </li>
+                            <li>
+                                <strong>سرقة الهوية الضريبية:</strong> استخدام معلومات شخص آخر لتقديم إقرارات ضريبية احتيالية
+                            </li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h2>طرق الحماية من سرقة الهوية</h2>
+                        <ul>
+                            <li>استخدام كلمات مرور قوية ومختلفة لكل حساب</li>
+                            <li>تفعيل المصادقة الثنائية على جميع الحسابات المهمة</li>
+                            <li>عدم مشاركة المعلومات الشخصية على مواقع غير موثوقة</li>
+                            <li>مراقبة الكشوفات البنكية بانتظام</li>
+                            <li>تحديث برامج الحماية والأنظمة باستمرار</li>
+                            <li>الحذر من رسائل التصيد الاحتيالي</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h2>مخاطر وعواقب سرقة الهوية</h2>
+                        <ul>
+                            <li>خسائر مالية مباشرة</li>
+                            <li>تدمير السمعة الائتمانية</li>
+                            <li>مشاكل قانونية وقضائية</li>
+                            <li>ضياع الوقت والجهد في استعادة الهوية</li>
+                            <li>آثار نفسية واجتماعية سلبية</li>
+                        </ul>
+                    </section>
+                </div>
+            </div>
+        </div>
+
+        <div class="lesson" id="definitions">
+            <h2>التعريفات المهمة في مجال الحاسب</h2>
+            <div class="lesson-content">
+                <!-- سرقة الهوية -->
+                <section class="definition-section">
+                    <h3>سرقة الهوية (Identity Theft)</h3>
+                    <p>هي عملية احتيالية يقوم فيها شخص ما بالحصول على معلومات شخصية لشخص آخر
+                        واستخدامها بشكل غير قانوني. تتضمن هذه المعلومات عادةً:
+                    </p>
+                    <ul>
+                        <li>البيانات الشخصية (الاسم، تاريخ الميلاد، رقم الهوية)</li>
+                        <li>المعلومات المالية (أرقام البطاقات البنكية، كلمات المرور)</li>
+                        <li>معلومات الحسابات الإلكترونية</li>
+                    </ul>
+                    
+                    <div class="quiz-section">
+                        <h4>أسئلة عن سرقة الهوية:</h4>
+                        <div class="quiz-question" data-question="identity-theft-1">
+                            <p>ما هو التعريف الصحيح لسرقة الهوية؟</p>
+                            <div class="quiz-options">
+                                <label class="quiz-option"><input type="radio" name="identity-theft-1"> استخدام جهاز الحاسوب بشكل غير قانوني</label>
+                                <label class="quiz-option"><input type="radio" name="identity-theft-1"> سرقة المعلومات الشخصية واستخدامها بشكل غير مشروع</label>
+                                <label class="quiz-option"><input type="radio" name="identity-theft-1"> تعطيل جهاز شخص آخر</label>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- الفيروسات -->
+                <section class="definition-section">
+                    <h3>الفيروسات (Viruses)</h3>
+                    <p>هي برامج ضارة مصممة للانتشار من جهاز إلى آخر وإلحاق الضرر بالأجهزة والبيانات. تقوم بنسخ نفسها وإلحاق نفسها بالبرامج الأخرى.</p>
+                    
+                    <div class="quiz-section">
+                        <h4>أسئلة عن الفيروسات:</h4>
+                        <div class="quiz-question" data-question="virus-1">
+                            <p>ما هي الخاصية الأساسية للفيروسات؟</p>
+                            <div class="quiz-options">
+                                <label class="quiz-option"><input type="radio" name="virus-1"> القدرة على نسخ نفسها والانتشار</label>
+                                <label class="quiz-option"><input type="radio" name="virus-1"> تحسين أداء الجهاز</label>
+                                <label class="quiz-option"><input type="radio" name="virus-1"> حماية البيانات</label>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- البرمجيات الخبيثة -->
+                <section class="definition-section">
+                    <h3>البرمجيات الخبيثة (Malware)</h3>
+                    <p>هي أي برنامج تم تصميمه بهدف إلحاق الضرر بالأجهزة أو البيانات أو المستخدمين. تشمل الفيروسات والديدان وبرامج التجسس وغيرها.</p>
+                    
+                    <div class="quiz-section">
+                        <h4>أسئلة عن البرمجيات الخبيثة:</h4>
+                        <div class="quiz-question" data-question="malware-1">
+                            <p>ما هو الهدف الرئيسي من البرمجيات الخبيثة؟</p>
+                            <div class="quiz-options">
+                                <label class="quiz-option"><input type="radio" name="malware-1"> تحسين أداء الجهاز</label>
+                                <label class="quiz-option"><input type="radio" name="malware-1"> إلحاق الضرر بالأجهزة والبيانات</label>
+                                <label class="quiz-option"><input type="radio" name="malware-1"> تنظيم الملفات</label>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- جدار الحماية -->
+                <section class="definition-section">
+                    <h3>جدار الحماية (Firewall)</h3>
+                    <p>هو نظام أمان يراقب ويتحكم في حركة المرور الشبكية الواردة والصادرة بناءً على قواعد أمان محددة مسبقاً.</p>
+                    
+                    <div class="quiz-section">
+                        <h4>أسئلة عن جدار الحماية:</h4>
+                        <div class="quiz-question" data-question="firewall-1">
+                            <p>ما هي وظيفة جدار الحماية الأساسية؟</p>
+                            <div class="quiz-options">
+                                <label class="quiz-option"><input type="radio" name="firewall-1"> تسريع الإنترنت</label>
+                                <label class="quiz-option"><input type="radio" name="firewall-1"> مراقبة والتحكم في حركة المرور الشبكية</label>
+                                <label class="quiz-option"><input type="radio" name="firewall-1"> تخزين الملفات</label>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- التشفير -->
+                <section class="definition-section">
+                    <h3>التشفير (Encryption)</h3>
+                    <p>هو عملية تحويل البيانات إلى شكل مشفر لا يمكن قراءته إلا من قبل الأشخاص المصرح لهم باستخدام مفتاح فك التشفير.</p>
+                    
+                    <div class="quiz-section">
+                        <h4>أسئلة عن التشفير:</h4>
+                        <div class="quiz-question" data-question="encryption-1">
+                            <p>ما هو الغرض من التشفير؟</p>
+                            <div class="quiz-options">
+                                <label class="quiz-option"><input type="radio" name="encryption-1"> حماية البيانات من الوصول غير المصرح به</label>
+                                <label class="quiz-option"><input type="radio" name="encryption-1"> تسريع نقل البيانات</label>
+                                <label class="quiz-option"><input type="radio" name="encryption-1"> ضغط الملفات</label>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- النسخ الاحتياطي -->
+                <section class="definition-section">
+                    <h3>النسخ الاحتياطي (Backup)</h3>
+                    <p>هو عملية نسخ البيانات المهمة وتخزينها في موقع آخر لحمايتها من الفقدان في حالة تعطل النظام أو فقدان البيانات الأصلية.</p>
+                    
+                    <div class="quiz-section">
+                        <h4>أسئلة عن النسخ الاحتياطي:</h4>
+                        <div class="quiz-question" data-question="backup-1">
+                            <p>لماذا نقوم بعمل نسخ احتياطي؟</p>
+                            <div class="quiz-options">
+                                <label class="quiz-option"><input type="radio" name="backup-1"> لتوفير مساحة على القرص الصلب</label>
+                                <label class="quiz-option"><input type="radio" name="backup-1"> لحماية البيانات من الفقدان</label>
+                                <label class="quiz-option"><input type="radio" name="backup-1"> لتسريع الجهاز</label>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- نظام التشغيل -->
+                <section class="definition-section">
+                    <h3>نظام التشغيل (Operating System)</h3>
+                    <p>هو مجموعة من البرامج الأساسية التي تدير موارد الحاسوب ويوفر واجهة للمستخدم للتفاعل مع الجهاز. يعمل كوسيط بين المستخدم والمكونات المادية للحاسوب.</p>
+                    
+                    <div class="quiz-section">
+                        <h4>أسئلة عن نظام التشغيل:</h4>
+                        <div class="quiz-question" data-question="os-1">
+                            <p>ما هي الوظيفة الرئيسية لنظام التشغيل؟</p>
+                            <div class="quiz-options">
+                                <label class="quiz-option"><input type="radio" name="os-1"> تصفح الإنترنت</label>
+                                <label class="quiz-option"><input type="radio" name="os-1"> التحكم في عمل الحاسوب وتنظيم العلاقة بين مكوناته</label>
+                                <label class="quiz-option"><input type="radio" name="os-1"> كتابة المستندات</label>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- الذاكرة العشوائية -->
+                <section class="definition-section">
+                    <h3>الذاكرة العشوائية (RAM)</h3>
+                    <p>هي ذاكرة مؤقتة سريعة يستخدمها الحاسوب لتخزين البيانات والبرامج التي يتم استخدامها حالياً. تفقد محتوياتها عند إطفاء الجهاز.</p>
+                    
+                    <div class="quiz-section">
+                        <h4>أسئلة عن الذاكرة العشوائية:</h4>
+                        <div class="quiz-question" data-question="ram-1">
+                            <p>ما هي خاصية الذاكرة العشوائية؟</p>
+                            <div class="quiz-options">
+                                <label class="quiz-option"><input type="radio" name="ram-1"> تحتفظ بالبيانات عند إطفاء الجهاز</label>
+                                <label class="quiz-option"><input type="radio" name="ram-1"> تفقد محتوياتها عند إطفاء الجهاز</label>
+                                <label class="quiz-option"><input type="radio" name="ram-1"> تخزن نظام التشغيل فقط</label>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- المعالج -->
+                <section class="definition-section">
+                    <h3>المعالج (CPU)</h3>
+                    <p>هو وحدة المعالجة المركزية في الحاسوب، يقوم بتنفيذ العمليات الحسابية والمنطقية وإدارة جميع مكونات الحاسوب.</p>
+                    
+                    <div class="quiz-section">
+                        <h4>أسئلة عن المعالج:</h4>
+                        <div class="quiz-question" data-question="cpu-1">
+                            <p>ما هي وظيفة المعالج الرئيسية؟</p>
+                            <div class="quiz-options">
+                                <label class="quiz-option"><input type="radio" name="cpu-1"> تخزين البيانات</label>
+                                <label class="quiz-option"><input type="radio" name="cpu-1"> تنفيذ العمليات الحسابية والمنطقية</label>
+                                <label class="quiz-option"><input type="radio" name="cpu-1"> عرض الصور والفيديو</label>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- القرص الصلب -->
+                <section class="definition-section">
+                    <h3>القرص الصلب (Hard Disk)</h3>
+                    <p>هو وحدة التخزين الرئيسية في الحاسوب، يستخدم لتخزين نظام التشغيل والبرامج والملفات بشكل دائم حتى بعد إطفاء الجهاز.</p>
+                    
+                    <div class="quiz-section">
+                        <h4>أسئلة عن القرص الصلب:</h4>
+                        <div class="quiz-question" data-question="hdd-1">
+                            <p>ما هي وظيفة القرص الصلب؟</p>
+                            <div class="quiz-options">
+                                <label class="quiz-option"><input type="radio" name="hdd-1"> تنفيذ العمليات الحسابية</label>
+                                <label class="quiz-option"><input type="radio" name="hdd-1"> التخزين الدائم للبيانات والبرامج</label>
+                                <label class="quiz-option"><input type="radio" name="hdd-1"> معالجة الرسومات</label>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- البرمجيات -->
+                <section class="definition-section">
+                    <h3>البرمجيات (Software)</h3>
+                    <p>هي مجموعة من التعليمات والبرامج التي تخبر الحاسوب كيفية تنفيذ المهام. تنقسم إلى برمجيات النظام وبرمجيات التطبيقات.</p>
+                    
+                    <div class="quiz-section">
+                        <h4>أسئلة عن البرمجيات:</h4>
+                        <div class="quiz-question" data-question="software-1">
+                            <p>ما هي البرمجيات؟</p>
+                            <div class="quiz-options">
+                                <label class="quiz-option"><input type="radio" name="software-1"> المكونات المادية للحاسوب</label>
+                                <label class="quiz-option"><input type="radio" name="software-1"> التعليمات والبرامج التي تخبر الحاسوب كيفية تنفيذ المهام</label>
+                                <label class="quiz-option"><input type="radio" name="software-1"> الشبكات والاتصالات</label>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- الشبكات -->
+                <section class="definition-section">
+                    <h3>الشبكات (Networks)</h3>
+                    <p>هي مجموعة من الأجهزة المتصلة ببعضها البعض لتبادل البيانات والموارد. يمكن أن تكون محلية (LAN) أو واسعة النطاق (WAN).</p>
+                    
+                    <div class="quiz-section">
+                        <h4>أسئلة عن الشبكات:</h4>
+                        <div class="quiz-question" data-question="network-1">
+                            <p>ما هو الغرض الرئيسي من الشبكات؟</p>
+                            <div class="quiz-options">
+                                <label class="quiz-option"><input type="radio" name="network-1"> تخزين البيانات فقط</label>
+                                <label class="quiz-option"><input type="radio" name="network-1"> تبادل البيانات والموارد بين الأجهزة</label>
+                                <label class="quiz-option"><input type="radio" name="network-1"> تشغيل البرامج فقط</label>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- الإنترنت -->
+                <section class="definition-section">
+                    <h3>الإنترنت (Internet)</h3>
+                    <p>هي شبكة عالمية تربط ملايين الأجهزة والشبكات حول العالم، تتيح تبادل المعلومات والخدمات مثل البريد الإلكتروني والويب.</p>
+                    
+                    <div class="quiz-section">
+                        <h4>أسئلة عن الإنترنت:</h4>
+                        <div class="quiz-question" data-question="internet-1">
+                            <p>ما هو الإنترنت؟</p>
+                            <div class="quiz-options">
+                                <label class="quiz-option"><input type="radio" name="internet-1"> برنامج لتصفح المواقع</label>
+                                <label class="quiz-option"><input type="radio" name="internet-1"> شبكة عالمية تربط الأجهزة والشبكات حول العالم</label>
+                                <label class="quiz-option"><input type="radio" name="internet-1"> جهاز لتخزين البيانات</label>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- البريد الإلكتروني -->
+                <section class="definition-section">
+                    <h3>البريد الإلكتروني (Email)</h3>
+                    <p>هو وسيلة لتبادل الرسائل الإلكترونية عبر الإنترنت. يمكن إرسال النصوص والملفات والصور وغيرها من البيانات.</p>
+                    
+                    <div class="quiz-section">
+                        <h4>أسئلة عن البريد الإلكتروني:</h4>
+                        <div class="quiz-question" data-question="email-1">
+                            <p>ما هو البريد الإلكتروني؟</p>
+                            <div class="quiz-options">
+                                <label class="quiz-option"><input type="radio" name="email-1"> خدمة للمحادثة الصوتية</label>
+                                <label class="quiz-option"><input type="radio" name="email-1"> وسيلة لتبادل الرسائل الإلكترونية عبر الإنترنت</label>
+                                <label class="quiz-option"><input type="radio" name="email-1"> برنامج لتحرير النصوص</label>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- مكونات نافذة Word -->
+                <section class="definition-section">
+                    <h3>مكونات نافذة Microsoft Word</h3>
+                    <div class="word-components">
+                        <h4>المكونات الرئيسية</h4>
+                        <ol>
+                            <li>
+                                <strong>شريط العنوان (Title Bar)</strong>
+                                <ul>
+                                    <li>يقع في أعلى النافذة</li>
+                                    <li>يعرض اسم المستند الحالي</li>
+                                    <li>يحتوي على أزرار التحكم (إغلاق، تكبير، تصغير)</li>
+                                </ul>
+                            </li>
+                            
+                            <li>
+                                <strong>شريط الأدوات السريع (Quick Access Toolbar)</strong>
+                                <ul>
+                                    <li>يقع أعلى النافذة</li>
+                                    <li>يحتوي على الأوامر الأكثر استخداماً مثل:
+                                        <ul>
+                                            <li>حفظ (Save)</li>
+                                            <li>تراجع (Undo)</li>
+                                            <li>إعادة (Redo)</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li>
+                                <strong>الشريط (Ribbon)</strong>
+                                <ul>
+                                    <li>يحتوي على تبويبات رئيسية:
+                                        <ul>
+                                            <li>الصفحة الرئيسية (Home): للتنسيق الأساسي</li>
+                                            <li>إدراج (Insert): لإضافة عناصر للمستند</li>
+                                            <li>تخطيط (Layout): لتنسيق الصفحة</li>
+                                            <li>مراجع (References): للفهارس والمراجع</li>
+                                            <li>مراسلات (Mailings): لدمج المراسلات</li>
+                                            <li>مراجعة (Review): للتدقيق والتعليقات</li>
+                                            <li>عرض (View): لتغيير طريقة العرض</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li>
+                                <strong>المسطرة (Ruler)</strong>
+                                <ul>
+                                    <li>أفقية: لضبط الهوامش والمسافات البادئة</li>
+                                    <li>رأسية: لضبط الهوامش العلوية والسفلية</li>
+                                </ul>
+                            </li>
+
+                            <li>
+                                <strong>منطقة العمل (Work Area)</strong>
+                                <ul>
+                                    <li>المساحة الرئيسية لكتابة المحتوى</li>
+                                    <li>تعرض الصفحات بالتنسيق المحدد</li>
+                                    <li>تظهر علامات التنسيق عند تفعيلها</li>
+                                </ul>
+                            </li>
+
+                            <li>
+                                <strong>أشرطة التمرير (Scroll Bars)</strong>
+                                <ul>
+                                    <li>للتنقل في المستند عمودياً وأفقياً</li>
+                                    <li>تظهر عند الحاجة</li>
+                                </ul>
+                            </li>
+
+                            <li>
+                                <strong>شريط الحالة (Status Bar)</strong>
+                                <ul>
+                                    <li>يعرض معلومات مهمة مثل:
+                                        <ul>
+                                            <li>رقم الصفحة الحالية</li>
+                                            <li>عدد الكلمات</li>
+                                            <li>اللغة المستخدمة</li>
+                                            <li>طريقة العرض</li>
+                                            <li>نسبة التكبير</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ol>
+
+                        <div class="quiz-section">
+                            <h4>أسئلة عن مكونات Word:</h4>
+                            
+                            <div class="quiz-question" data-question="word-1">
+                                <p>أين يوجد شريط الأدوات السريع؟</p>
+                                <div class="quiz-options">
+                                    <label class="quiz-option"><input type="radio" name="word-1"> في أسفل النافذة</label>
+                                    <label class="quiz-option"><input type="radio" name="word-1"> في أعلى النافذة</label>
+                                    <label class="quiz-option"><input type="radio" name="word-1"> في جانب النافذة</label>
+                                </div>
+                            </div>
+
+                            <div class="quiz-question" data-question="word-2">
+                                <p>ما هو التبويب المسؤول عن تنسيق النص والفقرات؟</p>
+                                <div class="quiz-options">
+                                    <label class="quiz-option"><input type="radio" name="word-2"> إدراج (Insert)</label>
+                                    <label class="quiz-option"><input type="radio" name="word-2"> الصفحة الرئيسية (Home)</label>
+                                    <label class="quiz-option"><input type="radio" name="word-2"> عرض (View)</label>
+                                </div>
+                            </div>
+
+                            <div class="quiz-question" data-question="word-3">
+                                <p>ما هي وظيفة المسطرة في Word؟</p>
+                                <div class="quiz-options">
+                                    <label class="quiz-option"><input type="radio" name="word-3"> لقياس طول النص فقط</label>
+                                    <label class="quiz-option"><input type="radio" name="word-3"> لضبط الهوامش والمسافات البادئة</label>
+                                    <label class="quiz-option"><input type="radio" name="word-3"> لرسم الخطوط فقط</label>
+                                </div>
+                            </div>
+
+                            <div class="quiz-question" data-question="word-4">
+                                <p>ماذا يعرض شريط الحالة؟</p>
+                                <div class="quiz-options">
+                                    <label class="quiz-option"><input type="radio" name="word-4"> اسم المستند فقط</label>
+                                    <label class="quiz-option"><input type="radio" name="word-4"> معلومات مثل رقم الصفحة وعدد الكلمات</label>
+                                    <label class="quiz-option"><input type="radio" name="word-4"> الوقت والتاريخ فقط</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- أنظمة التشغيل -->
+                <section class="definition-section">
+                    <h3>أنظمة التشغيل (Operating Systems)</h3>
+                    <div class="os-basics">
+                        <h4>تعريف نظام التشغيل</h4>
+                        <p>نظام التشغيل هو البرنامج الأساسي الذي يدير موارد الحاسوب ويوفر واجهة للمستخدم للتفاعل مع الجهاز. يعمل كوسيط بين المستخدم والمكونات المادية للحاسوب.</p>
+
+                        <h4>الوظائف الأساسية</h4>
+                        <ul>
+                            <li>إدارة المعالج:
+                                <ul>
+                                    <li>تنظيم وقت استخدام المعالج</li>
+                                    <li>تحديد أولويات البرامج</li>
+                                    <li>ضمان كفاءة استخدام المعالج</li>
+                                </ul>
+                            </li>
+                            <li>إدارة الذاكرة:
+                                <ul>
+                                    <li>توزيع الذاكرة على البرامج</li>
+                                    <li>إدارة الذاكرة المؤقتة</li>
+                                    <li>تنظيف الذاكرة غير المستخدمة</li>
+                                </ul>
+                            </li>
+                            <li>إدارة الملفات:
+                                <ul>
+                                    <li>تنظيم وحفظ الملفات</li>
+                                    <li>حماية الملفات</li>
+                                    <li>تسهيل الوصول للملفات</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <div class="quiz-section">
+                            <h4>أسئلة:</h4>
+                            
+                            <div class="quiz-question" data-question="os-basic-1">
+                                <p>ما هو الدور الرئيسي لنظام التشغيل؟</p>
+                                <div class="quiz-options">
+                                    <label class="quiz-option"><input type="radio" name="os-basic-1"> تشغيل الألعاب فقط</label>
+                                    <label class="quiz-option"><input type="radio" name="os-basic-1"> إدارة موارد الحاسوب وتوفير واجهة للمستخدم</label>
+                                    <label class="quiz-option"><input type="radio" name="os-basic-1"> تصفح الإنترنت فقط</label>
+                                </div>
+                            </div>
+
+                            <div class="quiz-question" data-question="os-basic-2">
+                                <p>ما هي وظيفة إدارة الذاكرة؟</p>
+                                <div class="quiz-options">
+                                    <label class="quiz-option"><input type="radio" name="os-basic-2"> حفظ الملفات فقط</label>
+                                    <label class="quiz-option"><input type="radio" name="os-basic-2"> توزيع وإدارة الذاكرة بين البرامج</label>
+                                    <label class="quiz-option"><input type="radio" name="os-basic-2"> تشغيل الإنترنت فقط</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- واجهات المستخدم وإدارة الموارد -->
+                <section class="definition-section">
+                    <h3>واجهات المستخدم وإدارة الموارد</h3>
+                    <div class="os-interfaces">
+                        <h4>أنواع واجهات المستخدم</h4>
+                        <ul>
+                            <li>واجهة سطر الأوامر (CLI):
+                                <ul>
+                                    <li>المميزات:
+                                        <ul>
+                                            <li>التحكم الكامل عبر الأوامر النصية</li>
+                                            <li>سرعة في تنفيذ المهام</li>
+                                            <li>استهلاك أقل للموارد</li>
+                                        </ul>
+                                    </li>
+                                    <li>الاستخدامات:
+                                        <ul>
+                                            <li>إدارة الخوادم</li>
+                                            <li>البرمجة والتطوير</li>
+                                            <li>صيانة النظام</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>واجهة المستخدم الرسومية (GUI):
+                                <ul>
+                                    <li>المميزات:
+                                        <ul>
+                                            <li>سهولة الاستخدام</li>
+                                            <li>عرض مرئي للمعلومات</li>
+                                            <li>تفاعل بديهي</li>
+                                        </ul>
+                                    </li>
+                                    <li>العناصر الرئيسية:
+                                        <ul>
+                                            <li>النوافذ والأيقونات</li>
+                                            <li>القوائم وأشرطة الأدوات</li>
+                                            <li>مؤشر الفأرة</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <h4>إدارة موارد النظام</h4>
+                        <ul>
+                            <li>إدارة المعالج:
+                                <ul>
+                                    <li>جدولة المهام:
+                                        <ul>
+                                            <li>تحديد أولويات العمليات</li>
+                                            <li>توزيع وقت المعالج</li>
+                                            <li>تنفيذ المهام بالتوازي</li>
+                                        </ul>
+                                    </li>
+                                    <li>مراقبة الأداء:
+                                        <ul>
+                                            <li>قياس استخدام المعالج</li>
+                                            <li>تحديد العمليات المستهلكة للموارد</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>إدارة الذاكرة:
+                                <ul>
+                                    <li>الذاكرة الرئيسية (RAM):
+                                        <ul>
+                                            <li>تخصيص الذاكرة للبرامج</li>
+                                            <li>إدارة الذاكرة المؤقتة</li>
+                                            <li>تحرير الذاكرة غير المستخدمة</li>
+                                        </ul>
+                                    </li>
+                                    <li>الذاكرة الافتراضية:
+                                        <ul>
+                                            <li>استخدام القرص الصلب كذاكرة إضافية</li>
+                                            <li>تبديل الصفحات</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <div class="quiz-section">
+                            <h4>أسئلة عن واجهات المستخدم وإدارة الموارد:</h4>
+                            
+                            <div class="quiz-question" data-question="os-interface-1">
+                                <p>ما الفرق بين CLI و GUI؟</p>
+                                <div class="quiz-options">
+                                    <label class="quiz-option"><input type="radio" name="os-interface-1"> لا يوجد فرق</label>
+                                    <label class="quiz-option"><input type="radio" name="os-interface-1"> CLI تستخدم الأوامر النصية، GUI تستخدم الواجهة الرسومية</label>
+                                    <label class="quiz-option"><input type="radio" name="os-interface-1"> CLI أحدث من GUI</label>
+                                </div>
+                            </div>
+
+                            <div class="quiz-question" data-question="os-interface-2">
+                                <p>ما هي وظيفة إدارة المعالج في نظام التشغيل؟</p>
+                                <div class="quiz-options">
+                                    <label class="quiz-option"><input type="radio" name="os-interface-2"> فقط تشغيل البرامج</label>
+                                    <label class="quiz-option"><input type="radio" name="os-interface-2"> جدولة المهام وتوزيع وقت المعالج</label>
+                                    <label class="quiz-option"><input type="radio" name="os-interface-2"> فقط إيقاف البرامج</label>
+                                </div>
+                            </div>
+
+                            <div class="quiz-question" data-question="os-interface-3">
+                                <p>ما هي الذاكرة الافتراضية؟</p>
+                                <div class="quiz-options">
+                                    <label class="quiz-option"><input type="radio" name="os-interface-3"> نوع من أنواع المعالجات</label>
+                                    <label class="quiz-option"><input type="radio" name="os-interface-3"> استخدام جزء من القرص الصلب كذاكرة إضافية</label>
+                                    <label class="quiz-option"><input type="radio" name="os-interface-3"> نوع من أنواع الشاشات</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <script>
+                    // إضافة الإجابات الصحيحة
+                    Object.assign(correctAnswers, {
+                        'os-interface-1': 1, // CLI نصية، GUI رسومية
+                        'os-interface-2': 1, // جدولة المهام
+                        'os-interface-3': 1  // استخدام القرص كذاكرة
+                    });
+                </script>
+            </div>
+        </div>
+
+        <script>
+            // إضافة وظيفة التحقق من الإجابات
+            const correctAnswers = {
+                'identity-theft-1': 1, // الإجابة الثانية
+                'virus-1': 0, // الإجابة الأولى
+                'malware-1': 1, // الإجابة الثانية
+                'firewall-1': 1, // الإجابة الثانية
+                'encryption-1': 0, // الإجابة الأولى
+                'backup-1': 1 // الإجابة الثانية
+            };
+
+            function checkQuizAnswer(questionId, selectedIndex) {
+                const correctIndex = correctAnswers[questionId];
+                const options = document.querySelectorAll(`[data-question="${questionId}"] .quiz-option`);
+                
+                options.forEach((option, index) => {
+                    if (index === correctIndex) {
+                        option.style.backgroundColor = '#dff0d8';
+                    } else if (index === selectedIndex) {
+                        option.style.backgroundColor = '#f2dede';
+                    }
+                });
+            }
+
+            // إضافة مستمعي الأحداث لجميع خيارات الاختبار
+            document.querySelectorAll('.quiz-option input').forEach(input => {
+                input.addEventListener('change', (e) => {
+                    const questionId = e.target.closest('[data-question]').dataset.question;
+                    const selectedIndex = Array.from(e.target.closest('.quiz-options').children).indexOf(e.target.closest('.quiz-option'));
+                    checkQuizAnswer(questionId, selectedIndex);
+                });
+            });
+        </script>
+
+        <!-- البرامج والتطبيقات -->
+        <section class="definition-section">
+            <h3>البرامج والتطبيقات (Software & Applications)</h3>
+            <div class="software-apps">
+                <h4>أنواع البرامج</h4>
+                <ul>
+                    <li>برامج النظام:
+                        <ul>
+                            <li>نظام التشغيل</li>
+                            <li>برامج التشغيل (Drivers)</li>
+                            <li>برامج الأمان والحماية</li>
+                        </ul>
+                    </li>
+                    <li>برامج التطبيقات:
+                        <ul>
+                            <li>برامج المكتب:
+                                <ul>
+                                    <li>معالج النصوص (Word)</li>
+                                    <li>جداول البيانات (Excel)</li>
+                                    <li>العروض التقديمية (PowerPoint)</li>
+                                </ul>
+                            </li>
+                            <li>برامج الإنترنت:
+                                <ul>
+                                    <li>متصفحات الويب</li>
+                                    <li>البريد الإلكتروني</li>
+                                    <li>برامج المحادثة</li>
+                                </ul>
+                            </li>
+                            <li>برامج الوسائط المتعددة:
+                                <ul>
+                                    <li>تحرير الصور</li>
+                                    <li>تشغيل الفيديو</li>
+                                    <li>تحرير الصوت</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <h4>تثبيت وإزالة البرامج</h4>
+                <ul>
+                    <li>خطوات التثبيت:
+                        <ul>
+                            <li>تحميل البرنامج من مصدر موثوق</li>
+                            <li>تشغيل ملف التثبيت</li>
+                            <li>اتباع خطوات المثبت</li>
+                            <li>التحقق من نجاح التثبيت</li>
+                        </ul>
+                    </li>
+                    <li>إزالة البرامج:
+                        <ul>
+                            <li>استخدام لوحة التحكم</li>
+                            <li>اختيار البرنامج المراد إزالته</li>
+                            <li>تأكيد عملية الإزالة</li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <h4>تحديث البرامج</h4>
+                <ul>
+                    <li>أهمية التحديث:
+                        <ul>
+                            <li>تحسين الأداء</li>
+                            <li>إصلاح الأخطاء</li>
+                            <li>سد الثغرات الأمنية</li>
+                        </ul>
+                    </li>
+                    <li>طرق التحديث:
+                        <ul>
+                            <li>التحديث التلقائي</li>
+                            <li>التحديث اليدوي</li>
+                            <li>إعدادات التحديث</li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <div class="quiz-section">
+                    <h4>أسئلة عن البرامج والتطبيقات:</h4>
+                    
+                    <div class="quiz-question" data-question="software-1">
+                        <p>ما الفرق بين برامج النظام وبرامج التطبيقات؟</p>
+                        <div class="quiz-options">
+                            <label class="quiz-option"><input type="radio" name="software-1"> لا يوجد فرق</label>
+                            <label class="quiz-option"><input type="radio" name="software-1"> برامج النظام تدير الحاسوب، وبرامج التطبيقات تؤدي مهام محددة للمستخدم</label>
+                            <label class="quiz-option"><input type="radio" name="software-1"> برامج النظام للألعاب فقط</label>
+                        </div>
+                    </div>
+
+                    <div class="quiz-question" data-question="software-2">
+                        <p>لماذا من المهم تحديث البرامج بانتظام؟</p>
+                        <div class="quiz-options">
+                            <label class="quiz-option"><input type="radio" name="software-2"> فقط لتغيير الشكل</label>
+                            <label class="quiz-option"><input type="radio" name="software-2"> لتحسين الأداء وإصلاح الأخطاء وسد الثغرات الأمنية</label>
+                            <label class="quiz-option"><input type="radio" name="software-2"> ليست مهمة</label>
+                        </div>
+                    </div>
+
+                    <div class="quiz-question" data-question="software-3">
+                        <p>ما هي الطريقة الآمنة لتثبيت البرامج؟</p>
+                        <div class="quiz-options">
+                            <label class="quiz-option"><input type="radio" name="software-3"> تحميل من أي موقع</label>
+                            <label class="quiz-option"><input type="radio" name="software-3"> التحميل من مصادر موثوقة واتباع خطوات التثبيت الصحيحة</label>
+                            <label class="quiz-option"><input type="radio" name="software-3"> نسخ الملفات يدوياً</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <script>
+            // إضافة الإجابات الصحيحة
+            Object.assign(correctAnswers, {
+                'software-1': 1, // برامج النظام تدير الحاسوب
+                'software-2': 1, // تحسين الأداء وإصلاح الأخطاء
+                'software-3': 1  // التحميل من مصادر موثوقة
+            });
+        </script>
+    </div>
+
+    <script>
+        function checkAnswer(questionId, selectedOption) {
+            const options = document.querySelectorAll(`[data-question="${questionId}"] .quiz-option`);
+            const feedback = document.querySelector(`[data-question="${questionId}"] .quiz-feedback`);
+            
+            options.forEach(option => {
+                option.classList.remove('correct', 'incorrect');
+                if (option.dataset.correct === 'true') {
+                    option.classList.add('correct');
+                } else if (option === selectedOption) {
+                    option.classList.add('incorrect');
+                }
+            });
+
+            feedback.style.display = 'block';
+            if (selectedOption.dataset.correct === 'true') {
+                feedback.textContent = 'إجابة صحيحة! أحسنت';
+                feedback.className = 'quiz-feedback correct';
+            } else {
+                feedback.textContent = 'إجابة خاطئة، حاول مرة أخرى';
+                feedback.className = 'quiz-feedback incorrect';
+            }
+        }
+    </script>
+</body>
+</html>
