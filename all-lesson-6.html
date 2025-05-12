@@ -1,0 +1,1849 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ICDL Course 2025</title>
+    <style>
+        /* الإشعارات */
+        .notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: var(--spacing-md);
+            border-radius: var(--border-radius-sm);
+            color: white;
+            font-weight: bold;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all var(--animation-speed-normal) var(--animation-curve);
+            z-index: 2000;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+
+        .notification.success {
+            background: var(--gradient-secondary);
+        }
+
+        .notification.success::before {
+            content: '✓';
+            font-size: 1.2em;
+            margin-left: var(--spacing-xs);
+        }
+
+        .notification.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* مؤشر التقدم */
+        .lesson-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: rgba(255,255,255,0.2);
+            z-index: 2000;
+        }
+
+        .lesson-progress-bar {
+            height: 100%;
+            width: 0;
+            background: var(--gradient-primary);
+            transition: width 0.3s var(--animation-curve);
+        }
+
+        /* ملخص التقدم */
+        .progress-summary {
+            position: fixed;
+            top: var(--spacing-md);
+            left: var(--spacing-md);
+            background: var(--gradient-glass);
+            padding: var(--spacing-sm);
+            border-radius: var(--border-radius-sm);
+            backdrop-filter: blur(10px);
+            box-shadow: var(--box-shadow);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            z-index: 1500;
+        }
+
+        .progress-summary .icon {
+            width: 24px;
+            height: 24px;
+            background: var(--gradient-secondary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 14px;
+        }
+
+        .progress-summary .text {
+            font-size: 0.9em;
+            color: var(--text-color);
+        }
+
+        .progress-summary .percentage {
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        /* أسئلة صح وخطأ */
+        .true-false-questions {
+            margin: var(--spacing-lg) 0;
+            background: var(--gradient-glass);
+            padding: var(--spacing-md);
+            border-radius: var(--border-radius-md);
+            box-shadow: var(--box-shadow);
+        }
+
+        .true-false-question {
+            margin: var(--spacing-md) 0;
+            padding: var(--spacing-md);
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: var(--border-radius-sm);
+        }
+
+        .true-false-question p {
+            font-size: 1.1em;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .true-false-question .options {
+            display: flex;
+            gap: var(--spacing-md);
+            margin: var(--spacing-sm) 0;
+        }
+
+        .tf-option {
+            padding: var(--spacing-sm) var(--spacing-md);
+            border: none;
+            border-radius: var(--border-radius-sm);
+            background: var(--gradient-glass);
+            color: var(--text-color);
+            cursor: pointer;
+            transition: all var(--animation-speed-fast) var(--animation-curve);
+        }
+
+        .tf-option:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--box-shadow);
+        }
+
+        .tf-option.correct {
+            background: var(--gradient-success);
+            color: white;
+        }
+
+        .tf-option.incorrect {
+            background: var(--gradient-error);
+            color: white;
+        }
+
+        .tf-option:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .feedback {
+            margin-top: var(--spacing-sm);
+            padding: var(--spacing-sm);
+            border-radius: var(--border-radius-sm);
+            font-weight: bold;
+            opacity: 0;
+            transition: opacity var(--animation-speed-fast) var(--animation-curve);
+        }
+
+        .feedback.show {
+            opacity: 1;
+        }
+
+        .feedback.correct {
+            background: var(--success-color);
+            color: white;
+        }
+
+        .feedback.incorrect {
+            background: var(--error-color);
+            color: white;
+        }
+
+        /* تعريف المتغيرات الرئيسية للتصميم */
+        :root {
+            /* الألوان الرئيسية */
+            --primary-color: #3498db;    /* اللون الأزرق الرئيسي */
+            --secondary-color: #2ecc71;  /* اللون الأخضر الثانوي */
+            --accent-color: #9b59b6;     /* لون التأكيد (البنفسجي) */
+            --background-color: #f5f7fa; /* لون الخلفية */
+            --text-color: #2c3e50;       /* لون النص */
+
+            /* الأبعاد والمسافات */
+            --spacing-xs: 8px;           /* مسافة صغيرة جداً */
+            --spacing-sm: 16px;          /* مسافة صغيرة */
+            --spacing-md: 24px;          /* مسافة متوسطة */
+            --spacing-lg: 32px;          /* مسافة كبيرة */
+            --spacing-xl: 48px;          /* مسافة كبيرة جداً */
+
+            /* الحواف والظلال */
+            --border-radius-sm: 8px;     /* حواف دائرية صغيرة */
+            --border-radius-md: 16px;    /* حواف دائرية متوسطة */
+            --border-radius-lg: 24px;    /* حواف دائرية كبيرة */
+            --box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* ظل قياسي */
+
+            /* التدرجات اللونية */
+            --gradient-primary: linear-gradient(135deg, #3498db 0%, #2980b9 100%);      /* تدرج أزرق */
+            --gradient-secondary: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);    /* تدرج أخضر */
+            --gradient-accent: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%);       /* تدرج بنفسجي */
+            --gradient-background: linear-gradient(135deg, #f5f7fa 0%, #e4e7eb 100%);   /* تدرج الخلفية */
+            --gradient-glass: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.7) 100%); /* تأثير زجاجي */
+
+            /* التأثيرات الحركية */
+            --animation-speed-fast: 0.2s;   /* سرعة حركة سريعة */
+            --animation-speed-normal: 0.3s; /* سرعة حركة عادية */
+            --animation-speed-slow: 0.5s;   /* سرعة حركة بطيئة */
+            --animation-curve: cubic-bezier(0.4, 0, 0.2, 1); /* منحنى الحركة */
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap');
+
+        /* تنسيق الجسم الرئيسي للصفحة */
+        body {
+            /* الخط والنص */
+            font-family: 'Cairo', sans-serif;  /* نوع الخط العربي */
+            font-size: 16px;                   /* حجم الخط الأساسي */
+            line-height: 1.6;                  /* ارتفاع السطر */
+            color: var(--text-color);          /* لون النص */
+
+            /* الخلفية والأبعاد */
+            background: var(--gradient-background);  /* خلفية متدرجة */
+            background-size: 400% 400%;            /* حجم الخلفية للتأثير الحركي */
+            min-height: 100vh;                     /* الارتفاع الكامل للشاشة */
+            margin: 0;                            /* إزالة الهوامش */
+            padding: var(--spacing-md);            /* المسافة الداخلية */
+
+            /* التأثير الحركي للخلفية */
+            animation: gradientAnimation 15s ease infinite;
+        }
+
+        /* تنسيق الإشعارات */
+        .notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: var(--spacing-md);
+            border-radius: var(--border-radius-sm);
+            color: white;
+            font-weight: bold;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all var(--animation-speed-normal) var(--animation-curve);
+            z-index: 2000;
+        }
+
+        .notification.success {
+            background: var(--gradient-secondary);
+        }
+
+        .notification.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        @keyframes gradientAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes fadeIn {
+            from { 
+                opacity: 0; 
+                transform: translateY(20px); 
+                filter: blur(5px);
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0);
+                filter: blur(0);
+            }
+        }
+
+        @keyframes slideIn {
+            from { 
+                transform: translateX(30px); 
+                opacity: 0;
+                filter: blur(5px);
+            }
+            to { 
+                transform: translateX(0); 
+                opacity: 1;
+                filter: blur(0);
+            }
+        }
+
+        @keyframes floatAnimation {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0); }
+        }
+
+        @keyframes glowAnimation {
+            0% { box-shadow: 0 0 5px rgba(52, 152, 219, 0.2); }
+            50% { box-shadow: 0 0 20px rgba(52, 152, 219, 0.4); }
+            100% { box-shadow: 0 0 5px rgba(52, 152, 219, 0.2); }
+        }
+
+        @keyframes borderGlow {
+            0% { border-color: var(--primary-color); }
+            50% { border-color: var(--accent-color); }
+            100% { border-color: var(--primary-color); }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        * {
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+
+        .container {
+            width: 100%;
+            min-height: 100vh;
+            padding: 0;
+            margin: 0;
+        }
+
+        /* جدول المحتويات */
+        #toc {
+            /* الموقع والأبعاد */
+            position: fixed;                    /* ثابت في الشاشة */
+            top: 0;
+            right: 0;
+            width: 300px;                        /* عرض ثابت */
+            height: 100vh;                       /* الارتفاع الكامل */
+
+            /* المظهر والتأثيرات */
+            background: var(--gradient-glass);    /* خلفية زجاجية */
+            backdrop-filter: blur(10px);         /* تأثير الضبابية */
+            padding: var(--spacing-md);          /* المسافة الداخلية */
+            box-shadow: -5px 0 15px rgba(0,0,0,0.1); /* ظل جانبي */
+
+            /* التمرير والاتجاه */
+            overflow-y: auto;                    /* تمرير عمودي */
+            direction: rtl;                     /* اتجاه النص */
+            z-index: 1000;                      /* طبقة العرض */
+
+            /* الحدود والحركات */
+            border-left: 3px solid var(--primary-color);
+            transition: all var(--animation-speed-normal) var(--animation-curve);
+            animation: slideIn var(--animation-speed-normal) var(--animation-curve);
+        }
+
+        #toc:hover {
+            box-shadow: -8px 0 20px rgba(0,0,0,0.15);
+            border-left-color: var(--accent-color);
+        }
+
+        /* تنسيق روابط الفهرس */
+        #toc a {
+            display: block;
+            padding: var(--spacing-sm);
+            margin: 5px 0;
+            color: var(--text-color);
+            text-decoration: none;
+            border-radius: var(--border-radius-sm);
+            transition: all var(--animation-speed-normal) var(--animation-curve);
+            background: rgba(255, 255, 255, 0.5);
+            position: relative;
+            padding-left: 35px; /* مسافة لعلامة الإكمال */
+        }
+
+        /* علامة إكمال الدرس */
+        #toc a.completed::before {
+            content: '✓'; /* علامة صح */
+            position: absolute;
+            left: 10px;
+            color: var(--secondary-color);
+            font-weight: bold;
+            animation: fadeIn var(--animation-speed-fast) var(--animation-curve);
+        }
+
+        #toc a:hover {
+            background: var(--gradient-primary);
+            color: white;
+            transform: translateX(-5px);
+            box-shadow: 0 2px 5px rgba(52, 152, 219, 0.2);
+        }
+
+        #toc::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        #toc::-webkit-scrollbar-track {
+            background: rgba(0,0,0,0.05);
+            border-radius: 4px;
+        }
+
+        #toc::-webkit-scrollbar-thumb {
+            background: var(--primary-color);
+            border-radius: 4px;
+        }
+
+        #toc h2 {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 15px;
+            border-radius: var(--border-radius);
+            margin-bottom: var(--spacing);
+            font-size: 1.5em;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(33, 150, 243, 0.2);
+        }
+
+        #toc.collapsed {
+            transform: translateX(280px);
+        }
+
+        #toc-toggle {
+            position: fixed;
+            top: 20px;
+            right: 320px;
+            z-index: 1000;
+            padding: 10px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        #toc-toggle.collapsed {
+            right: 20px;
+        }
+
+        .main-content {
+            margin-right: 300px;
+            padding: 0;
+            transition: margin 0.3s ease;
+            background-color: var(--background-color);
+            min-height: 100vh;
+        }
+
+        .main-content.expanded {
+            margin-right: 40px;
+        }
+
+        /* تنسيق الدروس */
+        /* تنسيق الدروس */
+        .lesson {
+            /* الخلفية والحدود */
+            background: var(--gradient-glass);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: var(--border-radius-md);
+
+            /* المسافات */
+            padding: var(--spacing-lg);
+            margin-bottom: var(--spacing-lg);
+
+            /* التأثيرات */
+            box-shadow: var(--box-shadow);
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+
+            /* الحركات */
+            transition: all var(--animation-speed-normal) var(--animation-curve);
+            animation: fadeIn var(--animation-speed-normal) var(--animation-curve);
+        }
+
+        /* قسم الشرح التفصيلي */
+        .lesson-explanation {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: var(--border-radius-sm);
+            padding: var(--spacing-md);
+            margin: var(--spacing-md) 0;
+            border-right: 4px solid var(--accent-color);
+        }
+
+        .lesson-explanation h4 {
+            color: var(--accent-color);
+            margin-top: 0;
+            font-size: 1.2em;
+        }
+
+        .lesson-explanation ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .lesson-explanation li {
+            margin: var(--spacing-xs) 0;
+            padding-right: var(--spacing-sm);
+            position: relative;
+        }
+
+        .lesson-explanation li::before {
+            content: '▶';
+            color: var(--accent-color);
+            position: absolute;
+            right: -15px;
+            font-size: 0.8em;
+        }
+
+        /* زر إنهاء الدرس */
+        .complete-lesson-btn {
+            display: block;
+            width: 100%;
+            padding: var(--spacing-md);
+            margin-top: var(--spacing-lg);
+            background: var(--gradient-secondary);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius-sm);
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: bold;
+            transition: all var(--animation-speed-normal) var(--animation-curve);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .complete-lesson-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(46, 204, 113, 0.3);
+        }
+
+        .complete-lesson-btn:active {
+            transform: translateY(0);
+        }
+
+        .complete-lesson-btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, 
+                rgba(255,255,255,0) 0%,
+                rgba(255,255,255,0.2) 50%,
+                rgba(255,255,255,0) 100%);
+            transform: translateX(-100%);
+            transition: transform 0.5s var(--animation-curve);
+        }
+
+        .complete-lesson-btn:hover::after {
+            transform: translateX(100%);
+        }
+
+        .lesson:hover {
+            transform: translateY(-5px) scale(1.01);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+            animation: glowAnimation 2s infinite;
+        }
+
+        .lesson::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-primary);
+            transition: transform 0.3s ease;
+            transform: scaleX(0);
+            transform-origin: left;
+        }
+
+        .lesson:hover::before {
+            transform: scaleX(1);
+        }
+
+        .lesson:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .definition-box {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 40px;
+            margin: 0;
+            width: 100%;
+        }
+
+        .definition-box h3 {
+            color: white;
+            font-size: 24px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid rgba(255,255,255,0.3);
+            padding-bottom: 10px;
+        }
+
+        .definition-box p {
+            font-size: 16px;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .key-points {
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        .key-points h4 {
+            color: white;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        .key-points ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .key-points li {
+            margin-bottom: 10px;
+            padding-right: 20px;
+            position: relative;
+        }
+
+        .key-points li:before {
+            content: '•';
+            position: absolute;
+            right: 0;
+            color: rgba(255,255,255,0.7);
+        }
+
+        .content-section {
+            padding: 40px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .content-section:last-child {
+            border-bottom: none;
+        }
+
+        .content-section h3 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 22px;
+        }
+
+        h1, h2, h3 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        .toc-link {
+            display: block;
+            padding: 8px 15px;
+            color: var(--text-color);
+            text-decoration: none;
+            transition: all 0.3s;
+            font-size: 14px;
+            border-radius: 5px;
+            margin: 2px 0;
+        }
+
+        .toc-link:hover {
+            background-color: #e3f2fd;
+            color: var(--primary-color);
+            transform: translateX(-5px);
+        }
+
+        #toc h3 {
+            color: var(--primary-color);
+            font-size: 16px;
+            margin: 20px 0 10px;
+            padding: 10px;
+            border-bottom: 2px solid var(--primary-color);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+            border-radius: 5px;
+        }
+
+        #toc h3:hover {
+            background-color: #e3f2fd;
+        }
+
+        #toc h3::after {
+            content: '▼';
+            font-size: 12px;
+            transition: transform 0.3s ease;
+        }
+
+        #toc h3.collapsed::after {
+            transform: rotate(-90deg);
+        }
+
+        .toc-section {
+            max-height: 500px;
+            overflow: hidden;
+            transition: max-height 0.3s ease-in-out;
+        }
+
+        .toc-section.collapsed {
+            max-height: 0;
+        }
+
+        .lesson h2 {
+            background: var(--gradient-primary);
+            color: white;
+            margin: -30px -30px 30px;
+            padding: 30px 40px;
+            font-size: 28px;
+            position: relative;
+            overflow: hidden;
+            border-radius: var(--border-radius) var(--border-radius) 0 0;
+            box-shadow: 0 4px 6px rgba(33, 150, 243, 0.2);
+            animation: slideIn 0.6s ease-out;
+        }
+
+        .lesson h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-secondary);
+            animation: gradientShift 3s ease infinite;
+            background-size: 200% 200%;
+        }
+
+        .lesson-content {
+            flex: 1;
+            padding: 40px;
+            margin: 0;
+            width: 100%;
+            height: 100%;
+            overflow-y: auto;
+        }
+
+        .lesson-image {
+            max-width: 100%;
+            height: auto;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        ul {
+            padding-right: 20px;
+            margin-bottom: 15px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        .highlight-box {
+            background: #e3f2fd;
+            padding: 15px;
+            border-right: 4px solid var(--primary-color);
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .image-container {
+            margin: 20px 0;
+        }
+
+        .image-container img {
+            width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+
+        .image-caption {
+            font-size: 14px;
+        }
+
+        .quiz-message {
+            text-align: center;
+            margin: 15px 0;
+            font-weight: bold;
+            opacity: 0;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            padding: 10px;
+            border-radius: var(--border-radius);
+            transform: translateY(-10px);
+        }
+
+        .quiz-message.success {
+            color: #2ed573;
+            opacity: 1;
+            transform: translateY(0);
+            background: rgba(46, 213, 115, 0.1);
+        }
+
+        .quiz-message.error {
+            color: #ff4757;
+            opacity: 1;
+            transform: translateY(0);
+            background: rgba(255, 71, 87, 0.1);
+        }
+
+        .quiz-question {
+            margin-bottom: 20px;
+            padding: 20px;
+            border: 1px solid #e9ecef;
+            border-radius: 10px;
+            border-radius: 8px;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .quiz-question p {
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+
+        .quiz-options {
+            list-style: none;
+            padding: 0;
+        }
+
+        /* تنسيق خيارات الاختبار */
+        .quiz-option {
+            /* الخلفية والحدود */
+            background: var(--gradient-glass);       /* خلفية زجاجية */
+            border: 2px solid rgba(233, 236, 239, 0.8);
+            border-radius: var(--border-radius-sm);  /* حواف دائرية صغيرة */
+
+            /* المسافات والأبعاد */
+            padding: var(--spacing-sm);             /* المسافة الداخلية */
+            margin-bottom: var(--spacing-sm);       /* المسافة بين الخيارات */
+
+            /* التنسيق */
+            display: flex;
+            align-items: center;
+            font-size: 1.1em;
+            cursor: pointer;
+
+            /* التأثيرات */
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            position: relative;
+            overflow: hidden;
+            transform-origin: right;
+
+            /* الحركات */
+            transition: all var(--animation-speed-normal) var(--animation-curve);
+            animation: slideIn var(--animation-speed-fast) var(--animation-curve);
+        }
+
+        .quiz-option:hover {
+            transform: translateX(-8px) scale(1.02);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.2);
+            border-color: var(--primary-color);
+            animation: borderGlow 2s infinite;
+        }
+
+        .quiz-option.correct {
+            animation: pulse 0.5s ease, floatAnimation 2s infinite;
+            background: linear-gradient(to right, rgba(46, 213, 115, 0.1), rgba(46, 213, 115, 0.2));
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 15px rgba(46, 213, 115, 0.3);
+        }
+
+        .quiz-option.incorrect {
+            animation: shake 0.5s ease;
+            background: linear-gradient(to right, rgba(255, 71, 87, 0.1), rgba(255, 71, 87, 0.2));
+            border-color: #ff4757;
+            box-shadow: 0 0 15px rgba(255, 71, 87, 0.3);
+        }
+
+        .quiz-option::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--gradient-primary);
+            transform: scaleY(0);
+            transition: transform 0.3s ease;
+        }
+
+        .quiz-option:hover::before {
+            transform: scaleY(1);
+        }
+
+        .quiz-option:hover {
+            background-color: rgba(248, 249, 250, 0.95);
+            transform: translateX(-8px);
+            box-shadow: 4px 4px 8px rgba(0,0,0,0.1);
+            border-color: var(--primary-color);
+        }
+
+        .quiz-option.correct {
+            animation: pulse 0.5s ease;
+            background: linear-gradient(to right, rgba(46, 213, 115, 0.1), rgba(46, 213, 115, 0.2));
+            border-color: #2ed573;
+        }
+
+        .quiz-option.incorrect {
+            animation: shake 0.5s ease;
+            background: linear-gradient(to right, rgba(255, 71, 87, 0.1), rgba(255, 71, 87, 0.2));
+            border-color: #ff4757;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        .check-answer-btn:hover {
+            background: #2980b9;
+            transform: scale(1.05);
+        }
+
+        .quiz-retry {
+            display: none;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: calc(var(--border-radius) * 0.6);
+            cursor: pointer;
+            margin: var(--spacing) auto;
+            transition: all 0.3s ease;
+            font-size: 1.1em;
+            font-weight: bold;
+            box-shadow: 0 2px 4px rgba(52, 152, 219, 0.2);
+        }
+
+        .quiz-retry:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(52, 152, 219, 0.3);
+        }
+
+        /* تنسيق نتيجة الإجابة */
+        .correct-answer {
+            border-color: #2ecc71 !important;
+            background: #f0fff4 !important;
+        }
+
+        .wrong-answer {
+            border-color: #e74c3c !important;
+            background: #fff5f5 !important;
+        }
+
+        .answer-feedback {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .answer-feedback.correct {
+            background: #2ecc71;
+            color: white;
+            opacity: 1;
+        }
+
+        .answer-feedback.wrong {
+            background: #e74c3c;
+            color: white;
+            opacity: 1;
+        }
+
+        /* تنسيق الوحدات */
+        .unit {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            margin-bottom: 40px;
+            padding: 30px;
+            border: 1px solid #e9ecef;
+        }
+
+        .unit h1 {
+            color: #1a237e;
+            font-size: 2em;
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #3f51b5;
+            position: relative;
+        }
+
+        .unit h1::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background-color: #3f51b5;
+        }
+    </style>
+</head>
+<body>
+    <div class="toc-header">
+        <button id="toc-toggle" class="toc-toggle-btn">
+            <span class="toggle-icon">≡</span>
+            <span class="toggle-text">إخفاء الفهرس</span>
+        </button>
+    </div>
+    <nav id="toc">
+        <h2>فهرس المحتويات</h2>
+        
+        <!-- الوحدة الأولى -->
+        <h3>الوحدة الأولى: مقدمة ومفاهيم أساسية</h3>
+        <div class="toc-section">
+            <a href="#intro" class="toc-link">▪ المقدمة - Introduction</a>
+            <a href="#course-overview" class="toc-link">▪ نظرة عامة على الدورة - Course Overview</a>
+            <a href="#lesson1" class="toc-link">▪ أساسيات الحاسب الآلي - مفاهيم نظرية</a>
+        </div>
+
+        <!-- الوحدة الثانية -->
+        <h3>الوحدة الثانية: أمن المعلومات والخصوصية</h3>
+        <div class="toc-section">
+            <a href="#lesson3" class="toc-link">▪ مفاهيم أمن المعلومات</a>
+            <a href="#identity-theft" class="toc-link">▪ سرقة الهوية والحماية</a>
+        </div>
+
+        <!-- الوحدة الثالثة -->
+        <h3>الوحدة الثالثة: نظام التشغيل Windows</h3>
+        <div class="toc-section">
+            <a href="#lesson4" class="toc-link">▪ نموذج امتحان Windows 10</a>
+            <a href="#os-concepts" class="toc-link">▪ مفاهيم نظام التشغيل</a>
+        </div>
+
+        <!-- الوحدة الرابعة -->
+        <h3>الوحدة الرابعة: معالج النصوص Word</h3>
+        <div class="toc-section">
+            <a href="#word-basics" class="toc-link">▪ مقدمة في Word</a>
+            <a href="#lesson6" class="toc-link">▪ إنشاء وتحرير المستندات</a>
+            <a href="#lesson7" class="toc-link">▪ تمارين وتطبيقات</a>
+        </div>
+
+        <!-- الوحدة الخامسة -->
+        <h3>الوحدة الخامسة: الجداول الإلكترونية Excel</h3>
+        <div class="toc-section">
+            <a href="#excel-intro" class="toc-link">▪ مقدمة في Excel</a>
+        </div>
+
+        <!-- الوحدة السادسة -->
+        <h3>الوحدة السادسة: الاختبارات الشاملة</h3>
+        <div class="toc-section">
+            <a href="#unit-exam" class="toc-link">▪ اختبار شامل - Word و Excel</a>
+        </div>
+    </nav>
+
+    <div class="main-content">
+        <!-- الوحدة الأولى: مقدمة ومفاهيم أساسية -->
+        <div class="unit">
+            <h1>الوحدة الخامسة: الجداول الإلكترونية Excel</h1>
+            <div class="lesson" id="excel-intro">
+            <h2>مقدمة في Excel</h2>
+            <div class="lesson-content">
+                <div class="definition-box">
+                    <h3>ما هو Microsoft Excel؟</h3>
+                    <p>Microsoft Excel هو برنامج لمعالجة جداول البيانات وتحليلها. يستخدم في العديد من المجالات مثل المحاسبة، التحليل المالي، وإدارة البيانات.</p>
+                    
+                    <div class="key-points">
+                        <h4>المميزات الرئيسية:</h4>
+                        <ul>
+                            <li>إنشاء جداول وتنسيقها</li>
+                            <li>إجراء العمليات الحسابية</li>
+                            <li>إنشاء الرسوم البيانية</li>
+                            <li>تحليل البيانات</li>
+                            <li>تنظيم وفرز البيانات</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="highlight-box">
+                    <h3>المكونات الأساسية لواجهة Excel</h3>
+                    <ul>
+                        <li>شريط العنوان (Title Bar)</li>
+                        <li>شريط الأدوات السريع (Quick Access Toolbar)</li>
+                        <li>الشريط (Ribbon)</li>
+                        <li>مربع الاسم (Name Box)</li>
+                        <li>شريط الصيغة (Formula Bar)</li>
+                        <li>أوراق العمل (Worksheets)</li>
+                    </ul>
+                </div>
+
+                <div class="highlight-box">
+                    <h3>المهارات الأساسية</h3>
+                    <ul>
+                        <li>إدخال البيانات وتحريرها</li>
+                        <li>تنسيق الخلايا والنصوص</li>
+                        <li>استخدام الصيغ والدوال</li>
+                        <li>إنشاء الرسوم البيانية</li>
+                        <li>حماية ومشاركة الملفات</li>
+                    </ul>
+                </div>
+
+                <div class="image-container">
+                    <img src="https://www.computerhope.com/cdn/excel-window.jpg" alt="واجهة Excel الرئيسية">
+                    <p class="image-caption">واجهة Excel الرئيسية مع شرح المكونات الأساسية</p>
+                </div>
+
+                <!-- أسئلة صح وخطأ -->
+                <div class="true-false-questions">
+                    <h3>تمرين: أجب بصح أو خطأ</h3>
+                    
+                    <div class="true-false-question">
+                        <p>يمكن استخدام Excel فقط لإنشاء الجداول الحسابية.</p>
+                        <div class="options">
+                            <button onclick="checkTrueFalseAnswer(this, false)" class="tf-option">صح</button>
+                            <button onclick="checkTrueFalseAnswer(this, true)" class="tf-option">خطأ</button>
+                        </div>
+                        <div class="feedback"></div>
+                    </div>
+
+                    <div class="true-false-question">
+                        <p>يمكن إنشاء رسوم بيانية في Excel.</p>
+                        <div class="options">
+                            <button onclick="checkTrueFalseAnswer(this, true)" class="tf-option">صح</button>
+                            <button onclick="checkTrueFalseAnswer(this, false)" class="tf-option">خطأ</button>
+                        </div>
+                        <div class="feedback"></div>
+                    </div>
+
+                    <div class="true-false-question">
+                        <p>لا يمكن حماية ورقة العمل في Excel بكلمة مرور.</p>
+                        <div class="options">
+                            <button onclick="checkTrueFalseAnswer(this, false)" class="tf-option">صح</button>
+                            <button onclick="checkTrueFalseAnswer(this, true)" class="tf-option">خطأ</button>
+                        </div>
+                        <div class="feedback"></div>
+                    </div>
+
+                    <div class="true-false-question">
+                        <p>يمكن تطبيق التنسيق الشرطي على الخلايا في Excel.</p>
+                        <div class="options">
+                            <button onclick="checkTrueFalseAnswer(this, true)" class="tf-option">صح</button>
+                            <button onclick="checkTrueFalseAnswer(this, false)" class="tf-option">خطأ</button>
+                        </div>
+                        <div class="feedback"></div>
+                    </div>
+                </div>
+                    <h3>ما هي شهادة ICDL؟</h3>
+                    <p>الرخصة الدولية لقيادة الحاسب الآلي (ICDL) هي شهادة دولية معتمدة تثبت قدرة حاملها على استخدام الحاسب الآلي والبرامج المكتبية الأساسية بكفاءة.</p>
+                    
+                    <div class="key-points">
+                        <h4>النقاط الرئيسية للدورة:</h4>
+                        <ul>
+                            <li>شهادة معترف بها دولياً</li>
+                            <li>تغطي المهارات الأساسية للحاسب الآلي</li>
+                            <li>تشمل التطبيقات المكتبية الشائعة</li>
+                            <li>مطلوبة في العديد من الوظائف</li>
+                            <li>تحسن فرص التوظيف</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="lesson-content">
+                    <h3>Introduction to ICDL Course 2025</h3>
+                    <div class="highlight-box">
+                        <h3>نبذة عن الدورة</h3>
+                        <p>الرخصة الدولية لقيادة الحاسب الآلي (ICDL) هي شهادة معترف بها دولياً وأصبحت من أهم الشهادات المطلوبة في سوق العمل. تثبت هذه الشهادة أن حاملها لديه المهارات الأساسية في استخدام الحاسب الآلي وتقنية المعلومات.</p>
+                    </div>
+                    <p>الرخصة الدولية لقيادة الحاسب الآلي (ICDL) هي شهادة معترف بها دولياً وأصبحت من أهم الشهادات المطلوبة في سوق العمل. تثبت هذه الشهادة أن حاملها لديه المهارات الأساسية في استخدام الحاسب الآلي وتقنية المعلومات.</p>
+                </div>
+
+                <h3>المحاور السبعة للدورة</h3>
+                <div class="highlight-box">
+                    <ol>
+                        <li>Computer Essentials | أساسيات الحاسب والإنترنت</li>
+                        <li>Word Processing (Microsoft Word) | معالجة النصوص</li>
+                        <li>Spreadsheets (Microsoft Excel) | جداول البيانات</li>
+                        <li>Database (Microsoft Access) | قواعد البيانات</li>
+                        <li>Presentation (Microsoft PowerPoint) | العروض التقديمية</li>
+                        <li>Online Essentials | الإنترنت والبريد الإلكتروني</li>
+                        <li>IT Security | أمن تكنولوجيا المعلومات</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+            </div>
+            <div class="lesson" id="course-overview">
+            <h2>Course Overview | نظرة عامة على الدورة</h2>
+            <div class="lesson-content">
+                <h3>المحاور السبعة للدورة | Seven Core Modules</h3>
+                <ul>
+                    <li>Computer Essentials | أساسيات الحاسب والإنترنت</li>
+                    <li>Word Processing (Microsoft Word) | معالجة النصوص</li>
+                    <li>Spreadsheets (Microsoft Excel) | جداول البيانات</li>
+                    <li>Database (Microsoft Access) | قواعد البيانات</li>
+                    <li>Presentation (Microsoft PowerPoint) | العروض التقديمية</li>
+                    <li>Online Essentials | الإنترنت والبريد الإلكتروني</li>
+                    <li>IT Security | أمن تكنولوجيا المعلومات</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="lesson" id="lesson1">
+            <h2>Computer Basics - Part 1 | أساسيات الحاسب الآلي - مفاهيم نظرية 1</h2>
+            <div class="definition-box">
+                <h3>مقدمة في علوم الحاسب</h3>
+                <p>الحاسب الآلي هو جهاز إلكتروني يقوم بمعالجة البيانات وتخزينها وفقاً لمجموعة من التعليمات المحددة مسبقاً. يعتبر فهم أساسيات الحاسب الآلي أمراً ضرورياً في عصرنا الحالي.</p>
+                
+                <div class="key-points">
+                    <h4>المفاهيم الأساسية:</h4>
+                    <ul>
+                        <li>مكونات الحاسب المادية (Hardware)</li>
+                        <li>البرمجيات (Software)</li>
+                        <li>أنظمة التشغيل</li>
+                        <li>شبكات الحاسب</li>
+                        <li>أمن المعلومات</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="lesson-content">
+                <div class="highlight-box">
+                    <h3>المفاهيم الأساسية | Basic Concepts</h3>
+                    <ul>
+                        <li>Hardware Components | مكونات الحاسب الأساسية</li>
+                        <li>Input/Output Devices | وحدات الإدخال والإخراج</li>
+                        <li>Software Types | أنواع البرمجيات</li>
+                        <li>Operating Systems | أنظمة التشغيل</li>
+                        <li>Licenses & Copyright | التراخيص وحقوق الملكية</li>
+                    </ul>
+                </div>
+                
+                <h3>تفاصيل المكونات الأساسية | Hardware Details</h3>
+                <ul>
+                    <li>وحدة المعالجة المركزية (CPU)</li>
+                    <li>الذاكرة العشوائية (RAM)</li>
+                    <li>وحدات التخزين (Storage Units)</li>
+                    <li>اللوحة الأم (Motherboard)</li>
+                </ul>
+                
+                <div class="image-container">
+                    <img src="https://www.computerhope.com/cdn/computer-components.jpg" alt="مكونات الحاسوب الأساسية">
+                    <p class="image-caption">المكونات الأساسية للحاسوب: المعالج، الذاكرة، وحدات التخزين</p>
+                </div>
+                <div class="image-container">
+                    <img src="https://www.computerhope.com/cdn/peripherals.jpg" alt="وحدات الإدخال والإخراج">
+                    <p class="image-caption">أجهزة الإدخال والإخراج: لوحة المفاتيح، الفأرة، الشاشة، الطابعة</p>
+                </div>
+            </div>
+            <div class="quiz-section">
+                <h3>اختبر معلوماتك - الدرس الأول</h3>
+                
+                <div class="quiz-question" data-question="1">
+                    <p>1. ما هي أصغر وحدة تخزين في الحاسوب؟</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="checkAnswer('1', this)">البايت (Byte)</div>
+                        <div class="quiz-option" onclick="checkAnswer('1', this)" data-correct="true">البت (Bit)</div>
+                        <div class="quiz-option" onclick="checkAnswer('1', this)">الكيلوبايت (KB)</div>
+                        <div class="quiz-option" onclick="checkAnswer('1', this)">الميجابايت (MB)</div>
+                    </div>
+                    <div class="quiz-message"></div>
+                </div>
+
+                <div class="quiz-question" data-question="2">
+                    <p>2. أي من التالي يعتبر من وحدات الإدخال؟</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="checkAnswer('2', this)">الطابعة</div>
+                        <div class="quiz-option" onclick="checkAnswer('2', this)">السماعات</div>
+                        <div class="quiz-option" onclick="checkAnswer('2', this)" data-correct="true">الماسح الضوئي</div>
+                        <div class="quiz-option" onclick="checkAnswer('2', this)">الشاشة</div>
+                    </div>
+                    <div class="quiz-message"></div>
+                </div>
+            </div>
+        </div>
+
+            </div>
+        </div>
+
+        <!-- الوحدة الثانية: أمن المعلومات والخصوصية -->
+        <div class="unit">
+            <h1>الوحدة الثانية: أمن المعلومات والخصوصية</h1>
+            <div class="lesson" id="lesson3">
+            <h2>Computer Basics - Part 2 | أساسيات الحاسب الآلي - مفاهيم نظرية 2</h2>
+            <div class="definition-box">
+                <h3>ما هو أمن المعلومات؟</h3>
+                <p>أمن المعلومات هو مجموعة من الإجراءات والتدابير التي تهدف إلى حماية البيانات والمعلومات من الوصول غير المصرح به أو التعديل أو التدمير.</p>
+                
+                <div class="key-points">
+                    <h4>عناصر أمن المعلومات:</h4>
+                    <ul>
+                        <li>السرية (Confidentiality)</li>
+                        <li>السلامة (Integrity)</li>
+                        <li>التوافر (Availability)</li>
+                        <li>المصادقة (Authentication)</li>
+                        <li>عدم الإنكار (Non-repudiation)</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="lesson-content">
+                <div class="highlight-box">
+                    <h3>المفاهيم المتقدمة | Advanced Concepts</h3>
+                    <ul>
+                        <li>Networks & Types | الشبكات وأنواعها</li>
+                        <li>Internet & Intranet | الإنترنت والإنترانت</li>
+                        <li>Data Transfer Speeds | سرعات نقل البيانات</li>
+                        <li>Security & Protection | الأمن والحماية</li>
+                        <li>Malware & Protection Methods | البرمجيات الخبيثة وطرق الحماية</li>
+                    </ul>
+                </div>
+
+                <h3>أنواع الشبكات | Network Types</h3>
+                <ul>
+                    <li>Local Area Network (LAN) | الشبكة المحلية</li>
+                    <li>Wide Area Network (WAN) | الشبكة الواسعة</li>
+                    <li>Internet Connectivity | طرق الاتصال بالإنترنت</li>
+                </ul>
+                
+                <div class="image-container">
+                    <img src="https://www.computerhope.com/cdn/network-types.jpg" alt="أنواع الشبكات">
+                    <p class="image-caption">مقارنة بين الشبكة المحلية LAN والشبكة الواسعة WAN</p>
+                </div>
+                <div class="image-container">
+                    <img src="https://www.computerhope.com/cdn/network-topology.jpg" alt="هيكلية الشبكات">
+                    <p class="image-caption">الهيكليات المختلفة للشبكات: النجمية، الحلقية، الخطية</p>
+                </div>
+            </div>
+            <div class="quiz-section">
+                <h3>اختبر معلوماتك - الدرس الثاني</h3>
+                
+                <div class="quiz-question" data-question="3">
+                    <p>3. ما هو نوع الشبكة التي تربط الأجهزة في منطقة جغرافية صغيرة؟</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="checkAnswer('3', this)" data-correct="true">LAN</div>
+                        <div class="quiz-option" onclick="checkAnswer('3', this)">WAN</div>
+                        <div class="quiz-option" onclick="checkAnswer('3', this)">MAN</div>
+                        <div class="quiz-option" onclick="checkAnswer('3', this)">PAN</div>
+                    </div>
+                    <div class="quiz-message"></div>
+                </div>
+
+                <div class="quiz-question" data-question="4">
+                    <p>4. أي من التالي يعتبر من بروتوكولات الاتصال؟</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="checkAnswer('4', this)">HTTP</div>
+                        <div class="quiz-option" onclick="checkAnswer('4', this)">FTP</div>
+                        <div class="quiz-option" onclick="checkAnswer('4', this)" data-correct="true">VoIP</div>
+                        <div class="quiz-option" onclick="checkAnswer('4', this)">SMTP</div>
+                    </div>
+                    <div class="quiz-message"></div>
+                </div>
+            </div>
+        </div>
+
+            </div>
+            <div class="lesson" id="identity-theft">
+            <h2>الدرس الثالث: أمن المعلومات والخصوصية | Information Security and Privacy</h2>
+            <div class="lesson-content">
+                <div class="container mt-5">
+                    <h1>مقدمة في أمن المعلومات | Introduction to Information Security</h1>
+                    
+                    <section id="what-is-infosec" class="my-4">
+                        <h2>تعريف أمن المعلومات | What is Information Security</h2>
+                        <p>
+                            أمن المعلومات هو مجموعة من الإجراءات والتدابير التي تهدف إلى حماية المعلومات والأنظمة من الوصول غير المصرح به والتعديل والإفصاح والتدمير. يشمل ذلك حماية:
+                        </p>
+                        <ul>
+                            <li>البيانات الشخصية والمؤسسية</li>
+                            <li>أنظمة الكمبيوتر والشبكات</li>
+                            <li>البرمجيات والتطبيقات</li>
+                            <li>البنية التحتية التقنية</li>
+                        </ul>
+                    </section>
+
+                    <section id="data-protection" class="my-4">
+                        <h2>أهمية حماية البيانات | Importance of Data Protection</h2>
+                        <p>تكمن أهمية حماية البيانات في:</p>
+                        <ul>
+                            <li>حماية خصوصية الأفراد والمؤسسات</li>
+                            <li>منع الخسائر المالية والتجارية</li>
+                            <li>الحفاظ على سمعة المؤسسة</li>
+                            <li>الامتثال للقوانين والتشريعات</li>
+                            <li>ضمان استمرارية العمل</li>
+                        </ul>
+                    </section>
+
+                    <section id="cyber-risks" class="my-4">
+                        <h2>المخاطر الإلكترونية | Cyber Risks</h2>
+                        <p>تشمل المخاطر الإلكترونية الرئيسية:</p>
+                        <ul>
+                            <li>سرقة البيانات والمعلومات الحساسة</li>
+                            <li>الهجمات السيبرانية المتطورة</li>
+                            <li>تعطيل الخدمات والأنظمة</li>
+                            <li>الابتزاز الإلكتروني</li>
+                            <li>انتهاك الخصوصية</li>
+                        </ul>
+                    </section>
+
+                    <section id="security-principles" class="my-4">
+                        <h2>مبادئ الأمن السيبراني | Cybersecurity Principles</h2>
+                        <ul>
+                            <li>مبدأ الدفاع المتعمق (Defense in Depth)</li>
+                            <li>مبدأ أقل امتياز (Principle of Least Privilege)</li>
+                            <li>التشفير وحماية البيانات</li>
+                            <li>المراقبة المستمرة والتحديث</li>
+                            <li>التوعية والتدريب الأمني</li>
+                        </ul>
+                    </section>
+
+                    <section id="security-elements" class="my-4">
+                        <h2>عناصر أمن المعلومات | Information Security Elements</h2>
+                        
+                        <div class="element-box my-3">
+                            <h3>السرية (Confidentiality)</h3>
+                            <p>
+                                ضمان عدم الوصول إلى المعلومات إلا من قبل الأشخاص المصرح لهم فقط. يتم تحقيق ذلك من خلال:
+                            </p>
+                            <ul>
+                                <li>التشفير</li>
+                                <li>التحكم في الوصول</li>
+                                <li>المصادقة متعددة العوامل</li>
+                            </ul>
+                        </div>
+
+                        <div class="element-box my-3">
+                            <h3>السلامة (Integrity)</h3>
+                            <p>
+                                ضمان دقة وصحة المعلومات وعدم التلاعب بها. يتم تحقيق ذلك من خلال:
+                            </p>
+                            <ul>
+                                <li>التوقيع الرقمي</li>
+                                <li>نظام التحكم في النسخ</li>
+                                <li>سجلات التدقيق</li>
+                            </ul>
+                        </div>
+
+                        <div class="element-box my-3">
+                            <h3>التوافر (Availability)</h3>
+                            <p>
+                                ضمان الوصول للمعلومات عند الحاجة. يتم تحقيق ذلك من خلال:
+                            </p>
+                            <ul>
+                                <li>النسخ الاحتياطي</li>
+                                <li>خطط استمرارية العمل</li>
+                                <li>أنظمة الحماية من تعطيل الخدمة</li>
+                            </ul>
+                        </div>
+                    </section>
+                </div>
+
+                <div class="quiz-section">
+                    <h3>اختبر معلوماتك - الدرس الثالث</h3>
+                    
+                    <div class="quiz-question" data-question="5">
+                        <p>5. ما هو أفضل إجراء لحماية بياناتك المهمة؟</p>
+                        <div class="quiz-options">
+                            <div class="quiz-option" onclick="checkAnswer('5', this)">عدم استخدام الإنترنت</div>
+                            <div class="quiz-option" onclick="checkAnswer('5', this)" data-correct="true">عمل نسخ احتياطية بشكل منتظم</div>
+                            <div class="quiz-option" onclick="checkAnswer('5', this)">إيقاف تشغيل الحاسب</div>
+                            <div class="quiz-option" onclick="checkAnswer('5', this)">تغيير كلمة المرور يومياً</div>
+                        </div>
+                        <div class="quiz-message"></div>
+                    </div>
+
+                    <div class="quiz-question" data-question="6">
+                        <p>6. أي من التالي يعتبر من أساليب الهندسة الاجتماعية؟</p>
+                        <div class="quiz-options">
+                            <div class="quiz-option" onclick="checkAnswer('6', this)">تثبيت برنامج مكافحة الفيروسات</div>
+                            <div class="quiz-option" onclick="checkAnswer('6', this)">تحديث نظام التشغيل</div>
+                            <div class="quiz-option" onclick="checkAnswer('6', this)" data-correct="true">رسائل التصيد الاحتيالي</div>
+                            <div class="quiz-option" onclick="checkAnswer('6', this)">تشغيل جدار الحماية</div>
+                        </div>
+                        <div class="quiz-message"></div>
+                    </div>
+
+                    <div class="quiz-question" data-question="7">
+                        <p>7. ما هي العناصر الثلاثة الرئيسية لأمن المعلومات؟</p>
+                        <div class="quiz-options">
+                            <div class="quiz-option" onclick="checkAnswer('7', this)">التشفير، التخزين، النقل</div>
+                            <div class="quiz-option" onclick="checkAnswer('7', this)" data-correct="true">السرية، السلامة، التوافر</div>
+                            <div class="quiz-option" onclick="checkAnswer('7', this)">الأمن، الحماية، المراقبة</div>
+                            <div class="quiz-option" onclick="checkAnswer('7', this)">البرمجيات، الأجهزة، الشبكات</div>
+                        </div>
+                        <div class="quiz-message"></div>
+                    </div>
+
+                    <div class="quiz-question" data-question="8">
+                        <p>8. أي من التالي يعتبر من أفضل ممارسات الأمن السيبراني؟</p>
+                        <div class="quiz-options">
+                            <div class="quiz-option" onclick="checkAnswer('8', this)">مشاركة كلمات المرور مع الزملاء</div>
+                            <div class="quiz-option" onclick="checkAnswer('8', this)">فتح جميع المرفقات في البريد الإلكتروني</div>
+                            <div class="quiz-option" onclick="checkAnswer('8', this)" data-correct="true">استخدام المصادقة الثنائية</div>
+                            <div class="quiz-option" onclick="checkAnswer('8', this)">تجاهل تحديثات الأمان</div>
+                        </div>
+                        <div class="quiz-message"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+            </div>
+            <div class="lesson" id="os-concepts">
+            <h2>الدرس الرابع: نموذج امتحان أساسيات الحاسب - الأسئلة العملية | Windows 10 Practical Exam</h2>
+            <div class="lesson-content">
+                <div class="highlight-box">
+                    <h3>الأسئلة العملية في Windows 10</h3>
+                    <ul>
+                        <li>نقل أيقونة سلة المحذوفات
+                            <ul>
+                                <li>تحديد الأيقونة والسحب للزاوية اليسرى العلوية</li>
+                                <li>إلغاء الترتيب التلقائي: زر يمين > عرض > إلغاء ترتيب تلقائي للرموز</li>
+                            </ul>
+                        </li>
+                        <li>إنشاء اختصار
+                            <ul>
+                                <li>تحديد الملف > زر يمين > إرسال إلى > سطح المكتب (إنشاء اختصار)</li>
+                            </ul>
+                        </li>
+                        <li>تحريك النوافذ
+                            <ul>
+                                <li>السحب من شريط العنوان إلى الموقع المطلوب</li>
+                            </ul>
+                        </li>
+                        <li>عرض معلومات النظام
+                            <ul>
+                                <li>جهاز الكمبيوتر > زر يمين > خصائص</li>
+                            </ul>
+                        </li>
+                        <li>إدارة الطباعة
+                            <ul>
+                                <li>فتح قائمة انتظار الطباعة</li>
+                                <li>طابعة > إلغاء كافة المستندات</li>
+                            </ul>
+                        </li>
+                        <li>تغيير لغة لوحة المفاتيح
+                            <ul>
+                                <li>استخدام Alt + Shift</li>
+                                <li>أو النقر على رمز اللغة في شريط المهام</li>
+                            </ul>
+                        </li>
+                        <li>إزالة الأجهزة بأمان
+                            <ul>
+                                <li>النقر على رمز الجهاز في شريط المهام</li>
+                                <li>اختيار "إخراج"</li>
+                            </ul>
+                        </li>
+                        <li>التقاط صورة للشاشة
+                            <ul>
+                                <li>استخدام مفتاح Print Screen</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <!-- أسئلة صح وخطأ -->
+                <div class="true-false-questions">
+                    <h3>تمرين: أجب بصح أو خطأ</h3>
+                    
+                    <div class="true-false-question">
+                        <p>يمكن تغيير لغة لوحة المفاتيح باستخدام Alt + Shift.</p>
+                        <div class="options">
+                            <button onclick="checkTrueFalseAnswer(this, true)" class="tf-option">صح</button>
+                            <button onclick="checkTrueFalseAnswer(this, false)" class="tf-option">خطأ</button>
+                        </div>
+                        <div class="feedback"></div>
+                    </div>
+
+                    <div class="true-false-question">
+                        <p>لا يمكن نقل أيقونة سلة المحذوفات إلى أي مكان على سطح المكتب.</p>
+                        <div class="options">
+                            <button onclick="checkTrueFalseAnswer(this, false)" class="tf-option">صح</button>
+                            <button onclick="checkTrueFalseAnswer(this, true)" class="tf-option">خطأ</button>
+                        </div>
+                        <div class="feedback"></div>
+                    </div>
+
+                    <div class="true-false-question">
+                        <p>يمكن إلغاء كافة مهام الطباعة من قائمة انتظار الطباعة.</p>
+                        <div class="options">
+                            <button onclick="checkTrueFalseAnswer(this, true)" class="tf-option">صح</button>
+                            <button onclick="checkTrueFalseAnswer(this, false)" class="tf-option">خطأ</button>
+                        </div>
+                        <div class="feedback"></div>
+                    </div>
+                </div>
+
+                <div class="quiz-section">
+                    <h3>أسئلة تدريبية - Windows 10</h3>
+                    
+                    <div class="quiz-question" data-question="w1">
+                        <p>1. كيف يمكنك نقل أيقونة سلة المحذوفات إلى أعلى يسار سطح المكتب؟</p>
+                        <div class="quiz-options">
+                            <div class="quiz-option">النقر المزدوج على الأيقونة</div>
+                            <div class="quiz-option">السحب والإفلات بعد إلغاء الترتيب التلقائي</div>
+                            <div class="quiz-option">الضغط على Alt + F4</div>
+                            <div class="quiz-option">النقر بزر الماوس الأيمن واختيار نقل</div>
+                        </div>
+                    </div>
+
+                    <div class="quiz-question" data-question="w2">
+                        <p>2. ما هي الطريقة الصحيحة لإنشاء اختصار لملف على سطح المكتب؟</p>
+                        <div class="quiz-options">
+                            <div class="quiz-option" onclick="checkAnswer('w2', this)">نسخ الملف ولصقه على سطح المكتب</div>
+                            <div class="quiz-option" onclick="checkAnswer('w2', this)" data-correct="true">النقر بزر الماوس الأيمن > إرسال إلى > سطح المكتب (إنشاء اختصار)</div>
+                            <div class="quiz-option" onclick="checkAnswer('w2', this)">سحب الملف إلى سطح المكتب</div>
+                            <div class="quiz-option" onclick="checkAnswer('w2', this)">الضغط على Ctrl + N</div>
+                        </div>
+                        <div class="quiz-message"></div>
+                    </div>
+
+                    <div class="quiz-question" data-question="w3">
+                        <p>3. كيف يمكنك تغيير دقة الشاشة في Windows 10؟</p>
+                        <div class="quiz-options">
+                            <div class="quiz-option" onclick="checkAnswer('w3', this)">الضغط على F11</div>
+                            <div class="quiz-option" onclick="checkAnswer('w3', this)">فتح لوحة التحكم > العرض</div>
+                            <div class="quiz-option" onclick="checkAnswer('w3', this)" data-correct="true">النقر بزر الماوس الأيمن على سطح المكتب > إعدادات العرض > دقة الشاشة</div>
+                            <div class="quiz-option" onclick="checkAnswer('w3', this)">فتح Task Manager</div>
+                        </div>
+                        <div class="quiz-message"></div>
+                    </div>
+
+                    <div class="quiz-question" data-question="w4">
+                        <p>4. ما هي الطريقة الصحيحة لفتح Task Manager في Windows 10؟</p>
+                        <div class="quiz-options">
+                            <div class="quiz-option" onclick="checkAnswer('w4', this)">الضغط على Alt + F4</div>
+                            <div class="quiz-option" onclick="checkAnswer('w4', this)" data-correct="true">الضغط على Ctrl + Shift + Esc</div>
+                            <div class="quiz-option" onclick="checkAnswer('w4', this)">النقر بزر الماوس الأيمن على شريط المهام > Task Manager</div>
+                            <div class="quiz-option" onclick="checkAnswer('w4', this)">الضغط على Windows + L</div>
+                        </div>
+                        <div class="quiz-message"></div>
+                    </div>
+    </div>
+
+    <!-- محتوى الدرس -->
+    <p>الحاسب الآلي هو جهاز إلكتروني يقوم بمعالجة البيانات...</p>
+            'unit-excel-1': 1,
+            'unit-excel-2': 1,
+            'unit-excel-3': 1,
+            'unit-excel-4': 1,
+            'unit-excel-5': 1,
+            'word-basic-1': 1,
+            'word-basic-2': 1,
+            'word-basic-3': 1
+        });
+
+        // تحديث التقدم
+        function updateProgress() {
+            const totalLessons = document.querySelectorAll('.lesson').length;
+            const completedLessons = JSON.parse(localStorage.getItem('completedLessons') || '[]').length;
+            const progressPercentage = (completedLessons / totalLessons) * 100;
+
+            // تحديث شريط التقدم
+            document.querySelector('.lesson-progress-bar').style.width = `${progressPercentage}%`;
+
+            // تحديث النسبة المئوية
+            document.querySelector('.progress-summary .percentage').textContent = `${Math.round(progressPercentage)}%`;
+
+            // تحديث لون الأيقونة
+            const icon = document.querySelector('.progress-summary .icon');
+            if (progressPercentage === 100) {
+                icon.style.background = 'var(--gradient-secondary)';
+                icon.textContent = '✓';
+                showNotification('تهانينا! لقد أكملت جميع الدروس', 'success');
+            }
+        }
+
+        // تهيئة الصفحة
+        document.addEventListener('DOMContentLoaded', () => {
+            updateTOCCompletionStatus();
+            updateProgress();
+
+            // تحديث حالة أزرار إكمال الدروس
+            const completedLessons = JSON.parse(localStorage.getItem('completedLessons') || '[]');
+            completedLessons.forEach(lessonId => {
+                const btn = document.querySelector(`#lesson-${lessonId} .complete-lesson-btn`);
+                if (btn) {
+                    btn.innerHTML = 'تم إكمال الدرس ✓';
+                    btn.style.background = 'var(--gradient-primary)';
+                    btn.disabled = true;
+                }
+            });
+        });
+
+        // الكود الخاص بالتفاعل مع الاختبار الشامل
+        document.getElementById('submit-exam').addEventListener('click', function() {
+            let correctCount = 0;
+            const questions = document.querySelectorAll('#unit-exam .quiz-question');
+            
+            questions.forEach(question => {
+                const questionId = question.dataset.question;
+                const selectedOption = question.querySelector('input[type="radio"]:checked');
+                if (selectedOption) {
+                    const options = question.querySelectorAll('.quiz-option');
+                    const selectedIndex = Array.from(options).findIndex(
+                        option => option.contains(selectedOption)
+                    );
+                    if (selectedIndex === correctAnswers[questionId]) {
+                        correctCount++;
+                    }
+                }
+            });
+
+            const percentage = (correctCount / 10) * 100;
+            document.getElementById('correct-answers').textContent = correctCount;
+            document.getElementById('percentage').textContent = percentage;
+            
+            const feedback = document.querySelector('.exam-results .feedback');
+            if (percentage >= 80) {
+                feedback.innerHTML = '<p style="color: #2ecc71;">ممتاز! لقد اجتزت الاختبار بنجاح.</p>';
+            } else if (percentage >= 60) {
+                feedback.innerHTML = '<p style="color: #f1c40f;">جيد! ولكن يمكنك التحسين.</p>';
+            } else {
+                feedback.innerHTML = '<p style="color: #e74c3c;">تحتاج إلى مراجعة المواد مرة أخرى.</p>';
+            }
+
+            document.querySelector('.exam-results').style.display = 'block';
+            
+            // تمييز الإجابات الصحيحة والخاطئة
+            questions.forEach(question => {
+                const questionId = question.dataset.question;
+                const options = question.querySelectorAll('.quiz-option');
+                
+                // إزالة التنسيق السابق
+                options.forEach(option => {
+                    option.classList.remove('correct', 'incorrect');
+                });
+
+                const correctIndex = correctAnswers[questionId];
+                options[correctIndex].classList.add('correct');
+                options.forEach((option, index) => {
+                    if (index !== correctIndex && option.querySelector('input[type="radio"]:checked')) {
+                        option.classList.add('incorrect');
+                    }
+                });
+            });
+
+            // تعطيل الأزرار بعد إنهاء الاختبار
+            const radioButtons = document.querySelectorAll('#unit-exam input[type="radio"]');
+            radioButtons.forEach(radio => {
+                radio.disabled = true;
+            });
+            
+            // تعطيل زر إنهاء الاختبار
+            document.getElementById('submit-exam').disabled = true;
+        });
+
+    <!-- ملخص التقدم -->
+    <div class="progress-summary">
+        <div class="icon">✓</div>
+        <div class="text">تقدم الدروس: <span class="percentage">0%</span></div>
+    </div>
+
+    <!-- شريط التقدم -->
+    <div class="lesson-progress">
+        <div class="lesson-progress-bar"></div>
+    </div>
+
+    <script>
+        // ... 
+        // نظام الإشعارات
+        function showNotification(message, type = 'success') {
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+
+            // إظهار الإشعار
+            setTimeout(() => notification.classList.add('show'), 100);
+
+            // إخفاء الإشعار بعد 3 ثواني
+            setTimeout(() => {
+                notification.classList.remove('show');
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+
+        // التحقق من إجابات الأسئلة صح وخطأ
+        function checkTrueFalseAnswer(button, isCorrect) {
+            const question = button.closest('.true-false-question');
+            const options = question.querySelectorAll('.tf-option');
+            const feedback = question.querySelector('.feedback');
+
+            // تعطيل جميع الأزرار في هذا السؤال
+            options.forEach(opt => opt.disabled = true);
+
+            // إضافة الصف المناسب للزر المختار
+            if (isCorrect) {
+                button.classList.add('correct');
+                feedback.textContent = 'إجابة صحيحة! أحسنت.';
+                feedback.className = 'feedback correct show';
+            } else {
+                button.classList.add('incorrect');
+                feedback.textContent = 'إجابة خاطئة. حاول مرة أخرى.';
+                feedback.className = 'feedback incorrect show';
+            }
+
+            // إظهار الإجابة الصحيحة
+            options.forEach(opt => {
+                if (opt !== button) {
+                    opt.classList.add(isCorrect ? 'incorrect' : 'correct');
+                }
+            });
+
+            // التحقق من إكمال جميع الأسئلة في هذا القسم
+            checkSectionCompletion(question);
+        }
+
+        // التحقق من إكمال جميع الأسئلة في القسم
+        function checkSectionCompletion(question) {
+            const section = question.closest('.true-false-questions');
+            const allQuestions = section.querySelectorAll('.true-false-question');
+            const answeredQuestions = section.querySelectorAll('.true-false-question .tf-option:disabled');
+
+            if (allQuestions.length === answeredQuestions.length / 2) {
+                showNotification('أحسنت! لقد أكملت جميع الأسئلة في هذا القسم');
+            }
+        }
+
+        // تحديث دالة markLessonAsCompleted
+        function markLessonAsCompleted(lessonId) {
+            const completedLessons = JSON.parse(localStorage.getItem('completedLessons') || '[]');
+            if (!completedLessons.includes(lessonId)) {
+                completedLessons.push(lessonId);
+                localStorage.setItem('completedLessons', JSON.stringify(completedLessons));
+                
+                // تحديث زر إكمال الدرس
+                const btn = document.querySelector(`#lesson-${lessonId} .complete-lesson-btn`);
+                if (btn) {
+                    btn.innerHTML = 'تم إكمال الدرس ✓';
+                    btn.style.background = 'var(--gradient-primary)';
+                    btn.disabled = true;
+                }
+
+                // إظهار إشعار
+                showNotification('أحسنت! لقد أكملت هذا الدرس');
+                
+                // تحديث حالة جدول المحتويات والتقدم
+                updateTOCCompletionStatus();
+                updateProgress();
+            }
+        }
+    </script>
+</body>
+</html>
