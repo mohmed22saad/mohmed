@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>شرح الاستعلامات في Access</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            direction: rtl;
+            padding: 20px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        /* تأثيرات حركية عامة */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        /* تأثيرات ظهور */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* تأثيرات نبض */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        /* تأثيرات شعاع ضوئي */
+        @keyframes glow {
+            0% { box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); }
+            50% { box-shadow: 0 0 20px rgba(0, 123, 255, 0.8); }
+            100% { box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); }
+        }
+        
+        /* تأثيرات تحويم متطورة */
+        @keyframes hoverUp {
+            0% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(2deg); }
+            100% { transform: translateY(0) rotate(0deg); }
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+            animation: fadeIn 1s ease-out;
+            border: 2px solid transparent;
+            background: linear-gradient(145deg, #ffffff, #f8f9fa);
+            transition: all 0.3s ease;
+        }
+        
+        .container:hover {
+            border-color: #007bff;
+            background: linear-gradient(145deg, #f8f9fa, #ffffff);
+            transform: translateY(-5px);
+        }
+        
+        /* تأثيرات على العناوين */
+        h1, h2, h3 {
+            position: relative;
+            padding: 15px 0;
+            margin: 20px 0;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1::before, h2::before, h3::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, #007bff, #00c3ff);
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.5s ease;
+        }
+        
+        h1:hover::before, h2:hover::before, h3:hover::before {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+        
+        /* تأثيرات على الأقسام */
+        .section {
+            margin: 40px 0;
+            padding: 35px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            animation: float 3s ease-in-out infinite;
+            border: 1px solid transparent;
+            background: linear-gradient(145deg, #ffffff, #f8f9fa);
+        }
+        
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            border-color: #007bff;
+            background: linear-gradient(145deg, #f8f9fa, #ffffff);
+        }
+        
+        /* تأثيرات على الأسئلة */
+        .question {
+            margin: 25px 0;
+            padding: 25px;
+            border-left: 6px solid #007bff;
+            border-radius: 0 10px 10px 0;
+            background: rgba(0, 123, 255, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .question:hover {
+            transform: translateX(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* تأثيرات على الخيارات */
+        .options {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin: 15px 0;
+        }
+        
+        .options button {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            background: linear-gradient(145deg, #e9ecef, #f8f9fa);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .options button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            animation: glow 2s infinite;
+        }
+        
+        .options button.selected {
+            background: linear-gradient(145deg, #007bff, #00c3ff);
+            color: white;
+            animation: pulse 2s infinite;
+        }
+        
+        /* تأثيرات على النتائج */
+        .result {
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 15px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .result:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        
+        .result.correct::before {
+            left: 0;
+        }
+        
+        .correct {
+            background: linear-gradient(135deg, #28a745, #218838);
+            color: white;
+            animation: pulse 2s infinite;
+            box-shadow: 0 0 20px rgba(40, 167, 69, 0.3);
+        }
+        
+        .incorrect {
+            background: linear-gradient(135deg, #dc3545, #c82333);
+            color: white;
+            animation: shake 0.5s ease-in-out;
+            box-shadow: 0 0 20px rgba(220, 53, 69, 0.3);
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+        
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #007bff, #00c3ff);
+            animation: shine 2s infinite;
+        }
+        
+        .section {
+            margin: 40px 0;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* تأثيرات على العناوين */
+        h1, h2, h3 {
+            position: relative;
+            padding: 10px 0;
+        }
+        
+        h1::after, h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, #007bff, #00c3ff);
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.5s ease;
+        }
+        
+        h1:hover::after, h2:hover::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        .terms {
+            background: linear-gradient(145deg, #e9ecef, #f8f9fa);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        .term {
+            margin: 15px 0;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        .term:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        .questions {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        .question {
+            margin: 25px 0;
+            padding: 20px;
+            border-left: 6px solid #007bff;
+            border-radius: 0 10px 10px 0;
+            background: rgba(0, 123, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        .question:hover {
+            transform: translateX(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            background: white;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            margin: 10px 0;
+        }
+        select:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+            outline: none;
+        }
+        
+        .result {
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            animation: slideIn 0.5s ease-out;
+        }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .correct {
+            background: linear-gradient(135deg, #28a745, #218838);
+            color: white;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .incorrect {
+            background: linear-gradient(135deg, #dc3545, #c82333);
+            color: white;
+        }
+        
+        .note {
+            background: linear-gradient(145deg, #fff3cd, #fff8e1);
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+            border-left: 6px solid #ffc107;
+            box-shadow: 0 3px 10px rgba(255, 193, 7, 0.1);
+        }
+        
+        .important {
+            background: linear-gradient(145deg, #d4edda, #d4edda);
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+            border-left: 6px solid #155724;
+            box-shadow: 0 3px 10px rgba(21, 87, 36, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>شرح الاستعلامات في Access</h1>
+
+        <div class="section">
+            <h2>المقدمة</h2>
+            <div class="note">
+                <h3>ما هي الاستعلامات؟</h3>
+                <p>الاستعلامات هي وسيلة مهمة لاستخراج وعرض البيانات من قاعدة البيانات. تتيح لك الاستعلامات:</p>
+                <ul>
+                    <li>تصفية البيانات حسب معايير معينة</li>
+                    <li>عرض البيانات من جداول متعددة</li>
+                    <li>حساب مجموعات إحصائية</li>
+                    <li>تحديث البيانات</li>
+                </ul>
+                <p>ملاحظة: الاستعلامات تختلف عن الجداول في أنها تظهر البيانات فقط ولا تخزنها</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>أنواع الاستعلامات</h2>
+            <div class="note">
+                <h3>الاستعلامات البسيطة</h3>
+                <p>تستخدم لعرض البيانات من جدول واحد مع معايير بسيطة</p>
+                <p>مميزات الاستعلامات البسيطة:</p>
+                <ul>
+                    <li>سهولة الاستخدام</li>
+                    <li>سرعة تنفيذ</li>
+                    <li>مناسب للمبتدئين</li>
+                </ul>
+            </div>
+
+            <div class="note">
+                <h3>الاستعلامات متعددة الجداول</h3>
+                <p>تستخدم لعرض البيانات من جداول متعددة</p>
+                <p>مميزات الاستعلامات متعددة الجداول:</p>
+                <ul>
+                    <li>عرض بيانات مترابطة</li>
+                    <li>تحليل البيانات من مصدر واحد</li>
+                    <li>تحسين كفاءة قاعدة البيانات</li>
+                </ul>
+            </div>
+
+            <div class="note">
+                <h3>الاستعلامات المجمعة</h3>
+                <p>تستخدم لحساب إحصائيات مثل المجموع والوسط الحسابي</p>
+                <p>مميزات الاستعلامات المجمعة:</p>
+                <ul>
+                    <li>حساب المجموع</li>
+                    <li>حساب الوسط الحسابي</li>
+                    <li>حساب العدد الكلي</li>
+                    <li>حساب الحد الأقصى/الأدنى</li>
+                </ul>
+            </div>
+
+            <div class="note">
+                <h3>الاستعلامات الإنشائية</h3>
+                <p>تستخدم لإنشاء جداول جديدة أو تحديث البيانات</p>
+                <p>مميزات الاستعلامات الإنشائية:</p>
+                <ul>
+                    <li>إنشاء جداول جديدة</li>
+                    <li>تحديث البيانات</li>
+                    <li>حذف البيانات</li>
+                    <li>إضافة بيانات جديدة</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>إنشاء استعلام بسيط</h2>
+            <div class="note">
+                <h3>خطوات إنشاء استعلام بسيط</h3>
+                <ol>
+                    <li>اختيار نوع الاستعلام (استعلام بسيط)</li>
+                    <li>اختيار الجداول المطلوبة</li>
+                    <li>تحديد الحقول المطلوبة</li>
+                    <li>إضافة معايير البحث</li>
+                    <li>تنفيذ الاستعلام</li>
+                </ol>
+                <p>ملاحظة: يجب اختيار الحقول المطلوبة بدقة لتحسين أداء الاستعلام</p>
+            </div>
+
+            <div class="note">
+                <h3>مثال عملي</h3>
+                <p>إذا أردنا استعلاماً عن الطلاب الذين درجاتهم أكبر من 80</p>
+                <ol>
+                    <li>اختيار جدول الطلاب</li>
+                    <li>تحديد حقل الاسم وحقل الدرجة</li>
+                    <li>إضافة معيار: الدرجة > 80</li>
+                    <li>تنفيذ الاستعلام</li>
+                </ol>
+                <p>ملاحظة: يمكن إضافة معايير متعددة لتصفية النتائج بشكل أفضل</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>الأسئلة التفاعلية</h2>
+            <div class="questions">
+                <div class="question">
+                    <h3>السؤال 1</h3>
+                    <p>ما هي الاستعلامات في Access؟</p>
+                    <div class="options">
+                        <select onchange="checkAnswer(1, this)">
+                            <option value="">اختر الإجابة</option>
+                            <option value="1">طريقة لتنظيم وعرض البيانات</option>
+                            <option value="2">جدول جديد في قاعدة البيانات</option>
+                            <option value="3">نوع من التقارير</option>
+                        </select>
+                    </div>
+                    <div id="q1-result"></div>
+                </div>
+
+                <div class="question">
+                    <h3>السؤال 2</h3>
+                    <p>ما هو عدد أنواع الاستعلامات الرئيسية في Access؟</p>
+                    <div class="options">
+                        <select onchange="checkAnswer(2, this)">
+                            <option value="">اختر الإجابة</option>
+                            <option value="1">3 أنواع</option>
+                            <option value="2">4 أنواع</option>
+                            <option value="3">2 أنواع</option>
+                        </select>
+                    </div>
+                    <div id="q2-result"></div>
+                </div>
+
+                <div class="question">
+                    <h3>السؤال 3</h3>
+                    <p>ما هي الخطوة الأولى لإنشاء استعلام بسيط؟</p>
+                    <div class="options">
+                        <select onchange="checkAnswer(3, this)">
+                            <option value="">اختر الإجابة</option>
+                            <option value="1">تحديد الحقول المطلوبة</option>
+                            <option value="2">إضافة معايير البحث</option>
+                            <option value="3">اختيار الجدول المطلوب</option>
+                        </select>
+                    </div>
+                    <div id="q3-result"></div>
+                </div>
+
+                <div class="question">
+                    <h3>السؤال 4</h3>
+                    <p>ما هو الفرق بين الاستعلامات البسيطة والاستعلامات متعددة الجداول؟</p>
+                    <div class="options">
+                        <select onchange="checkAnswer(4, this)">
+                            <option value="">اختر الإجابة</option>
+                            <option value="1">لا يوجد فرق</option>
+                            <option value="2">الاستعلامات البسيطة تستخدم جدول واحد فقط</option>
+                            <option value="3">الاستعلامات متعددة الجداول أبطأ</option>
+                        </select>
+                    </div>
+                    <div id="q4-result"></div>
+                </div>
+
+                <div class="question">
+                    <h3>السؤال 5</h3>
+                    <p>كيف يمكن تصفية البيانات في استعلام؟</p>
+                    <div class="options">
+                        <select onchange="checkAnswer(5, this)">
+                            <option value="">اختر الإجابة</option>
+                            <option value="1">باستخدام معايير البحث</option>
+                            <option value="2">باستخدام أزرار التنقل</option>
+                            <option value="3">باستخدام أزرار الحفظ</option>
+                        </select>
+                    </div>
+                    <div id="q5-result"></div>
+                </div>
+
+                <div class="question">
+                    <h3>السؤال 6</h3>
+                    <p>ما هي الاستعلامات المجمعة؟</p>
+                    <div class="options">
+                        <select onchange="checkAnswer(6, this)">
+                            <option value="">اختر الإجابة</option>
+                            <option value="1">تستخدم لحساب إحصائيات</option>
+                            <option value="2">تستخدم لعرض البيانات فقط</option>
+                            <option value="3">تستخدم لإنشاء جداول جديدة</option>
+                        </select>
+                    </div>
+                    <div id="q6-result"></div>
+                </div>
+
+                <div class="question">
+                    <h3>السؤال 7</h3>
+                    <p>ما هو الفرق بين الاستعلامات الإنشائية والبسيطة؟</p>
+                    <div class="options">
+                        <select onchange="checkAnswer(7, this)">
+                            <option value="">اختر الإجابة</option>
+                            <option value="1">لا يوجد فرق</option>
+                            <option value="2">الإنشائية تستخدم لإنشاء جداول جديدة</option>
+                            <option value="3">البسيطة أسرع في التنفيذ</option>
+                        </select>
+                    </div>
+                    <div id="q7-result"></div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            function checkAnswer(question, select) {
+                const correctAnswers = {
+                    1: '1',
+                    2: '2',
+                    3: '3',
+                    4: '2',
+                    5: '1',
+                    6: '1',
+                    7: '2'
+                };
+
+                const resultDiv = document.getElementById(`q${question}-result`);
+                const selectedValue = select.value;
+                const options = document.querySelectorAll('.options select');
+
+                if (selectedValue === correctAnswers[question]) {
+                    resultDiv.innerHTML = `
+                        <div class="correct">
+                            <span style="color: green;">إجابتك صحيحة ✓</span>
+                            <div class="feedback">
+                                <p>تمام! فهمت الاستعلامات بشكل صحيح</p>
+                                <p>${options[question - 1].options[correctAnswers[question]].text}</p>
+                            </div>
+                        </div>
+                    `;
+                    resultDiv.classList.add('result');
+                    
+                    // إضافة تأثيرات حركية للخيارات الصحيحة
+                    options.forEach(option => {
+                        if (option.dataset.value === correctAnswers[question]) {
+                            option.classList.add('correct-option');
+                            setTimeout(() => option.classList.remove('correct-option'), 2000);
+                        }
+                    });
+                } else if (selectedValue !== '') {
+                    const correctOption = options[correctAnswers[question] - 1];
+                    if (correctOption) {
+                        correctOption.classList.add('highlight-correct');
+                        setTimeout(() => correctOption.classList.remove('highlight-correct'), 2000);
+                    }
+                    
+                    resultDiv.innerHTML = `
+                        <div class="incorrect">
+                            <span>إجابة خاطئة ✗</span>
+                            <div class="feedback">
+                                <p>الإجابة الصحيحة هي: ????</p>
+                                <p>العلامة الاستفهام تستخدم للبحث عن أي حرف واحد</p>
+                                <p>لذا فهي مناسبة للبحث عن أسماء مكونة من 4 حروف</p>
+                            </div>
+                        </div>
+                    `;
+                    resultDiv.classList.add('result');
+                } else {
+                    resultDiv.innerHTML = '';
+                }
+            }
+        </script>
+
+        <div class="section">
+            <h2>المهام التدريبية</h2>
+            <div class="note">
+                <h3>المهمة 1</h3>
+                <p>قم بإنشاء استعلام يعرض جميع الطلاب الذين عمرهم أكبر من أو يساوي 15 سنة.</p>
+                <p>جرب بنفسك: <input type="text" placeholder="اكتب إجابتك هنا"></p>
+            </div>
+            <div class="note">
+                <h3>المهمة 2</h3>
+                <p>قم بإنشاء استعلام يعرض جميع الموظفين الذين رواتبهم أكبر من 5000.</p>
+            </div>
+            <div class="note">
+                <h3>المهمة 3</h3>
+                <p>قم بإنشاء استعلام يعرض جميع الطلاب الذين تنتهي أسماؤهم بحرف الدال.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
