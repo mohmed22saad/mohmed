@@ -1,0 +1,138 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>جدول دروس React</title>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            line-height: 1.8;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: #2c3e50;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-family: 'Amiri', serif;
+            color: #4a4a4a;
+            font-size: 2.5rem;
+        }
+
+        p {
+            margin-bottom: 20px;
+            color: #606c76;
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        table th, table td {
+            padding: 15px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #667eea;
+            color: #fff;
+            font-size: 1.2rem;
+        }
+
+        td {
+            font-size: 1rem;
+        }
+
+        .status-available a {
+            text-decoration: none;
+            color: #1B5E20;
+            font-weight: bold;
+        }
+
+        .status-maintenance {
+            color: #B71C1C;
+            font-weight: bold;
+        }
+
+        .status-available:hover a {
+            text-decoration: underline;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>جدول دروس React</h1>
+        </header>
+        <p>هذه الصفحة تعرض قائمة بالدروس المتوفرة للتعلم، مع روابط للتفاعل والنقر على الدروس المتاحة.</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>رقم الدرس</th>
+                    <th>اسم الدرس</th>
+                    <th>الحالة</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>01</td>
+                    <td><a href="Lesson1.html" class="status-available">React Tutorial for Beginners: Introduction</a></td>
+                    <td class="status-available"><a href="Lesson1.html">متوفر</a></td>
+                </tr>
+                <tr>
+                    <td>02</td>
+                    <td><a href="lesson2.html" class="status-available">Browser Process Explained: DOM, CSSOM, Render Tree</a></td>
+                    <td class="status-available"><a href="lesson2.html">متوفر</a></td>
+                </tr>
+                <tr>
+                    <td>03</td>
+                    <td>درس مستقبلي</td>
+                    <td class="status-maintenance">قيد الصيانة</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- مثال صفحة درس 01 أسفل الصفحة -->
+    <div id="lesson01" style="margin-top: 50px;">
+        <div class="container" style="background: #f8f9fa;">
+            <header class="header">
+                <h1>درس 01: مقدمة حول React</h1>
+            </header>
+            <p>هذه صفحة الدرس الأول. هنا يمكن تضمين تفاصيل شرح الدرس والنقاط المتعمقة حسب الحاجة.</p>
+        </div>
+    </div>
+</body>
+</html>
+
